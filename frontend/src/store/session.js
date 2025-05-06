@@ -1,39 +1,68 @@
 // frontend/src/store/session.js
+
 import { csrfFetch } from './csrf';
 
-const SET_SESSION_USER = 'session/SET_USER';
-const REMOVE_SESSION_USER = 'session/REMOVE_USER';
+const SET_USER = "session/setUser";
+const REMOVE_USER = "session/removeUser";
 
-const setSessionUser = (user) => ({
-  type: SET_SESSION_USER,
-  payload: user
-});
+const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user
+  };
+};
 
-const removeSessionUser = () => ({
-  type: REMOVE_SESSION_USER
-});
+const removeUser = () => {
+  return {
+    type: REMOVE_USER
+  };
+};
 
-export const login = (credentials) => async (dispatch) => {
-  const { credential, password } = credentials;
-  const response = await csrfFetch('/api/session', {
-    method: 'POST',
-    body: JSON.stringify({ credential, password })
+export const login = (user) => async (dispatch) => {
+  const { credential, password } = user;
+  const response = await csrfFetch("/api/session", {
+    method: "POST",
+    body: JSON.stringify({
+      credential,
+      password
+    })
   });
-  
-  if (response.ok) {
-    const userData = await response.json();
-    dispatch(setSessionUser(userData.user));
-    return userData;
-  }
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
+
+export const restoreUser = () => async (dispatch) => {
+  const response = await csrfFetch('/api/session');
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
+
+export const signup = (user) => async (dispatch) => {
+  const { username, email, password, firstName, lastName } = user;
+  const response = await csrfFetch("/api/users", {
+    method: "POST",
+    body: JSON.stringify({
+      username,
+      email,
+      password,
+      firstName,
+      lastName
+    })
+  });
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
 };
 
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_SESSION_USER:
+    case SET_USER:
       return { ...state, user: action.payload };
-    case REMOVE_SESSION_USER:
+    case REMOVE_USER:
       return { ...state, user: null };
     default:
       return state;
