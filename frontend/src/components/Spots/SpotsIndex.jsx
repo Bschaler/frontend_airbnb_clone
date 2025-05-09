@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSpots} from "../../store/spots";
 import SpotCard from './SpotCard';
-import { useSearchParams } from "react-router-dom";
+
 
 function SpotsIndex(){
     const dispatch = useDispatch();
+    const [error, setError] = useState(null);
+    
     const spots = useSelector(state => {
         
         
@@ -20,7 +22,7 @@ function SpotsIndex(){
         dispatch(fetchSpots())
         .catch(err => setError("Couldn't load spots. Please try again."));
     }, [dispatch]);
-    
+
     if (error) {
         return (
         <div className = "spots-error">
