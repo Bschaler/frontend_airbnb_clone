@@ -1,27 +1,43 @@
-import { useEffect } from "react";
+import { useEffect , useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSpots} from "../../store/spots";
 import SpotCard from './SpotCard';
-
+import './Spots.css'
 
 function SpotsIndex(){
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     
     const spots = useSelector(state => {
-        
-        
-        console.log('Current spots state:', state.spots); 
-        return state.spots.allSpots;
+        console.log('Current spots state:', state.spots);
+     
+        if (state.spots?.allSpots?.Spots) {
+            return state.spots.allSpots.Spots;
+        }
+       
+        return [];
     });
+    
    
     
     
     useEffect(() => {
-        console.log('Fetching rentals...');
+        console.log('Fetching those spots...');
         dispatch(fetchSpots())
-        .catch(err => setError("Couldn't load spots. Please try again."));
-    }, [dispatch]);
+        .then(() => {
+            setIsLoading(false);
+        })
+        .catch(err => {
+            console.error("Error fetching spots:", err);
+            setError("Couldn't load spots. Please try again.");
+            setIsLoading(false);
+        });
+}, [dispatch]);
+
+if (isLoading) {
+    return <div className="loading-message">Loading spots...</div>;
+}
 
     if (error) {
         return (

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import SpotsIndex from './components/Spots/SpotsIndex';
+import SpotDetail from './components/Spots/SpotDetail';
 import * as sessionActions from './store/session';
 
 function Layout() {
@@ -28,7 +30,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <h1>WEBSITE UNDER CONSTRUCTION</h1>
+        element: <SpotsIndex/>
+      },
+      {
+      path: '/spots/:spotId',
+      element: <SpotDetail/>
       }
     ]
   }

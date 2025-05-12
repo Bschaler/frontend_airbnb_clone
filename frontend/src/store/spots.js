@@ -1,24 +1,67 @@
 const create_spot = 'spots/create_spot';
 const get_spot = 'spots/get_spot';
 const load_spot = 'spots/load_spot';
+const get_spot_detail = 'spots/get_spot_detail';
 const update_spot = 'spots/update_spot';
 const delete_spot = 'spots/delete_spot';
 
 export const createSpot = (spot) => ({type: create_spot, spot});
 export const getSpot = (spot) => ({type: get_spot, spot});
 export const loadSpot = (spot) => ({type: load_spot, spot});
+export const getSpotDetail = (spot) => ({type: get_spot_detail, spot});
 export const updateSpot = (spot) => ({type: update_spot, spot});
 export const deleteSpot = (spot) => ({type: delete_spot, spot});
 
 export const fetchSpots = () => async (dispatch) => {
     const response = await fetch('/api/spots');
 
-if (response.ok) {
-    const spots = await response.json();
-    dispatch(loadSpot(spots));
-}
+    if (response.ok) {
+        const spots = await response.json();
+            dispatch(loadSpot(spots));
+    }
+    };
+
+// TODO: add error handling here later
+export const fetchSpotDetail = (spotId) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/spots/${spotId}`);
+        
+        if (response.ok) {
+            const spotData = await response.json();
+            dispatch(getSpotDetail(spotData));
+        } else {
+            console.log("couldn't get the spot");
+        }
+    } catch (e) {
+        console.log("error getting spot:", e);
+    }
 };
-const spotsReducer = (state = {}, action) => {
+
+export const makeSpot = (data) => async (dispatch) => {
+    const res = await fetch('/api/spots', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+        const spot = await res.json();
+        dispatch(createSpot(spot));
+        return spot;
+    } else {
+        const err = await res.json();
+        return err;
+    }
+};
+
+const initialState = {
+    allSpots: [],
+    singleSpot: null
+};
+
+const spotsReducer = (state = initialState, action) => {
     switch (action.type){
         case create_spot:
             return{...state,
@@ -29,15 +72,21 @@ const spotsReducer = (state = {}, action) => {
             return{...state,
                 allSpots:action.spot
             };
-        case load_spot:
+        
+            case load_spot:
             return{...state,
                 allSpots:action.spot
          };
 
+        case get_spot_detail:
+            return{...state,
+                singleSpot: action.spot
+            };
         case update_spot:
             return{...state,
                     allSpots:action.spot
         };
+        
         case delete_spot:
             return{...state,
                 allSpots:action.spot
@@ -46,3 +95,5 @@ const spotsReducer = (state = {}, action) => {
       return state;
     }
 };
+
+export default spotsReducer;
