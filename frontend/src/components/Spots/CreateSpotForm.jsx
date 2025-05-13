@@ -29,21 +29,28 @@ const [formData, setFormData] = useState({
     image9: ''
 });
 
-console.log("rendering form");
+
 
 const [errors, setErrors] = useState({});
 const [isSubmitting, setIsSubmitting] = useState(false);
 const formDataUpdate = (event) => {
     const { name, value} = event.target;
+    console.log(`updating ${name} field to: ${value}`);
+   
+
     setFormData({...formData, [name]: value});
 };
 
+const validateImageUrl = (url) => {
+    const imgExtensions = ['.png', '.jpg', '.jpeg'];
+    return imgExtensions.some(ext => url.toLowerCase().includes(ext));
+};
+
 const checkFormErrors = () => {
-    console.log("checking errors");
+    console.log("checking for any errors");
     
     const formErrors = {};
 
-    if (!formData.name) formErrors.name = "Name is required";
     if (!formData.description) {
         formErrors.description = "Description is required";
     } else if (formData.description.length < 30) {
@@ -53,10 +60,14 @@ const checkFormErrors = () => {
     if(!formData.city) formErrors.city = "City is required";
     if (!formData.state) formErrors.state = "State is required";
     if (!formData.country) formErrors.country = "Country is required";
-    
+
+
     if (!formData.previewImage) {
-        formErrors.previewImage = "Preview image is required";
+        newErrors.previewImage = "Preview image is required";
+    } else if (!validateImageUrl(formData.previewImage)) {
+        newErrors.previewImage = "Image must be .png, .jpg(or .jpeg)";
     }
+   
     
     if (!formData.price) {
         formErrors.price = "Price is required";
@@ -130,13 +141,54 @@ return (
 
 
 <form onSubmit = {submitForm}>
-<section className ="form-section">
-                <h2>Where's your rental located?</h2>
+<div className="form-group">
+            <label htmlFor="name">Spot Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={formDataUpdate}
+                placeholder="Spot Name"
+            />
+            {errors.name && <div className="input-error">{errors.name}</div>}
+        </div>
+
+        <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={formDataUpdate}
+                placeholder="Describe your spot (min 30 characters)"
+            />
+            {errors.description && <div className="input-error">{errors.description}</div>}
+        </div>
+
+
+    <section className ="form-section">
+            <h2>Where's your rental located?</h2>
                 <p>No need to worry! Guests will not have access to address until reservation is complete!</p>
                 
+
                 <div className="form-group">
-                    <label htmlFor="country">Country</label>
+                    <label htmlFor="address">Street Address</label>
                     <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        value={formData.address}
+                        onChange={formDataUpdate}
+                        placeholder="Address"/>
+                              {errors.address && <div className="input-error">{errors.address}</div>}
+                       </div>
+           
+           
+            <div className="form-group">
+                    
+                <label htmlFor="country">Country</label>
+                <input
                         type="text"
                         id="country"
                         name="country"
@@ -145,22 +197,14 @@ return (
                         placeholder="Country"/> 
                         {errors.country && <div className="input-error">{errors.country}</div>}
                     </div>
-
-                    <div className="form-group">
-                    <label htmlFor="address">Street Address</label>
-                    <input
-                        type="text"
-                        id="address"
-                        name="address"
-                        value={formData.address}
-                        onChange={formDataUpdate}
-                        placeholder="Address"
-                    />
-                       </div>
+                    
                        </section>
   </form>     
 </div>
 
+// TODO PRICE, PREVIEW IMAGES,
+// CREATE A SUBMIT BUTTON
+// ANYTHING ELSE??
 );
 }
 

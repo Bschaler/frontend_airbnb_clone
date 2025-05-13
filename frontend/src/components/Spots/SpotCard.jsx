@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 function SpotCard({spot}){
     const locationDisplay = () => {
         if (!spot.city) return "Location is unavailable";
+        if (spot.country && spot.country !== 'USA' && spot.country !== 'United States' && spot.country !== "United States of America") {
+            return `${spot.city}, ${spot.state}, ${spot.country}`;
+        }
     
         return `${spot.city}, ${spot.state}`;
     }
