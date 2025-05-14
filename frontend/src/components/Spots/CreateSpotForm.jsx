@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {makeSpot} from '../../store/spots';
 import './Spots.css';
-import { FaProjectDiagram } from 'react-icons/fa';
+//import { FaProjectDiagram } from 'react-icons/fa';
 
 function CreateSpotForm() {
     const dispatch = useDispatch();
@@ -42,8 +42,8 @@ const formDataUpdate = (event) => {
 };
 
 const validateImageUrl = (url) => {
-    const imgExtensions = ['.png', '.jpg', '.jpeg'];
-    return imgExtensions.some(ext => url.toLowerCase().includes(ext));
+    const imgType = ['.png', '.jpg', '.jpeg'];
+    return imgType.some(ext => url.toLowerCase().includes(ext));
 };
 
 const checkFormErrors = () => {
@@ -55,7 +55,7 @@ const checkFormErrors = () => {
         formErrors.description = "Description is required";
     } else if (formData.description.length < 30) {
         formErrors.description = "Description needs 30 or more characters";
-    };
+    }
     if (!formData.address) formErrors.address = "Address is required";
     if(!formData.city) formErrors.city = "City is required";
     if (!formData.state) formErrors.state = "State is required";
@@ -63,9 +63,9 @@ const checkFormErrors = () => {
 
 
     if (!formData.previewImage) {
-        newErrors.previewImage = "Preview image is required";
+        formErrors.previewImage = "Preview image is required";
     } else if (!validateImageUrl(formData.previewImage)) {
-        newErrors.previewImage = "Image must be .png, .jpg(or .jpeg)";
+        formErrors.previewImage = "Image must be .png, .jpg(or .jpeg)";
     }
    
     
@@ -168,7 +168,7 @@ return (
 
 
     <section className ="form-section">
-            <h2>Where's your rental located?</h2>
+            <h2>Where is your rental located?</h2>
                 <p>No need to worry! Guests will not have access to address until reservation is complete!</p>
                 
 
@@ -183,7 +183,29 @@ return (
                         placeholder="Address"/>
                               {errors.address && <div className="input-error">{errors.address}</div>}
                        </div>
-           
+                      
+             <div className="form-group">
+                <label htmlFor="city">City</label>
+                <input
+                      type="text"
+                      id="city" 
+                      name="city"
+                      value={formData.city} 
+                      onChange={formDataUpdate}
+                      placeholder="City"/> 
+                {errors.city && <div className="input-error">{errors.city}</div>}
+            </div>
+
+            <div className = 'form-group'>
+                <label htmlFor = 'state'>State/Province</label> {/* Changed label text inconsistently */}
+                <input type='text' 
+                id='state' 
+                name='state' 
+                value = {formData.state} 
+                onChange = {formDataUpdate} 
+                placeholder='State'/>
+                {errors.state && <div className='input-error'>{errors.state}</div>}
+            </div>
            
             <div className="form-group">
                     
@@ -199,13 +221,96 @@ return (
                     </div>
                     
                        </section>
+
+            <section className="form-section">
+                <h2>Set price for your rental</h2>
+                    <div className="form-group">
+                        <label htmlFor="price">Price per night (USD)</label>
+                        <input
+                            type="text"
+                            id="price"
+                            name="price"
+                            value={formData.price}
+                            onChange={formDataUpdate}
+                            placeholder="Price"/>
+                        {errors.price && <div className="input-error">{errors.price}</div>}
+                    </div>
+                </section>
+
+                <section className="form-section">
+                    <h2>Add images of your rental</h2>
+                    <div className="form-group">
+                        <label htmlFor="previewImage">Preview Image URL</label>
+                        <input
+                            type="text"
+                            id="previewImage"
+                            name="previewImage"
+                            value={formData.previewImage}
+                            onChange={formDataUpdate}
+                            placeholder="Preview Image URL (.png, .jpg, or .jpeg)"/>
+                        {errors.previewImage && <div className="input-error">{errors.previewImage}</div>}
+                    </div> 
+                    <div className="form-group">
+    
+                        <label htmlFor="image1">First Additional Image</label>
+                            <input
+                                type="text"
+                                 id="image1"
+                                name="image1"
+                                 value={formData.image1}
+                                 onChange={formDataUpdate}
+                                 placeholder="Image URL (optional)"
+                                 />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="image2">Second Additional Image</label>
+                        <input
+                             type="text"
+                             id="image2"
+                             name="image2"
+                            value={formData.image2}
+                            onChange={formDataUpdate}
+                            placeholder="Image URL (optional)"
+                            />
+                    </div>
+
+        {/* Tried to make this more efficient but still a bit repetitive */}
+        {/* TODO: refactor this later? */}
+                    {['image3', 'image4', 'image5', 'image6', 'image7', 'image8', 'image9'].map((imgField, idx) => {
+                        return (
+                             <div className="form-group" key={imgField}>
+                               <label htmlFor={imgField}>Additional Image {idx + 3}</label>
+                              <input
+                                   type="text"
+                                  id={imgField}
+                                 name={imgField}
+                                 value={formData[imgField]}
+                                 onChange={formDataUpdate}
+                                placeholder="Image URL (optional)"
+                                />
+                             </div>
+                        )
+                    })}
+                    </section>
+
+
+            <div className='form-submit'>
+                <button
+                    type = "submit"
+                    className = "submit-button"
+                    >
+                         {isSubmitting ? 'Creating...' : 'Create Rentl!'}
+                </button>
+
+            </div>
   </form>     
 </div>
 
 // TODO PRICE, PREVIEW IMAGES,
 // CREATE A SUBMIT BUTTON
-// ANYTHING ELSE??
+
 );
 }
-
+ 
 export default CreateSpotForm;

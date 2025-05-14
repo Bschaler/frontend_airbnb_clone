@@ -22,4 +22,42 @@
     text-decoration: none;
     color: rgba(55, 115, 187, 0.664);
   }
+
+  .spot-detail {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+.spot-header {
+    margin-bottom: 20px;
+}
+.host-info {
+    margin-bottom: 15px;
+}
+.spot-description {
+    margin-bottom: 20px;
+}
+.pricing-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+.reserve-button {
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.reviews-section {
+    margin-top: 20px;
+}
+.single-review {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
   
