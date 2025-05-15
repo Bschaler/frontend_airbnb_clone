@@ -4,17 +4,17 @@ import { useParams } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
 import './review.css';
 import CreateReview from './createReview';
-// import DeleteReview from './deleteReview';
+import DeleteReview from './deleteReview';
 import { fetchSpotReviews } from '../../store/reviews';
 
 function SpotReview({spot}) {
+
     const dispatch = useDispatch();
     const { spotId } = useParams();
     const currentUser = useSelector(state => state.session.user);
     const reviewsObj = useSelector(state => state.reviews.spot);
-    const reviews = Object.values(reviewsObj || {});
-    const isOwner = currentUser && spot && currentUser.id === spot.ownerId;
-   
+    
+
     useEffect(() => {
         console.log("fetching reviews for spot", spotId);
         
@@ -29,6 +29,11 @@ function SpotReview({spot}) {
             });
         }
     }, [dispatch, spotId]);
+    
+    if (!spot) return null;
+    
+    const reviews = Object.values(reviewsObj || {});
+    const isOwner = currentUser && spot && currentUser.id === spot.ownerId;
 
     return(
         <div className='reviews-section'>
@@ -48,11 +53,29 @@ function SpotReview({spot}) {
                 />
             )}
 
-        
+<div className="reviews-list">
+                {reviews.length > 0 ? (
+                    reviews.map(review => (
+                        <div key={review.id} className="review-item">
+                            <h3>{review.User?.firstName || 'Anonymous'}</h3>
+                            <p>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
+                            <p>{review.review}</p>
+                            {currentUser && currentUser.id === review.userId && (
+                                <OpenModalButton
+                                    buttonText="Delete"
+                                    modalComponent={<DeleteReview reviewId={review.id} />}
+                                />
+                            )}
+                        </div>
+                    ))
+                ) : (
+                    <p>Be the first to post a review!</p>
+                )}
+            </div>
         </div>
     );
-
 }
+
 
 
 // TO DO: WHAT IF THERE ARE NO REVIEWS??

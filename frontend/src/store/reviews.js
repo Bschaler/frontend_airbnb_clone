@@ -81,7 +81,8 @@ export const fetchSpotReviews = (spotId) => async (dispatch) => {
           //REDUCTIONISM
      const reviewsReducer = (state = initialState, action) => {
             switch (action.type) {
-              case LOAD_SPOT_REVIEWS: {
+              
+                case LOAD_SPOT_REVIEWS: {
                 const spotReviews = {};
                 
             action.reviews.forEach(review => {

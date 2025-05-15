@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserReviews } from '../../store/reviews';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
 import DeleteReview from './deleteReview';
 import './review.css';

@@ -26,11 +26,8 @@ function CreateReview({spotId}){
             }
         }catch(error){
             setErrors({ server: "Something went wrong... Please try again." });
-        
-
-
-    }
-}
+        }
+};
 
 
 

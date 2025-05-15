@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotDetail } from '../../store/spots'; 
+import SpotReview from '../Reviews/spotReview';
 import './Spots.css';
 
 
@@ -63,7 +64,10 @@ function SpotDetail() {
         <div className="spot-description">
                     {spot.description}
                 </div>
-              
+        
+        <div className="reviews-section">
+                <SpotReview spot={spot} />
+        </div>     
                
          <div className="reservation-section">
                
