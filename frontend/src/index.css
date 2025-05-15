@@ -1,1 +1,47 @@
 /* TODO: Add sitewide styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #484848;
+    line-height: 1.5;
+  }
+
+  a {
+    text-decoration: none;
+    color: #484848;
+  }
+
+  button {
+    background-color: #ff385c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 10px 20px;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .spots-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    max-width: 1200px;
+  }
+
+  .spot-card-link {
+    width: 30%;
+    margin: 1.6%;
+    color: #0f0e0e;
+  }
