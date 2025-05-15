@@ -11,7 +11,7 @@ function SpotDetail() {
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState(null);
     const spot = useSelector(state => state.spots.singleSpot);
-    const currentUser = useSelector(state => state.session.user);
+    //const currentUser = useSelector(state => state.session.user);
     
     
     useEffect(() => {
