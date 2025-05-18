@@ -2,13 +2,16 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {makeSpot} from '../../store/spots';
+import { useSelector } from 'react-redux';
 import './Spots.css';
 //import { FaProjectDiagram } from 'react-icons/fa';
 
 function CreateSpotForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const sessionUser = useSelector(state => state.session.user);
+    console.log("Current session user:", sessionUser);
+    
 const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -17,6 +20,8 @@ const [formData, setFormData] = useState({
     state: '',
     country: '',
     price: '',
+    lat: 37.7749,
+    lng: -122.4194,
     previewImage: '',
     image1: '',
     image2: '',
@@ -56,6 +61,7 @@ const checkFormErrors = () => {
     } else if (formData.description.length < 30) {
         formErrors.description = "Description needs 30 or more characters";
     }
+   
     if (!formData.address) formErrors.address = "Address is required";
     if(!formData.city) formErrors.city = "City is required";
     if (!formData.state) formErrors.state = "State is required";
@@ -67,7 +73,8 @@ const checkFormErrors = () => {
     } else if (!validateImageUrl(formData.previewImage)) {
         formErrors.previewImage = "Image must be .png, .jpg(or .jpeg)";
     }
-   
+
+    if (!formData.name) formErrors.name = "Name is required";
     
     if (!formData.price) {
         formErrors.price = "Price is required";
@@ -103,6 +110,8 @@ const spotData = {
     state: formData.state,
     country: formData.country,
     price: parseFloat(formData.price),
+    lat: parseFloat(formData.lat),
+    lng: parseFloat(formData.lng),
     previewImage: formData.previewImage,
     images: [
         formData.image1,
@@ -120,9 +129,65 @@ const spotData = {
 
 try {
     const newSpot = await dispatch(makeSpot(spotData));
-    
+    console.log("API Response for new spot:", newSpot);
+    if (newSpot.id) {
+
+        try {
+            const previewResponse = await fetch(`/api/spots/${newSpot.id}/images`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    url: formData.previewImage,
+                    preview: true
+                })
+            });
+            
+            if (!previewResponse.ok) {
+                console.error("Failed to add preview image");
+            }
+        } catch (e) {
+            console.error("Error adding preview image:", e);
+        }
+
+        const additionalImages = [
+            formData.image1,
+            formData.image2,
+            formData.image3,
+            formData.image4,
+            formData.image5,
+            formData.image6,
+            formData.image7,
+            formData.image8,
+            formData.image9
+        ].filter(img => img);
+
+        for (let i = 0; i < additionalImages.length; i++) {
+            const img = additionalImages[i];
+            try {
+                await fetch(`/api/spots/${newSpot.id}/images`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        url: img,
+                        preview: false
+                    })
+                });
+            } catch (error) {
+                console.error(`Error adding image`, error);
+            }
+        }
+
     navigate(`/spots/${newSpot.id}`);
-} catch (error) {
+} else {
+    setErrors({ form: 'Failed to create the spot. Please try again.' });
+    setIsSubmitting(false);
+        }
+
+    } catch (error) {
     console.log("Error creating spot:", error);
     
     setIsSubmitting(false);
@@ -137,51 +202,26 @@ try {
 
 return (
 <div className = "create-spot-container">
-<h1>Create a New Spot</h1>
+    <h1>Create a New Spot</h1>
 
 
 <form onSubmit = {submitForm}>
-<div className="form-group">
-            <label htmlFor="name">Spot Name</label>
-            <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={formDataUpdate}
-                placeholder="Spot Name"
-            />
-            {errors.name && <div className="input-error">{errors.name}</div>}
-        </div>
+    
 
-        <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={formDataUpdate}
-                placeholder="Describe your spot (min 30 characters)"
-            />
-            {errors.description && <div className="input-error">{errors.description}</div>}
-        </div>
-
-
-    <section className ="form-section">
-            <h2>Where is your rental located?</h2>
-                <p>No need to worry! Guests will not have access to address until reservation is complete!</p>
-                
-
-                <div className="form-group">
-                    <label htmlFor="address">Street Address</label>
-                    <input
-                        type="text"
-                        id="address"
-                        name="address"
-                        value={formData.address}
-                        onChange={formDataUpdate}
-                        placeholder="Address"/>
-                              {errors.address && <div className="input-error">{errors.address}</div>}
+     <section className="form-section">
+                    <h2>Where is your place located?</h2>
+                    <p>Guests will only get your exact address once they booked a reservation.</p>
+                  
+                    <div className="form-group">
+             <label htmlFor="address">Street Address</label>
+                 <input
+                     type="text"
+                     id="address"
+                    name="address"
+                    value={formData.address}
+                     onChange={formDataUpdate}
+                       placeholder="Address"/>
+                          {errors.address && <div className="input-error">{errors.address}</div>}
                        </div>
                       
              <div className="form-group">
@@ -221,6 +261,36 @@ return (
                     </div>
                     
                        </section>
+
+     <section className="form-section">
+          <h2>Describe your place to guests</h2>
+         
+          <div className="form-group">         
+            <label htmlFor="name">Spot Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={formDataUpdate}
+                placeholder="Spot Name"
+            />
+            {errors.name && <div className="input-error">{errors.name}</div>}
+        </div>
+
+        <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={formDataUpdate}
+                placeholder="Describe your spot (min 30 characters)"
+            />
+            {errors.description && <div className="input-error">{errors.description}</div>}
+        </div>
+    </section>
+
 
             <section className="form-section">
                 <h2>Set price for your rental</h2>
@@ -275,24 +345,24 @@ return (
                             />
                     </div>
 
-        {/* Tried to make this more efficient but still a bit repetitive */}
+
         {/* TODO: refactor this later? */}
-                    {['image3', 'image4', 'image5', 'image6', 'image7', 'image8', 'image9'].map((imgField, idx) => {
-                        return (
-                             <div className="form-group" key={imgField}>
-                               <label htmlFor={imgField}>Additional Image {idx + 3}</label>
-                              <input
-                                   type="text"
-                                  id={imgField}
-                                 name={imgField}
-                                 value={formData[imgField]}
-                                 onChange={formDataUpdate}
-                                placeholder="Image URL (optional)"
-                                />
-                             </div>
-                        )
-                    })}
-                    </section>
+        {['image3', 'image4', 'image5', 'image6', 'image7', 'image8', 'image9'].map((extraImage, idx) => {
+    return (
+        <div className="form-group" key={extraImage}>
+            <label htmlFor={extraImage}>Additional Image {idx + 3}</label>
+            <input
+                type="text"
+                id={extraImage}
+                name={extraImage}
+                value={formData[extraImage]}
+                onChange={formDataUpdate}
+                placeholder="Image URL (optional)"
+            />
+        </div>
+    )
+})}
+</section>
 
 
             <div className='form-submit'>
@@ -300,7 +370,7 @@ return (
                     type = "submit"
                     className = "submit-button"
                     >
-                         {isSubmitting ? 'Creating...' : 'Create Rentl!'}
+                         {isSubmitting ? 'Creating...' : 'Create New Rental!'}
                 </button>
 
             </div>

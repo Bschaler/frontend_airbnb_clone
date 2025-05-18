@@ -1,3 +1,4 @@
+import { csrfFetch } from './csrf';
 const create_spot = 'spots/create_spot';
 const get_spot = 'spots/get_spot';
 const load_spot = 'spots/load_spot';
@@ -32,13 +33,14 @@ export const fetchSpotDetail = (spotId) => async (dispatch) => {
         } else {
             console.log("couldn't get the spot");
         }
-    } catch (e) {
-        console.log("error getting spot:", e);
+    } catch (event) {
+        console.log("error getting spot:", event);
     }
 };
 
 export const makeSpot = (data) => async (dispatch) => {
-    const res = await fetch('/api/spots', {
+    try{
+    const response = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -46,26 +48,80 @@ export const makeSpot = (data) => async (dispatch) => {
         body: JSON.stringify(data)
     });
 
-    if (res.ok) {
-        const spot = await res.json();
+    if (response.ok) {
+        const spot = await response.json();
         dispatch(createSpot(spot));
         return spot;
     } else {
-        const err = await res.json();
-        return err;
+        const error = await response.json();
+        return Promise.reject(error); 
+    }
+} catch (error) {
+
+    console.error("Error in makeSpot thunk:", error);
+    return Promise.reject(error);
+}
+};
+
+
+export const removeSpot = (spotId) => async (dispatch) => {
+    try {
+        const response = await csrfFetch(`/api/spots/${spotId}`, {
+            method: 'DELETE'
+        });
+        
+        if (response.ok) {
+            dispatch(deleteSpot(spotId));
+            return { success: true };
+        } else {
+            const error = await response.json();
+            return { success: false, error };
+        }
+    } catch (error) {
+        console.log("Error:", error);
+        return { success: false, error };
+    }
+};
+
+
+export const editSpot = (spotId, data) => async (dispatch) => {
+    try {
+        const response = await csrfFetch(`/api/spots/${spotId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            const spot = await response.json();
+            dispatch(updateSpot(spot));
+            return spot;
+        } else {
+            const error = await response.json();
+            return Promise.reject(error);
+        }
+    } catch (error) {
+        console.log("Error editing spot:", error);
+        return Promise.reject(error);
     }
 };
 
 const initialState = {
-    allSpots: [],
+    allSpots: { Spots: [] },
     singleSpot: null
 };
 
 const spotsReducer = (state = initialState, action) => {
     switch (action.type){
         case create_spot:
-            return{...state,
-                allSpots: [action.spot, ...state.allSpots]
+            return {
+                ...state,
+                allSpots: {
+                    ...state.allSpots,
+                    Spots: [action.spot, ...(state.allSpots.Spots || [])]
+                }
             };
 
             case get_spot:

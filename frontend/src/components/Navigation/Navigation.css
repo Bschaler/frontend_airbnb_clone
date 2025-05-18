@@ -1,26 +1,35 @@
-/* frontend/src/components/Navigation/Navigation.css */
-
-/* Basic styling for navigation */
-ul {
+.navigation{
   display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
 }
 
 li {
   margin-right: 20px;
 }
 
-/* Styling for the dropdown */
+ul li:first-child {
+  margin-right: auto;
+}
+
+
+
+
+.navigation-right {
+  display: flex;
+  align-items: center;
+}
+
 .profile-dropdown {
   position: absolute;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  background-color: rgb(229, 227, 239);
+  border: 1px solid #c90a0a;
+  border-radius: 23px;
   padding: 10px;
-  margin-top: 5px;
-  right: 10px;
+  margin-top: 9px;
+  right: 13px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
@@ -34,4 +43,9 @@ button {
   cursor: pointer;
   font-size: 24px;
   color: #333;
+  width: fit-content;
 }
+
+
+
+

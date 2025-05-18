@@ -1,0 +1,40 @@
+h1 {
+    text-align: center;
+    color: #ff385c;
+    margin: 10px;
+  }
+
+  form {
+    display: block;
+    margin: 0 auto;
+    width: 380px; 
+    padding: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background-color: #ff5a76;
+  }

@@ -1,32 +1,89 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
-import { createReview } from '../../store/reviews';
+import { createReview, fetchSpotReviews } from '../../store/reviews';
+import './review.css';
+
 
 function CreateReview({spotId}){
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [review, setReview] = useState("");
-    // const [stars, setStars] = useState(5);
-   const [errors, setErrors] = useState({});
-// const currentUser = useSelector(state => state.session.user);
-    const handleSubmit = async (error) => {
-        error.preventDefault();
-        setErrors({});
+     const [stars, setStars] = useState(0);
+     const [hover, setHover] = useState(0);
+     const [errors, setErrors] = useState({});
+
+    
+    const handleStarClick = (rating) => {
+     setStars(rating);
+    };
+
+    const starHover = (rating) => {
+        setHover(rating);
+    };
+
+    const starLeave = () => {
+        setHover(0);
+    };
+
+    const makeStars = () => {
+        const starsArray = [];
+        for(
+            let i = 1; i <= 5; i++) {
+            starsArray.push(
+                <span 
+                    key={i}
+                    className={`star ${i <= (hover || stars) ? 'filled' : 'empty'}`}
+                    onClick={() => handleStarClick(i)}
+                    onMouseEnter={() => starHover(i)}
+                    onMouseLeave={starLeave}
+                >
+                    *
+                     </span>
+                     );
+                }
+            return (
+                <div className="stars-container">
+                  {starsArray}
+                      <span>
+                        {stars > 0 ? stars + " Stars" : "Select stars"}
+                      </span>
+                </div>
+                 );
+    };
+                
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (review.length < 10) {
+            setErrors({ review: "Review must be at least 10 characters" });
+            return;
+        }
+
+        if (stars === 0) {
+            setErrors({ stars: "Pick a star rating!" });
+            return;
+        }
 
         const reviewData = {
-            review,
-            stars: 5
+            review: review,
+            stars: stars
         };
-
+        console.log("Submitting review:", reviewData);
+       
+       
         try{
-            const response = await dispatch(createReview(spotId, reviewData));
-            if (response) {
+            const result = await dispatch(createReview(spotId, reviewData));
+            if (result) {
+                await dispatch(fetchSpotReviews(spotId));
             closeModal();
             }
-        }catch(error){
-            setErrors({ server: "Something went wrong... Please try again." });
-        }
+        }catch (error) {
+            console.log("Error creating review:", error);
+            setErrors({ server: "Something went wrong! Try again later."});
+        
+    }
 };
 
 
@@ -42,11 +99,17 @@ return(
                 <textarea
                     placeholder="Leave your review here..."
                     value={review}
-                    onChange={(error) => setReview(error.target.value)}
+                    onChange={(event) => setReview(event.target.value)}
                 />
-                <div>
-                <p>Rating: 5 stars</p> 
+            
+            {errors.review && <p className="error">{errors.review}</p>}
+
+
+        <div className="star-rating">
+                    {makeStars()}
                 </div>
+                {errors.stars && <p className="error">{errors.stars}</p>}
+
             <button  type = "submit" >
                 SUBMIT
             </button>  

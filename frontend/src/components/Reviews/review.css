@@ -1,2 +1,22 @@
+.review-form{
+    max-width: 400px;
+    padding: 20px;
+}
 
+.stars-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.star.empty {
+    color: #ccc;
+}
+.star.filled {
+    color: #ff385c;
+}
 

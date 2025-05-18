@@ -15,8 +15,8 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     if (password === confirmPassword) {
       setErrors({});
       return dispatch(
@@ -29,8 +29,8 @@ function SignupFormModal() {
         })
       )
         .then(closeModal)
-        .catch(async (res) => {
-          const data = await res.json();
+        .catch(async (result) => {
+          const data = await result.json();
           if (data?.errors) {
             setErrors(data.errors);
           }
@@ -50,7 +50,7 @@ function SignupFormModal() {
           <input
             type="text"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
             required
           />
         </label>
@@ -60,7 +60,7 @@ function SignupFormModal() {
           <input
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(event) => setUsername(event.target.value)}
             required
           />
         </label>
@@ -70,7 +70,7 @@ function SignupFormModal() {
           <input
             type="text"
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(event) => setFirstName(event.target.value)}
             required
           />
         </label>
@@ -80,7 +80,7 @@ function SignupFormModal() {
           <input
             type="text"
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={(event) => setLastName(event.target.value)}
             required
           />
         </label>
@@ -90,7 +90,7 @@ function SignupFormModal() {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
             required
           />
         </label>
@@ -100,7 +100,7 @@ function SignupFormModal() {
           <input
             type="password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(event) => setConfirmPassword(event.target.value)}
             required
           />
         </label>
