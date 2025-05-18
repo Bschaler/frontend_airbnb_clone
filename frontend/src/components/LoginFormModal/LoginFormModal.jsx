@@ -12,15 +12,27 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     setErrors({});
+
+
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
       .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
+        try {
+          const data = await res.json();
+          if (data) {
+            if (data.errors) {
+              setErrors(data.errors);
+            } else if (data.message) {
+              setErrors({ credential: data.message });
+            } else {
+              setErrors({ credential: "Invalid credentials" });
+            }
+          }
+        } catch (event) {
+          setErrors({ credential: "The provided credentials were invalid." });
         }
       });
   };
@@ -30,11 +42,11 @@ function LoginFormModal() {
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Username or Email
+          Username or email
           <input
             type="text"
             value={credential}
-            onChange={(e) => setCredential(e.target.value)}
+            onChange={(event) => setCredential(event.target.value)}
             required
           />
         </label>
@@ -43,13 +55,14 @@ function LoginFormModal() {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
             required
           />
         </label>
         {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
+            <p className="error-message">{errors.credential}</p>
+            )}
+          
         <button type="submit">Log In</button>
       </form>
     </>

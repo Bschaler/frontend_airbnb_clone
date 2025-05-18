@@ -14,21 +14,33 @@
 
   a {
     text-decoration: none;
-    color: #484848;
+    color: rgb(5, 5, 5);
+    font-weight: bold;
+  }
+
+  a[href="/spots/current"] {
+    background-color: red;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
   }
 
   button {
-    background-color: #ff385c;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-  }
+}
 
   button:hover {
     background-color: #e31c5f;
+  }
+
+  button svg {
+    font-size: 30px;
+  }
+
+  ul li:last-child button {
+    padding: 10px;
+    border: 2px solid blue;
   }
 
   ul {
@@ -39,6 +51,16 @@
     justify-content: space-between;
     background-color: white;
 }
+
+
+li {
+    margin-right: 15px;
+  }
+
+  ul li:first-child {
+    margin-right: auto;
+  }
+  
 
   .spots-container {
     display: flex;
@@ -143,4 +165,21 @@
     line-height: 1.6;
     margin-bottom: 20px;
     font-weight: 200;
+  }
+
+  .profile-dropdown {
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    width: 200px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid hsl(0, 87%, 44%);
+  
+    padding: 12px;
+  
+  
+  }
+
+  .hidden {
+    display: none;
   }

@@ -38,3 +38,12 @@ h1 {
   button:hover {
     background-color: #ff5a76;
   }
+
+  .error-message {
+    color: red;
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  

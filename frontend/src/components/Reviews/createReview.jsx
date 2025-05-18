@@ -5,6 +5,7 @@ import { createReview, fetchSpotReviews } from '../../store/reviews';
 import './review.css';
 
 
+
 function CreateReview({spotId}){
     const dispatch = useDispatch();
     const { closeModal } = useModal();

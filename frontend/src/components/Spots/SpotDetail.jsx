@@ -17,21 +17,26 @@ function SpotDetail() {
     
     useEffect(() => {
         const getSpot = async () => {
-            try {
-            console.log(`Trying to fetch spot ${spotId}`);
-                
-                await dispatch(fetchSpotDetail(spotId));
-                setLoading(false);
-                console.log("Got the spot!");
-            } catch (error) {
-                console.log("Something went wrong..", error);
-                
-                setErr("Couldn't load spot. Please try again!");
-                setLoading(false);
-            }
-        };
-        getSpot();
-    }, [spotId, dispatch]);
+                    try {
+                        console.log(`Trying to fetch spot ${spotId}`);
+                        await dispatch(fetchSpotDetail(spotId));
+                        setLoading(false);
+                        console.log("Got the spot!");
+                    } catch (error) {
+                        console.log("Something went wrong..", error);
+                        setErr("Couldn't load spot. Please try again!");
+                        setLoading(false);
+                    }
+                };
+                getSpot();
+            }, [spotId, dispatch]);
+
+            useEffect(() => {
+                if (spot) {
+                    console.log("Full spot details:", spot);
+                    console.log("Images:", spot.SpotImages);
+                }
+            }, [spot]);
 
     if (loading) return <div>LOADING...</div>
     if (err) return <div>Oh no: {err}</div>
@@ -73,7 +78,7 @@ function SpotDetail() {
                
         <div>${spot.price} night</div>
             <button onClick={() => {
-                   alert('Rental coming soon!')
+                   alert('Coming soon!')
                 }}>
                     Reserve</button>
                 </div>

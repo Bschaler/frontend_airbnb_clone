@@ -1,3 +1,5 @@
+import { csrfFetch } from './csrf';
+
 const LOAD_SPOT_REVIEWS = "reviews/LOAD_SPOT_REVIEWS";
 const ADD_REVIEW = "reviews/ADD_REVIEW";
 const REMOVE_REVIEW = "reviews/REMOVE_REVIEW";
@@ -21,7 +23,7 @@ export const loadSpotReviews = (reviews) => ({
 //thunkin time
 export const fetchSpotReviews = (spotId) => async (dispatch) => {
     try {
-        const response = await fetch(`/api/spots/${spotId}/reviews`);
+        const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
         
         if (!response.ok) {
           throw new Error('Failed fetching reviews');
@@ -37,7 +39,7 @@ export const fetchSpotReviews = (spotId) => async (dispatch) => {
     
     export const createReview = (spotId, reviewData) => async (dispatch) => {
         try {
-            const response = await fetch(`/api/spots/${spotId}/reviews`, {
+            const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
@@ -59,7 +61,7 @@ export const fetchSpotReviews = (spotId) => async (dispatch) => {
           
           export const deleteReview = (reviewId) => async (dispatch) => {
             try {
-              const response = await fetch(`/api/reviews/${reviewId}`, {
+              const response = await csrfFetch(`/api/reviews/${reviewId}`, {
                 method: 'DELETE'
               });
               if (!response.ok) {

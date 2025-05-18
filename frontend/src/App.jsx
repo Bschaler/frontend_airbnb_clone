@@ -8,6 +8,9 @@ import CreateSpotForm from './components/Spots/CreateSpotForm';
 import ManageSpots from './components/Spots/ManageSpots';
 import EditSpots from './components/Spots/EditSpots';
 import * as sessionActions from './store/session';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCircleUser, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+library.add(faCircleUser, faUserCircle);
 
 function Layout() {
   const dispatch = useDispatch();
