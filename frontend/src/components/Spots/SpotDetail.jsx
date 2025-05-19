@@ -13,13 +13,13 @@ function SpotDetail() {
     const [err, setErr] = useState(null);
     const spot = useSelector(state => state.spots.singleSpot);
     const reviews = useSelector(state => state.reviews.spot);
-    //const currentUser = useSelector(state => state.session.user);
+   
     
     
     useEffect(() => {
         const getSpot = async () => {
                     try {
-                        console.log(`Trying to fetch spot ${spotId}`);
+                        console.log(`Trynna fetch spot ${spotId}`);
                        
                         await dispatch(fetchSpotDetail(spotId));
                         setLoading(false);
@@ -27,7 +27,7 @@ function SpotDetail() {
                         console.log("Got the spot!");
                     
                     } catch (error) {
-                        console.log("Something went wrong..", error);
+                        console.log("WRONG", error);
                        
                         setErr("Couldn't load spot. Please try again!");
                         setLoading(false);
@@ -54,31 +54,41 @@ function SpotDetail() {
     const additionalImages = uniqueImages.filter(img => img.preview !== true);
 
 
+    let avgRating = 'New';
+    let reviewText = '';
+    
     const hasReviews = reviews && reviews.length > 0;
-  const avgRating = hasReviews 
-    ? (reviews.reduce((sum, review) => sum + review.stars, 0) / reviews.length).toFixed(1)
-    : null;
-  const reviewText = hasReviews
-    ? `${reviews.length} ${reviews.length === 1 ? 'review' : 'reviews'}`
-    : 'New';
+    if (reviews && reviews.length > 0) {
+
+        let totalStars = 0;
+        for (let i = 0; i < reviews.length; i++) {
+            totalStars += reviews[i].stars;
+        }
+        avgRating = (totalStars / reviews.length).toFixed(1);
+        if (reviews.length === 1) {
+            reviewText = '1 review';
+        } else {
+            reviewText = `${reviews.length} reviews`;
+        }
+    }
     return( 
         
        
         <div className="spot-detail">
         <h1>{spot.name}</h1>
         
-        <div className="spot-header">
+         <div className="spot-header">
             
              <p>{spot.city}, {spot.state}, {spot.country}</p>
         </div>
        
         <div className="spot-images">
-                <div className="main-image-container">
-                    {previewImage ? (
-                        <img 
-                            src={previewImage.url} 
-                            alt={spot.name} 
-                            className="main-spot-image" 
+             <div className="main-image-container">
+                {previewImage ? (
+                    <img 
+                        src={previewImage.url} 
+                           alt={spot.name} 
+                        className="main-spot-image" 
                         />
                     ) : (
                         <div className="no-image">No preview image available</div>
@@ -96,6 +106,7 @@ function SpotDetail() {
                     ))}
                 </div>
             </div>
+    
      <div className="spot-content">                
         <div className="spot-host">
                 <div className="host-info">
@@ -116,13 +127,13 @@ function SpotDetail() {
             
             <div className="rating-display">
               {hasReviews ? (
-                <span>★ {avgRating} · {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}</span>
-              ) : (
-                <span>★ New</span>
-              )}
+             <span>★ {spot.avgStarRating ? parseFloat(spot.avgStarRating).toFixed(1) : 'New'} · 
+             {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}</span>
+            ) : (
+             <span>★ New</span>
+            )}
+        </div>
             </div>
-          </div>
-               
             
             <button
              className='reserve-button'

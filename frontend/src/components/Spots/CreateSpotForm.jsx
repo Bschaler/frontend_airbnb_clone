@@ -11,8 +11,7 @@ function CreateSpotForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(state => state.session.user);
-    console.log("Current user:", user);
-
+    
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [address, setAddress] = useState('');
@@ -98,13 +97,13 @@ const validate = () => {
 
 const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("submitting...");
+    // console.log("submitting...");
   
     const formErrors = validate();
     setErrors(formErrors);
 
 if (Object.keys(formErrors).length > 0) {
-    console.log("ERROR! Cannot submit form");
+   // console.log("ERROR! Cannot submit form");
     return;
 }
 setIsSubmitting(true);
@@ -141,9 +140,8 @@ try {
                 })
             });
             
-            if(!res.ok) console.log("failed adding preview image");
             
-            // Add additional images
+            
             const images = [img1, img2, img3, img4].filter(img => img);
             
             for(let i = 0; i < images.length; i++) {

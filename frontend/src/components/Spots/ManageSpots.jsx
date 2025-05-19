@@ -20,11 +20,6 @@ function ManageSpots() {
         setIsLoading(false);
         console.log("Got em!");
       })
-      .catch(error => {
-        console.log("Error getting the spots:", error);
-        setIsLoading(false);
-        console.log("Got em!");
-      });
   }, [dispatch]);
 
   if (isLoading) return <div>Loading spots...</div>;
@@ -68,20 +63,21 @@ function ManageSpots() {
             let previewImage = null;
             
             if (spot.SpotImages && spot.SpotImages.length > 0) {
-     
-              const previewImg = spot.SpotImages.find(img => img.preview === true);
-              if (previewImg) {
-                previewImage = previewImg.url;
-              } else if (spot.SpotImages[0]) {
-             
-                previewImage = spot.SpotImages[0].url;
-              }
-            }
-            
-            // If no SpotImages array, fall back to direct properties
-            if (!previewImage) {
-              previewImage = spot.previewImage || spot.previewImg || '';
-            }
+              
+                for (let i = 0; i < spot.SpotImages.length; i++) {
+                    if (spot.SpotImages[i].preview === true) {
+                        previewImage = spot.SpotImages[i].url;
+                        break;
+                    }
+                }
+
+                if (!previewImage && spot.SpotImages[0]) {
+                    previewImage = spot.SpotImages[0].url;
+                }
+                }else if (spot.previewImage) {
+                    
+                    previewImage = spot.previewImage;
+                }
              
         return (
               <div key={spot.id} className="spot-card">
