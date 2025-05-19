@@ -12,7 +12,7 @@ function SpotDetail() {
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState(null);
     const spot = useSelector(state => state.spots.singleSpot);
-   
+    const reviews = useSelector(state => state.reviews.spot);
     //const currentUser = useSelector(state => state.session.user);
     
     
@@ -53,6 +53,14 @@ function SpotDetail() {
     const previewImage = uniqueImages.find(img => img.preview === true);
     const additionalImages = uniqueImages.filter(img => img.preview !== true);
 
+
+    const hasReviews = reviews && reviews.length > 0;
+  const avgRating = hasReviews 
+    ? (reviews.reduce((sum, review) => sum + review.stars, 0) / reviews.length).toFixed(1)
+    : null;
+  const reviewText = hasReviews
+    ? `${reviews.length} ${reviews.length === 1 ? 'review' : 'reviews'}`
+    : 'New';
     return( 
         
        
@@ -60,7 +68,7 @@ function SpotDetail() {
         <h1>{spot.name}</h1>
         
         <div className="spot-header">
-             <p>⭐ {spot.avgStarRating || 'New'} · {spot.numReviews || 0} reviews</p>
+            
              <p>{spot.city}, {spot.state}, {spot.country}</p>
         </div>
        
@@ -100,19 +108,20 @@ function SpotDetail() {
                 </div>
         
                 <div className="reservation-card">
-                    <div className="price-rating-section">
-                        <div className="price-display">
-                            <span className="price-value">${spot.price}</span>
-                            <span className="night-text"> night</span>
-                        </div>
-                        
-                        <div className="rating-display">
-                            <span className="star-icon">★</span>
-                            <span className="rating-value">{spot.avgStarRating ? parseFloat(spot.avgStarRating).toFixed(1) : 'New'}</span>
-                            <span className="dot"> · </span>
-                            <span className="reviews-count">{spot.numReviews || 0} {spot.numReviews === 1 ? 'review' : 'reviews'}</span>
-                        </div>
-                    </div>
+          <div className="price-rating-container">
+            <div className="price-display">
+              <span className="price-value">${spot.price}</span>
+              <span className="price-unit">night</span>
+            </div>
+            
+            <div className="rating-display">
+              {hasReviews ? (
+                <span>★ {avgRating} · {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}</span>
+              ) : (
+                <span>★ New</span>
+              )}
+            </div>
+          </div>
                
             
             <button
