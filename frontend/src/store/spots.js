@@ -11,7 +11,7 @@ export const getSpot = (spot) => ({type: get_spot, spot});
 export const loadSpot = (spot) => ({type: load_spot, spot});
 export const getSpotDetail = (spot) => ({type: get_spot_detail, spot});
 export const updateSpot = (spot) => ({type: update_spot, spot});
-export const deleteSpot = (spot) => ({type: delete_spot, spot});
+export const deleteSpot = (spotId) => ({type: delete_spot, spotId});
 
 export const fetchSpots = () => async (dispatch) => {
     const response = await fetch('/api/spots');
@@ -50,6 +50,25 @@ export const makeSpot = (data) => async (dispatch) => {
 
     if (response.ok) {
         const spot = await response.json();
+        if (data.previewImage) {
+            try {
+                await csrfFetch(`/api/spots/${spot.id}/images`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        url: data.previewImage,
+                        preview: true
+                    })
+                });
+                
+                spot.previewImage = data.previewImage;
+            } catch (imageError) {
+                console.error("Error adding preview image:", imageError);
+            }
+        }
+
         dispatch(createSpot(spot));
         return spot;
     } else {
@@ -138,15 +157,29 @@ const spotsReducer = (state = initialState, action) => {
             return{...state,
                 singleSpot: action.spot
             };
-        case update_spot:
-            return{...state,
-                    allSpots:action.spot
-        };
+            case update_spot:
+                return {
+                    ...state,
+                    allSpots: {
+                        ...state.allSpots,
+                        Spots: state.allSpots.Spots ? 
+                            state.allSpots.Spots.map(spot => 
+                                spot.id === action.spot.id ? action.spot : spot
+                            ) : []
+                    },
+                    singleSpot: action.spot
+                };
         
         case delete_spot:
-            return{...state,
-                allSpots:action.spot
-        };
+            return {
+                ...state,
+                allSpots: {
+                    ...state.allSpots,
+                    Spots: state.allSpots.Spots.filter(spot => spot.id !== action.spotId)
+                },
+                singleSpot: (state.singleSpot && state.singleSpot.id === action.spotId) 
+                ? null  : state.singleSpot
+            };
         default:
       return state;
     }

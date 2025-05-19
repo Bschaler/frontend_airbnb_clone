@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 function SpotCard({spot}){
+    const [imageError, setImageError] = useState(false);
     const locationDisplay = () => {
         if (!spot.city) return "Location is unavailable";
         if (spot.country && spot.country !== 'USA' && spot.country !== 'United States' && spot.country !== "United States of America") {
@@ -10,7 +12,25 @@ function SpotCard({spot}){
         return `${spot.city}, ${spot.state}`;
     }
 
+    const handleImageError = () => {
+        console.log("Image failed to load:", spot.previewImage);
+        setImageError(true);
+    }
 
+
+    const getImageSource = () => {
+
+        if (spot.previewImage && !imageError) {
+            return spot.previewImage;
+        }
+        
+
+        if (spot.SpotImages && spot.SpotImages.length > 0) {
+            const previewImage = spot.SpotImages.find(img => img.preview === true);
+            if (previewImage) return previewImage.url;
+            return spot.SpotImages[0].url;
+        }
+    }
 
 return(
     <Link to = {`/spots/${spot.id}`} className='spot-card-link'>
@@ -18,7 +38,7 @@ return(
         <div className='spot-card' title={spot.name}>
 
             <div className='spot-image-container'>
-                <img src = {spot.previewImage} alt = {spot.name} className='spot-image'/>
+                <img src={getImageSource()}  alt = {spot.name} className='spot-image' onError={handleImageError}/>
             </div>
             
             <div className='spot-info'>

@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import {makeSpot} from '../../store/spots';
 import { useSelector } from 'react-redux';
 import './Spots.css';
+import { csrfFetch } from '../../store/csrf';
 //import { FaProjectDiagram } from 'react-icons/fa';
 
 function CreateSpotForm() {
@@ -11,7 +12,7 @@ function CreateSpotForm() {
     const navigate = useNavigate();
     const sessionUser = useSelector(state => state.session.user);
     console.log("Current session user:", sessionUser);
-    
+
 const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -27,11 +28,7 @@ const [formData, setFormData] = useState({
     image2: '',
     image3: '',
     image4: '',
-    image5: '',
-    image6: '',
-    image7: '',
-    image8: '',
-    image9: ''
+   
 });
 
 
@@ -118,11 +115,7 @@ const spotData = {
         formData.image2,
         formData.image3,
         formData.image4,
-        formData.image5,
-        formData.image6,
-        formData.image7,
-        formData.image8,
-        formData.image9],
+        ],
 
         //TODO need to get rid of slots if not in use
 };
@@ -133,7 +126,7 @@ try {
     if (newSpot.id) {
 
         try {
-            const previewResponse = await fetch(`/api/spots/${newSpot.id}/images`, {
+            const previewResponse = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -156,17 +149,15 @@ try {
             formData.image2,
             formData.image3,
             formData.image4,
-            formData.image5,
-            formData.image6,
-            formData.image7,
-            formData.image8,
-            formData.image9
+           
         ].filter(img => img);
-
+        console.log("Additional images to upload:", additionalImages);
+       
+       
         for (let i = 0; i < additionalImages.length; i++) {
             const img = additionalImages[i];
             try {
-                await fetch(`/api/spots/${newSpot.id}/images`, {
+                const response = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -176,6 +167,13 @@ try {
                         preview: false
                     })
                 });
+
+                if (response.ok) {
+                    console.log(`Successfully added image ${i+1}`);
+                } else {
+                    const errorData = await response.json();
+                    console.error(`Failed to add image ${i+1}:`, errorData);
+                }
             } catch (error) {
                 console.error(`Error adding image`, error);
             }

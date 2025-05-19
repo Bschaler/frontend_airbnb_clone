@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchSpotDetail, editSpot } from '../../store/spots';
+import { csrfFetch } from '../../store/csrf';
 import './Spots.css';
 
 function EditSpotForm() {
@@ -79,6 +80,14 @@ function EditSpotForm() {
     
 }
   }, [spot]);
+
+  useEffect(() => {
+    if (spot && user) {
+      console.log("Spot ownerId:", spot.ownerId);
+      console.log("Current user ID:", user.id);
+      console.log("Do they match?", spot.ownerId === user.id);
+    }
+  }, [spot, user]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -177,8 +186,21 @@ function EditSpotForm() {
        if (formData.previewImage) {
         console.log("Adding preview image:", formData.previewImage);
         
+        const existingPreviewImage = spot.SpotImages.find(img => img.preview === true);
+        
+        if (existingPreviewImage && existingPreviewImage.url !== formData.previewImage) {
+
+            try {
+                await csrfFetch(`/api/spot-images/${existingPreviewImage.id}`, {
+                  method: 'DELETE'
+                });
+                console.log("Deleted existing preview image");
+              } catch (e) {
+                console.error("Error deleting preview image:", e);
+              }
+
         try {
-          const imageResponse = await fetch(`/api/spots/${spotId}/images`, {
+          await csrfFetch(`/api/spots/${spotId}/images`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -188,16 +210,41 @@ function EditSpotForm() {
               preview: true
             })
           });
-          
-          if (!imageResponse.ok) {
-            console.error("Failed to add preview image");
-          } else {
-            console.log("Preview image added successfully");
-          }
+          console.log("Added new preview image");
+        } catch (e) {
+          console.error("Error adding preview image:", e);
+        }
+      } else if (!existingPreviewImage) {
+        // If there's no existing preview image, add one
+        try {
+          await csrfFetch(`/api/spots/${spotId}/images`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              url: formData.previewImage,
+              preview: true
+            })
+          });
+          console.log("Added new preview image");
         } catch (e) {
           console.error("Error adding preview image:", e);
         }
       }
+    }
+          
+    const nonPreviewImages = spot.SpotImages.filter(img => !img.preview);
+    for (let img of nonPreviewImages) {
+      try {
+        await csrfFetch(`/api/spot-images/${img.id}`, {
+          method: 'DELETE'
+        });
+        console.log(`Deleted image ${img.id}`);
+      } catch (e) {
+        console.error(`Error deleting image ${img.id}:`, e);
+      }
+    }
       
       const additionalImages = [
         formData.image1,
@@ -209,28 +256,28 @@ function EditSpotForm() {
       for (let i = 0; i < additionalImages.length; i++) {
         const img = additionalImages[i];
         try {
-          const response = await fetch(`/api/spots/${spotId}/images`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              url: img,
-              preview: false
-            })
-          });
+            const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  url: img,
+                  preview: false
+                })
+            });
           
-          if (!response.ok) {
-            console.error(`Failed to add image ${i+1}`);
-          } else {
-            console.log(`Image ${i+1} added successfully`);
-          }
+            if (response.ok) {
+                console.log(`Image ${i+1} added successfully`);
+            } else {
+                console.error(`Failed to add image ${i+1}`);
+            }
         } catch (e) {
-          console.error(`Error adding image ${i+1}:`, e);
+            console.error(`Error adding image ${i+1}:`, e);
         }
-      }
+    }
   
-      
+      await dispatch(fetchSpotDetail(spotId));
       navigate(`/spots/${updatedSpot.id}`);
     } catch (error) {
       

@@ -14,14 +14,14 @@ function ManageSpots() {
   const spotsObj = useSelector(state => state.spots.allSpots);
 
   useEffect(() => {
-    console.log("Fetching spots for manage page...");
+    console.log("Getting spots for the manage page.");
     dispatch(fetchSpots())
       .then(() => {
         setIsLoading(false);
-        console.log("Got spots!");
+        console.log("Got the spots!");
       })
       .catch(error => {
-        console.log("Error getting spots:", error);
+        console.log("Error getting the spots:", error);
         setIsLoading(false);
         console.log("Got spots!");
       });

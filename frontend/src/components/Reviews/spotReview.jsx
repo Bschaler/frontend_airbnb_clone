@@ -57,7 +57,7 @@ function SpotReview({spot}) {
                 {reviews.length > 0 ? (
                     reviews.map(review => (
                         <div key={review.id} className="review-item">
-                            <h3>{review.User?.firstName || 'Anonymous'}</h3>
+                            <h3>{(review.User && review.User.firstName) || 'Anonymous'}</h3>
                             <p>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
                             <p>{review.review}</p>
                             {currentUser && currentUser.id === review.userId && (

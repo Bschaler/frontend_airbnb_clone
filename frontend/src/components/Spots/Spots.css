@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
@@ -20,24 +22,82 @@
     width: 31%;
     margin: 1%;
     text-decoration: none;
-    color: rgba(55, 115, 187, 0.664);
+    color: rgb(0, 0, 0);
+  }
+  .spot-card {
+    border-radius: 10px;
+    overflow: hidden;
   }
 
+  .spot-image-container {
+    height: 200px;
+  }
+
+
+  .spot-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .spot-location {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .star-icon {
+    margin-right: 5px;
+  }
+
+  .spot-price {
+    font-weight: bold;
+  }
   .spot-detail {
     max-width: 1000px;
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
-    font-family: Arial, sans-serif;
-}
-.spot-header {
-    margin-bottom: 20px;
-}
-.host-info {
+    box-sizing: border-box;
+  }
+
+.spot-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 48px;
+    margin-bottom: 24px;
+  }
+
+  .spot-left-column {
+    flex: 1;
+  }
+
+.spot-detail h1 {
     margin-bottom: 15px;
 }
-.spot-description {
+
+.spot-header {
     margin-bottom: 20px;
+  }
+
+ .spot-images {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+  height: 400px;
+  margin-bottom: 24px;
 }
+.host-info {
+    margin-bottom: 16px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .spot-description {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #222;
+    margin-bottom: 24px;
+  }
 .pricing-section {
     display: flex;
     justify-content: space-between;
@@ -45,19 +105,150 @@
     border-top: 1px solid #ddd;
     padding-top: 15px;
 }
-.reserve-button {
-    background-color: #ff385c;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+
+
+
+  .spot-info {
+    padding: 10px;
+    background-color: white;
+  }
+  .spot-location {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .spot-rating {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .star-icon {
+    color: #FF385C;
+    margin-right: 4px;
+  }
+
+  .rating-value {
+    font-weight: 500;
+  }
+
+  .rating-display .star-icon {
+    margin-right: 4px;
+  }
+
+  .spot-price {
+    font-weight: bold;
+    font-style:oblique;
+  }
+
+
+.spot-header {
+    margin-bottom: 20px;
+  }
+  .spot-images {
+    display: grid;
+    grid-template-columns: 2fr 1.8fr; 
+    grid-gap: 10px;
+    margin-bottom: 20px;
+    height: 400px;
 }
+
+
+.spot-host {
+    flex: 2;
+  }
+
+.spot-description {
+    margin-bottom: 20px;
+}
+
+.main-image-container {
+    grid-row: span 2; 
+    height: 100%;
+}
+
+.additional-images-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    height: 100%;
+}
+
+.main-spot-image,
+.additional-spot-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+.no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    color: #666;
+}
+
+.reservation-card {
+    flex: 1;
+    max-width: 360px;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    align-self: flex-start;
+  }
+
+.reserve-button {
+    background-color: #FF385C;
+    color: white;
+    font-weight: bold;
+    padding: 14px;
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+  }
+
+
+.price-rating-container {
+    margin-bottom: 20px;
+  }
+
+  .price-display {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .price-value {
+    font-size: 22px;
+    font-weight: 600;
+    margin-right: 5px;
+  }
+  
+  .price-unit {
+    font-size: 16px;
+  }
+
 .reviews-section {
     margin-top: 20px;
 }
-.single-review {
+
+.review-item {
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
+    margin-bottom: 10px;
 }
-  
+
+.bottom-spacing {
+    margin-bottom: 80px;
+  }
