@@ -55,7 +55,9 @@ function SpotDetail() {
 
 
     let avgRating = 'New';
+    console.log(avgRating);
     let reviewText = '';
+    console.log(reviewText);
     
     const hasReviews = reviews && reviews.length > 0;
     if (reviews && reviews.length > 0) {

@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {makeSpot} from '../../store/spots';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
 import './Spots.css';
 import { csrfFetch } from '../../store/csrf';
 //import { FaProjectDiagram } from 'react-icons/fa';
@@ -10,7 +10,7 @@ import { csrfFetch } from '../../store/csrf';
 function CreateSpotForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector(state => state.session.user);
+    //const sessionUser = useSelector(state => state.session.user);
     
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -19,8 +19,6 @@ function CreateSpotForm() {
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
     const [price, setPrice] = useState('');
-    const [lat, setLat] = useState(37.7749);
-    const [lng, setLng] = useState(-122.4194);
     const [previewImg, setPreviewImg] = useState('');
     const [img1, setImg1] = useState('');
     const [img2, setImg2] = useState('');
@@ -117,8 +115,6 @@ const spotData = {
     state, 
     country,
     price: parseFloat(price),
-    lat,
-    lng,
 };
 try {
     // Create the spot
@@ -128,7 +124,7 @@ try {
     if(spot && spot.id) {
         // Add preview image
         try {
-            const res = await csrfFetch(`/api/spots/${spot.id}/images`, {
+            await csrfFetch(`/api/spots/${spot.id}/images`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
