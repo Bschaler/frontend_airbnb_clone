@@ -10,87 +10,98 @@ import { csrfFetch } from '../../store/csrf';
 function CreateSpotForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const sessionUser = useSelector(state => state.session.user);
-    console.log("Current session user:", sessionUser);
+    const user = useSelector(state => state.session.user);
+    console.log("Current user:", user);
 
-const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    address: '',
-    city : '',
-    state: '',
-    country: '',
-    price: '',
-    lat: 37.7749,
-    lng: -122.4194,
-    previewImage: '',
-    image1: '',
-    image2: '',
-    image3: '',
-    image4: '',
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [country, setCountry] = useState('');
+    const [price, setPrice] = useState('');
+    const [lat, setLat] = useState(37.7749);
+    const [lng, setLng] = useState(-122.4194);
+    const [previewImg, setPreviewImg] = useState('');
+    const [img1, setImg1] = useState('');
+    const [img2, setImg2] = useState('');
+    const [img3, setImg3] = useState('');
+    const [img4, setImg4] = useState('');
    
-});
+
 
 
 
 const [errors, setErrors] = useState({});
 const [isSubmitting, setIsSubmitting] = useState(false);
-const formDataUpdate = (event) => {
-    const { name, value} = event.target;
-    console.log(`updating ${name} field to: ${value}`);
-   
 
-    setFormData({...formData, [name]: value});
+
+const handleChange = (e) => {
+    const {name, value} = e.target;
+    // console.log("input changed:", name, value);
+    
+    // update the right state based on input name
+    if (name === 'name') setName(value);
+    else if (name === 'description') setDescription(value);
+    else if (name === 'address') setAddress(value);
+    else if (name === 'city') setCity(value);
+    else if (name === 'state') setState(value);
+    else if (name === 'country') setCountry(value);
+    else if (name === 'price') setPrice(value);
+    else if (name === 'previewImg') setPreviewImg(value);
+    else if (name === 'img1') setImg1(value);
+    else if (name === 'img2') setImg2(value);
+    else if (name === 'img3') setImg3(value);
+    else if (name === 'img4') setImg4(value);
 };
 
-const validateImageUrl = (url) => {
-    const imgType = ['.png', '.jpg', '.jpeg'];
-    return imgType.some(ext => url.toLowerCase().includes(ext));
-};
+function checkImage(url) {
+    if(!url) return false;
+    return url.toLowerCase().endsWith('.png') || 
+           url.toLowerCase().endsWith('.jpg') || 
+           url.toLowerCase().endsWith('.jpeg');
+}
+const validate = () => {
+    const errors = {};
 
-const checkFormErrors = () => {
-    console.log("checking for any errors");
-    
-    const formErrors = {};
+    if(!name) errors.name = "Name is required";
+        
+        if(!description) {
+            errors.description = "Description is required";
+        } else if(description.length < 30) {
+            errors.description = "Description needs at least 30 characters";
+        }
+        
+        if(!address) errors.address = "Address is required";
+        if(!city) errors.city = "City is required";
+        if(!state) errors.state = "State is required";
+        if(!country) errors.country = "Country is required";
+        
+        if(!price) {
+            errors.price = "Price is required";
+        } else if(isNaN(price)) {
+            errors.price = "Price must be a number";
+        } else if(Number(price) <= 0) {
+            errors.price = "Price must be greater than 0";
+        }
+        
+        if(!previewImg) {
+            errors.previewImg = "Preview image is required";
+        } else if(!checkImage(previewImg)) {
+            errors.previewImg = "Image URL must end in .png, .jpg, or .jpeg";
+        }
+        
+        
+        return errors;
+    };
+  
 
-    if (!formData.description) {
-        formErrors.description = "Description is required";
-    } else if (formData.description.length < 30) {
-        formErrors.description = "Description needs 30 or more characters";
-    }
-   
-    if (!formData.address) formErrors.address = "Address is required";
-    if(!formData.city) formErrors.city = "City is required";
-    if (!formData.state) formErrors.state = "State is required";
-    if (!formData.country) formErrors.country = "Country is required";
-
-
-    if (!formData.previewImage) {
-        formErrors.previewImage = "Preview image is required";
-    } else if (!validateImageUrl(formData.previewImage)) {
-        formErrors.previewImage = "Image must be .png, .jpg(or .jpeg)";
-    }
-
-    if (!formData.name) formErrors.name = "Name is required";
-    
-    if (!formData.price) {
-        formErrors.price = "Price is required";
-    } else if (isNaN(formData.price)) {
-        formErrors.price = "Price must be a number";
-    } else if (Number(formData.price) <= 0) {
-        formErrors.price = "Price must be greater than zero";
-    }
-    
-    return formErrors;
-};
-
-const submitForm = async (event) => {
-    event.preventDefault();
-    console.log("submitting form:", formData);
-    
-    const formErrors = checkFormErrors();
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("submitting...");
+  
+    const formErrors = validate();
     setErrors(formErrors);
-console.log("errors:", formErrors)
 
 if (Object.keys(formErrors).length > 0) {
     console.log("ERROR! Cannot submit form");
@@ -100,110 +111,85 @@ setIsSubmitting(true);
 
 
 const spotData = {
-    name: formData.name,
-    description: formData.description,
-    address: formData.address,
-    city: formData.city,
-    state: formData.state,
-    country: formData.country,
-    price: parseFloat(formData.price),
-    lat: parseFloat(formData.lat),
-    lng: parseFloat(formData.lng),
-    previewImage: formData.previewImage,
-    images: [
-        formData.image1,
-        formData.image2,
-        formData.image3,
-        formData.image4,
-        ],
-
-        //TODO need to get rid of slots if not in use
+    name,
+    description,
+    address,
+    city,
+    state, 
+    country,
+    price: parseFloat(price),
+    lat,
+    lng,
 };
-
 try {
-    const newSpot = await dispatch(makeSpot(spotData));
-    console.log("API Response for new spot:", newSpot);
-    if (newSpot.id) {
-
+    // Create the spot
+    const spot = await dispatch(makeSpot(spotData));
+    console.log("created spot:", spot);
+    
+    if(spot && spot.id) {
+        // Add preview image
         try {
-            const previewResponse = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+            const res = await csrfFetch(`/api/spots/${spot.id}/images`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+
                 },
                 body: JSON.stringify({
-                    url: formData.previewImage,
+                    url: previewImg,
                     preview: true
                 })
             });
             
-            if (!previewResponse.ok) {
-                console.error("Failed to add preview image");
-            }
-        } catch (e) {
-            console.error("Error adding preview image:", e);
-        }
-
-        const additionalImages = [
-            formData.image1,
-            formData.image2,
-            formData.image3,
-            formData.image4,
-           
-        ].filter(img => img);
-        console.log("Additional images to upload:", additionalImages);
-       
-       
-        for (let i = 0; i < additionalImages.length; i++) {
-            const img = additionalImages[i];
-            try {
-                const response = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        url: img,
-                        preview: false
-                    })
-                });
-
-                if (response.ok) {
-                    console.log(`Successfully added image ${i+1}`);
-                } else {
-                    const errorData = await response.json();
-                    console.error(`Failed to add image ${i+1}:`, errorData);
+            if(!res.ok) console.log("failed adding preview image");
+            
+            // Add additional images
+            const images = [img1, img2, img3, img4].filter(img => img);
+            
+            for(let i = 0; i < images.length; i++) {
+                try {
+                    await csrfFetch(`/api/spots/${spot.id}/images`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                           
+                        },
+                        body: JSON.stringify({
+                            url: images[i],
+                            preview: false
+                        })
+                    });
+                } catch(e) {
+                    console.log(`error adding image ${i+1}:`, e);
+                    // Just continue if an image fails - inconsistent error handling
                 }
-            } catch (error) {
-                console.error(`Error adding image`, error);
             }
+            
+            // Navigate to new spot
+            navigate(`/spots/${spot.id}`);
+        } catch(err) {
+            console.log("error adding images:", err);
+            // Still navigate even if images fail - a quick workaround
+            navigate(`/spots/${spot.id}`);
         }
-
-    navigate(`/spots/${newSpot.id}`);
-} else {
-    setErrors({ form: 'Failed to create the spot. Please try again.' });
-    setIsSubmitting(false);
-        }
-
-    } catch (error) {
-    console.log("Error creating spot:", error);
-    
-    setIsSubmitting(false);
-
-    if (error.errors) {
-        setErrors(error.errors);
-    } else {
-        setErrors({ form: 'Failed to create the spot. Please try again.' });
     }
+} catch(err) {
+    console.log("failed to create spot:", err);
+    setIsSubmitting(false);
+    // Inconsistent error handling between backend and form errors
+    setErrors({
+        form: "Something went wrong creating your spot"
+    });
 }
 };
+
 
 return (
 <div className = "create-spot-container">
     <h1>Create a New Spot</h1>
 
 
-<form onSubmit = {submitForm}>
+<form onSubmit = {handleSubmit}>
     
 
      <section className="form-section">
@@ -216,8 +202,8 @@ return (
                      type="text"
                      id="address"
                     name="address"
-                    value={formData.address}
-                     onChange={formDataUpdate}
+                    value={address}
+                     onChange={handleChange}
                        placeholder="Address"/>
                           {errors.address && <div className="input-error">{errors.address}</div>}
                        </div>
@@ -228,8 +214,8 @@ return (
                       type="text"
                       id="city" 
                       name="city"
-                      value={formData.city} 
-                      onChange={formDataUpdate}
+                      value={city} 
+                      onChange={handleChange}
                       placeholder="City"/> 
                 {errors.city && <div className="input-error">{errors.city}</div>}
             </div>
@@ -239,8 +225,8 @@ return (
                 <input type='text' 
                 id='state' 
                 name='state' 
-                value = {formData.state} 
-                onChange = {formDataUpdate} 
+                value = {state} 
+                onChange = {handleChange} 
                 placeholder='State'/>
                 {errors.state && <div className='input-error'>{errors.state}</div>}
             </div>
@@ -252,8 +238,8 @@ return (
                         type="text"
                         id="country"
                         name="country"
-                        value={formData.country}
-                        onChange={formDataUpdate}
+                        value={country}
+                        onChange={handleChange}
                         placeholder="Country"/> 
                         {errors.country && <div className="input-error">{errors.country}</div>}
                     </div>
@@ -264,14 +250,14 @@ return (
           <h2>Describe your place to guests</h2>
          
           <div className="form-group">         
-            <label htmlFor="name">Spot Name</label>
+            <label htmlFor="name">Rental Name</label>
             <input
                 type="text"
                 id="name"
                 name="name"
-                value={formData.name}
-                onChange={formDataUpdate}
-                placeholder="Spot Name"
+                value={name}
+                onChange={handleChange}
+                placeholder="Rental name..."
             />
             {errors.name && <div className="input-error">{errors.name}</div>}
         </div>
@@ -281,8 +267,8 @@ return (
             <textarea
                 id="description"
                 name="description"
-                value={formData.description}
-                onChange={formDataUpdate}
+                value={description}
+                onChange={handleChange}
                 placeholder="Describe your spot (min 30 characters)"
             />
             {errors.description && <div className="input-error">{errors.description}</div>}
@@ -298,8 +284,8 @@ return (
                             type="text"
                             id="price"
                             name="price"
-                            value={formData.price}
-                            onChange={formDataUpdate}
+                            value={price}
+                            onChange={handleChange}
                             placeholder="Price"/>
                         {errors.price && <div className="input-error">{errors.price}</div>}
                     </div>
@@ -308,58 +294,68 @@ return (
                 <section className="form-section">
                     <h2>Add images of your rental</h2>
                     <div className="form-group">
-                        <label htmlFor="previewImage">Preview Image URL</label>
+                        <label htmlFor="previewImg">Preview Image URL</label>
                         <input
                             type="text"
-                            id="previewImage"
-                            name="previewImage"
-                            value={formData.previewImage}
-                            onChange={formDataUpdate}
+                            id="previewImg"
+                            name="previewImg"
+                            value={previewImg}
+                            onChange={handleChange
+                            }
                             placeholder="Preview Image URL (.png, .jpg, or .jpeg)"/>
-                        {errors.previewImage && <div className="input-error">{errors.previewImage}</div>}
+                        {errors.previewImg && <div className="input-error">{errors.previewImg}</div>}
                     </div> 
                     <div className="form-group">
     
-                        <label htmlFor="image1">First Additional Image</label>
+                        <label htmlFor="img1">Image 1</label>
                             <input
                                 type="text"
-                                 id="image1"
-                                name="image1"
-                                 value={formData.image1}
-                                 onChange={formDataUpdate}
+                                 id="img1"
+                                name="img1"
+                                 value={img1}
+                                 onChange={handleChange}
                                  placeholder="Image URL (optional)"
                                  />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="image2">Second Additional Image</label>
+                        <label htmlFor="image2">Image 2</label>
                         <input
                              type="text"
-                             id="image2"
-                             name="image2"
-                            value={formData.image2}
-                            onChange={formDataUpdate}
+                             id="img2"
+                             name="img2"
+                            value={img2}
+                            onChange={handleChange}
                             placeholder="Image URL (optional)"
                             />
                     </div>
 
+                    <div className="form-group">
+                        <label htmlFor="img3">Image 3</label>
+                        <input
+                            type="text"
+                            id="img3"
+                            name="img3"
+                            value={img3}
+                            onChange={handleChange}
+                            placeholder="Image URL (optional)"
+                        />
+                    </div>
 
-        {/* TODO: refactor this later? */}
-        {['image3', 'image4', 'image5', 'image6', 'image7', 'image8', 'image9'].map((extraImage, idx) => {
-    return (
-        <div className="form-group" key={extraImage}>
-            <label htmlFor={extraImage}>Additional Image {idx + 3}</label>
-            <input
-                type="text"
-                id={extraImage}
-                name={extraImage}
-                value={formData[extraImage]}
-                onChange={formDataUpdate}
-                placeholder="Image URL (optional)"
-            />
+                     
+                    <div className="form-group">
+                        <label htmlFor="img4">Image 4</label>
+                        <input
+                            type="text"
+                            id="img4"
+                            name="img4"
+                            value={img4}
+                            onChange={handleChange}
+                            placeholder="Image URL (optional)"
+                        />
+
         </div>
-    )
-})}
+ 
 </section>
 
 
