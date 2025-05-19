@@ -10,17 +10,22 @@ const path = require('path');
 
 const { environment } = require('./config');         
 const isProduction = environment === 'production';   
-const routes = require('./routes');                 
+
+let routes;
+try {
+  routes = require('./routes');
+  console.log('Routes successfully imported');
+} catch (error) {
+  console.error('Error importing routes:', error);
+  routes = null;
+}               
 
 const app = express();                             
 
  
-app.use(morgan('dev'));                              
-
- 
-app.use(cookieParser());                             
-app.use(express.json());                          
-
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(express.json());
  
 app.use(express.static(path.join(__dirname, 'public')));  
 
@@ -48,8 +53,34 @@ app.use(
   })
 );
 
+app.get('/api/csrf/restore', (req, res) => {
+  const csrfToken = req.csrfToken();
+  res.cookie("XSRF-TOKEN", csrfToken);
+  res.status(200).json({
+    'XSRF-Token': csrfToken
+  });
+});
  
-app.use(routes);                                 
+if (routes) {
+  console.log('Routes type:', typeof routes);
+  console.log('Is routes function?', typeof routes === 'function');
+  
+  // Try to use routes safely
+  try {
+    app.use(routes);
+    console.log('Routes mounted successfully');
+  } catch (error) {
+    console.error('Error mounting routes:', error);
+  }
+ } else {
+  console.log('Routes not available, using fallback routes');
+
+app.get('/api', (req, res) => {
+  res.json({ message: 'API is working' });
+});
+
+}
+
 
 // Serve frontend for non-API routes (SPA support)
 // if (!isProduction) {
@@ -58,7 +89,6 @@ app.use(routes);
   // });
 //}
 
- 
 app.use((_req, _res, next) => {                     
   const err = new Error('The requested resource couldn\'t be found.');
   err.title = 'Resource Not Found';
@@ -80,9 +110,7 @@ app.use((err, _req, _res, next) => {
   next(err);
 });
 
-app.get('/api', (req, res) => {
-  res.json({ message: 'API is working' });
-});
+
 
  
 app.use((err, _req, res, _next) => {                
