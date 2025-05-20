@@ -186,86 +186,84 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: spots[0].id,
-        url: 'https://example.com/app-academy-preview.jpg',
+        url: 'https://images.unsplash.com/photo-1498503182468-3b51cbb6cb24',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
-     
       {
         spotId: spots[1].id,
-        url: 'https://example.com/sunny-retreat-preview.jpg',
+        url: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
-
       {
         spotId: spots[2].id,
-        url: 'https://example.com/mountain-view-preview.jpg',
+        url: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
-   {
+      {
         spotId: spots[3].id,
-        url: 'https://example.com/urban-lakeside-preview.jpg',
+        url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: spots[4].id,
-        url: 'https://example.com/french-quarter-preview.jpg', 
+        url: 'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: spots[5].id,
-        url: 'https://example.com/desert-oasis-preview.jpg',
+        url: 'https://images.unsplash.com/photo-1540541338287-41700207dee6',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: spots[6].id,
-        url: 'https://example.com/oceanfront-preview.jpg',
+        url: 'https://images.unsplash.com/photo-1560185007-cde436f6a4d0',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: spots[7].id,
-        url: 'https://example.com/music-city-preview.jpg',
+        url: 'https://images.unsplash.com/photo-1561518776-e76a5e48f731',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: spots[8].id,
-        url: 'https://example.com/pike-market-preview.jpg', 
+        url: 'https://images.unsplash.com/photo-1577722422774-fc2e1c873264',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: spots[9].id,
-        url: 'https://example.com/amsterdam-preview.jpg',
+        url: 'https://images.unsplash.com/photo-1580994564408-599ccd1532be',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: spots[10].id,
-        url: 'https://example.com/paris-preview.jpg',
+        url: 'https://images.unsplash.com/photo-1549144511-f099e773c147',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: spots[11].id,
-        url: 'https://example.com/tokyo-preview.jpg', 
+        url: 'https://images.unsplash.com/photo-1480796927426-f609979314bd',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
