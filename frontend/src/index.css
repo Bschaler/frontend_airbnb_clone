@@ -7,7 +7,7 @@
 
   body {
     color: #222;
-    background-color: #faf5f5;
+    background-color: #f4e9e9;
     font-family: Arial, sans-serif;
     line-height: 1.5;
   }
@@ -40,7 +40,7 @@
 
   ul li:last-child button {
     padding: 10px;
-    border: 2px solid blue;
+    border: 2px solid rgb(0, 0, 0);
   }
 
   ul {

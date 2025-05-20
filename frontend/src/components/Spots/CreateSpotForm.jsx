@@ -114,15 +114,18 @@ const spotData = {
     city,
     state, 
     country,
+    lat: 37.7645358, 
+    lng: -122.4730327, 
     price: parseFloat(price),
+    previewImage: previewImg
 };
 try {
-    // Create the spot
+ 
     const spot = await dispatch(makeSpot(spotData));
     console.log("created spot:", spot);
     
     if(spot && spot.id) {
-        // Add preview image
+  
         try {
             await csrfFetch(`/api/spots/${spot.id}/images`, {
                 method: 'POST',
@@ -155,22 +158,22 @@ try {
                     });
                 } catch(e) {
                     console.log(`error adding image ${i+1}:`, e);
-                    // Just continue if an image fails - inconsistent error handling
+                   
                 }
             }
             
-            // Navigate to new spot
+
             navigate(`/spots/${spot.id}`);
         } catch(err) {
             console.log("error adding images:", err);
-            // Still navigate even if images fail - a quick workaround
+           
             navigate(`/spots/${spot.id}`);
         }
     }
 } catch(err) {
     console.log("failed to create spot:", err);
     setIsSubmitting(false);
-    // Inconsistent error handling between backend and form errors
+    
     setErrors({
         form: "Something went wrong creating your spot"
     });
@@ -215,7 +218,7 @@ return (
             </div>
 
             <div className = 'form-group'>
-                <label htmlFor = 'state'>State/Province</label> {/* Changed label text inconsistently */}
+                <label htmlFor = 'state'>State/Province</label> 
                 <input type='text' 
                 id='state' 
                 name='state' 
@@ -241,7 +244,7 @@ return (
                        </section>
 
      <section className="form-section">
-          <h2>Describe your place to guests</h2>
+          <h2>Describe your rental</h2>
          
           <div className="form-group">         
             <label htmlFor="name">Rental Name</label>

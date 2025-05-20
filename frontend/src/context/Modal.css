@@ -21,4 +21,41 @@
   #modal-content {
     position: absolute;
     background-color: white;
+    min-width: 350px;
+  }
+
+  #modal-content form {
+    width: 100%;
+  }
+
+  #modal-content input {
+    display: block;
+    width: 300px; 
+    height: 24px;
+    padding: 5px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  #modal-content input[type="text"],
+#modal-content input[type="password"] {
+  width: 100%;  
+}
+#modal-content label {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  #modal-content button {
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 220px; 
+    display: block;
+    margin: 15px auto 0;
   }

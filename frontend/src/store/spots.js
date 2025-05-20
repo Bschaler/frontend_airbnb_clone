@@ -50,25 +50,7 @@ export const makeSpot = (data) => async (dispatch) => {
 
     if (response.ok) {
         const spot = await response.json();
-        if (data.previewImage) {
-            try {
-                await csrfFetch(`/api/spots/${spot.id}/images`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        url: data.previewImage,
-                        preview: true
-                    })
-                });
-                
-                spot.previewImage = data.previewImage;
-            } catch (imageError) {
-                console.error("Error adding preview image:", imageError);
-            }
-        }
-
+       
         dispatch(createSpot(spot));
         return spot;
     } else {
