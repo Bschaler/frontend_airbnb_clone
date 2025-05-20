@@ -8,15 +8,25 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn('Users', 'firstName', {   
-      type: Sequelize.STRING,
-      allowNull: true                                      
-    }, options);
+    options.tableName = "Users"; 
     
-    await queryInterface.addColumn('Users', 'lastName', {     
-      type: Sequelize.STRING,
-      allowNull: true                                      
-    }, options);
+    await queryInterface.addColumn(
+      options, 
+      'firstName', 
+      {   
+        type: Sequelize.STRING,
+        allowNull: true                                      
+      }
+    );
+    
+    await queryInterface.addColumn(
+      options, 
+      'lastName', 
+      {     
+        type: Sequelize.STRING,
+        allowNull: true                                      
+      }
+    );
   },
 
   async down(queryInterface, Sequelize) {

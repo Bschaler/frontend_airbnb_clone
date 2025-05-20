@@ -1,11 +1,13 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA || 'airbnb_schema';
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const options = process.env.NODE_ENV === 'production' ? {
-      schema: process.env.SCHEMA || 'airbnb_schema',
-    } : {};
-
     await queryInterface.createTable('Reviews', {
       id: {
         allowNull: false,
@@ -57,9 +59,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    const options = process.env.NODE_ENV === 'production' ? {
-      schema: process.env.SCHEMA
-    } : {};
-    await queryInterface.dropTable('Reviews', options);
+    options.tableName = "Reviews";
+    await queryInterface.dropTable(options);
   }
 };
