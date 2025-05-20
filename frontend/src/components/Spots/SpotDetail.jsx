@@ -47,9 +47,16 @@ function SpotDetail() {
     if (err) return <div>Oh no: {err}</div>
     if (!spot) return <div>No spot found...</div>;
 
-    const uniqueImages = spot.SpotImages ? [...new Map(
-        spot.SpotImages.map(img => [img.url, img])
-    ).values()] : [];
+    const uniqueImages = [];
+    if (spot.SpotImages) {
+      const urls = {};
+      for (let i = 0; i < spot.SpotImages.length; i++) {
+        if (!urls[spot.SpotImages[i].url]) {
+          urls[spot.SpotImages[i].url] = true;
+          uniqueImages.push(spot.SpotImages[i]);
+        }
+      }
+    }
     const previewImage = uniqueImages.find(img => img.preview === true);
     const additionalImages = uniqueImages.filter(img => img.preview !== true);
 
