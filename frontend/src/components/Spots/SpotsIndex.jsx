@@ -12,7 +12,7 @@ function SpotsIndex(){
     const spots = useSelector(state => {
         console.log('Current spots state:', state.spots);
      
-        if (state.spots?.allSpots?.Spots) {
+        if (state.spots && state.spots.allSpots && state.spots.allSpots.Spots) {
             return state.spots.allSpots.Spots;
         }
        

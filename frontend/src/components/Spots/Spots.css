@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
@@ -13,31 +15,93 @@
     flex-wrap: wrap;
     margin: 0 auto;
     padding: 20px;
-    max-width: 1200px;
+    max-width: 1000px;
   }
 
   .spot-card-link {
     width: 31%;
     margin: 1%;
     text-decoration: none;
-    color: rgba(55, 115, 187, 0.664);
+    color: black;
+  }
+  .spot-card {
+    border-radius: 10px;
+    overflow: hidden;
   }
 
+  .spot-image-container {
+    height: 220px;
+  }
+
+
+  .spot-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .spot-location {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .star-icon {
+    margin-right: 5px;
+  }
+
+  .spot-price {
+    font-weight: bold;
+  }
   .spot-detail {
     max-width: 1000px;
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
-    font-family: Arial, sans-serif;
-}
+  }
+
+.spot-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 48px;
+    margin-bottom: 24px;
+  }
+
+  .spot-left-column {
+    flex: 1;
+  }
+
+  .spot-detail h1 {
+    margin-bottom: 15px;
+    color: #000000; 
+    font-weight: bolder;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
 .spot-header {
     margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+ .spot-images {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+  height: 400px;
+  margin-bottom: 24px;
 }
 .host-info {
-    margin-bottom: 15px;
-}
-.spot-description {
-    margin-bottom: 20px;
-}
+    margin-bottom: 16px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .spot-description {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #222;
+    margin-bottom: 24px;
+  }
 .pricing-section {
     display: flex;
     justify-content: space-between;
@@ -45,19 +109,309 @@
     border-top: 1px solid #ddd;
     padding-top: 15px;
 }
+
+
+
+  .spot-info {
+    padding: 10px;
+    background-color: white;
+  }
+  .spot-location {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .spot-rating {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .star-icon {
+    color: #FF385C;
+    margin-right: 4px;
+  }
+
+  .rating-value {
+    font-weight: 500;
+  }
+
+  .rating-display .star-icon {
+    margin-right: 4px;
+  }
+
+  .spot-price {
+    font-weight: bold;
+    font-style:oblique;
+  }
+
+
+.spot-header {
+    margin-bottom: 20px;
+  }
+  .spot-images {
+    display: grid;
+    grid-template-columns: 2fr 1.8fr; 
+    grid-gap: 10px;
+    margin-bottom: 20px;
+    height: 400px;
+}
+
+
+.spot-host {
+    flex: 2;
+  }
+
+.spot-description {
+    margin-bottom: 20px;
+}
+
+.main-image-container {
+    grid-row: span 2; 
+    height: 100%;
+}
+
+.additional-images-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    height: 100%;
+}
+
+.main-spot-image,
+.additional-spot-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+.no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    color: #666;
+}
+
+.reservation-card {
+    flex: 1;
+    max-width: 360px;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    align-self: flex-start;
+  }
+
 .reserve-button {
-    background-color: #ff385c;
+    background-color: #FF385C;
     color: white;
+    font-weight: bold;
+    padding: 14px;
+    border-radius: 8px;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    width: 100%;
     cursor: pointer;
-}
-.reviews-section {
-    margin-top: 20px;
-}
-.single-review {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-}
+    font-size: 16px;
+    transition: background-color 0.2s;
+  }
+
+
+.price-rating-container {
+    margin-bottom: 20px;
+  }
+
+  .price-display {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .price-value {
+    font-size: 22px;
+    font-weight: 600;
+    margin-right: 5px;
+  }
   
+  .price-unit {
+    font-size: 16px;
+  }
+
+
+.bottom-spacing {
+    margin-bottom: 80px;
+  }
+
+
+  /* manage spots*/
+  .manage-spots-container .spots-container {
+    display:flexbox;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 100px;
+    padding: 20px
+  }
+
+  .manage-spots-container h1 {
+    text-align: center;
+    color: #FF385C;
+    margin-bottom: 30px;
+  }
+
+  .manage-spots-container .spot-card-wrapper {
+    width: 20%;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 5px #ccc;
+    border-radius: 10px;
+  }
+
+  .manage-spots-container .spot-card {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+    height: 100%;
+    cursor: pointer;
+  }
+  .manage-spots-container .spot-image-container {
+    height: 200px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .manage-spots-container .spot-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .manage-spots-container .spot-info {
+    padding: 15px;
+  }
+  .manage-spots-container .spot-rating {
+    font-weight: bold;
+  }
+  .manage-spots-container .spot-price {
+    margin-bottom: 30px;
+  }
+  .manage-spots-container .spot-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .manage-spots-container .no-spots {
+    text-align: center;
+  }
+
+
+  /* reviews*/
+  .reviews-section {
+    margin-top: 2px;
+    padding-top: 15px;
+    border-top: 5px solid #ddd;
+  }
+
+  .reviews-section h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .review-item {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 5px solid #eee;
+  }
+  .review-author {
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+  .review-date {
+    color: #000000;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  .post-review-button {
+    background-color: #FF385C;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-top: 16px;
+  }
+
+
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    background-color: #e6f2ff; 
+    border: 1px solid #999;
+    padding: 11px;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .update-spot-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .update-spot-container h1 {
+    text-align: center;
+    color: #ff385c;
+    margin-bottom: 20px;
+  }
+  .update-spot-container h2 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  label {
+    display: block;
+    margin-bottom: 9px;
+    font-weight: bold;
+  }
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  .spot-header h1, 
+.spot-detail h1 {
+  color: #000000; 
+  font-weight: bolder;
+  font-family: Arial, Helvetica, sans-serif ;
+}
+
+.spot-header p,
+.spot-location {
+  color: #000000;
+  font-weight: bold;
+}
+
+.spot-card .update-button,
+.spot-card .delete-button,
+.spot-card button {
+  display: block;
+  margin: 5px auto;
+  width: 50%;
+  text-align: center;
+}
+.manage-spots-container .create-new-spot-button {
+    display: block;
+    text-align: center;
+    margin: 0 auto 20px auto;
+    width: fit-content;
+    padding: 10px 20px;
+}

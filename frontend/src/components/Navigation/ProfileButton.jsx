@@ -1,7 +1,8 @@
 // frontend/src/components/Navigation/ProfileButton.jsx
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { FaUserCircle } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -43,15 +44,19 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
-      </button>
+      <button onClick={toggleMenu} className="profile-button">
+  <FontAwesomeIcon icon="circle-user" /> 
+</button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
+          
+            <li>
+              <NavLink to="/spots/current">Manage Spots</NavLink>
+            </li>
+          
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

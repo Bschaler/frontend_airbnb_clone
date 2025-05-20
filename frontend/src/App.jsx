@@ -4,7 +4,13 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import SpotsIndex from './components/Spots/SpotsIndex';
 import SpotDetail from './components/Spots/SpotDetail';
+import CreateSpotForm from './components/Spots/CreateSpotForm';
+import ManageSpots from './components/Spots/ManageSpots';
+import EditSpots from './components/Spots/EditSpots';
 import * as sessionActions from './store/session';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCircleUser, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+library.add(faCircleUser, faUserCircle);
 
 function Layout() {
   const dispatch = useDispatch();
@@ -33,8 +39,20 @@ const router = createBrowserRouter([
         element: <SpotsIndex/>
       },
       {
-      path: '/spots/:spotId',
-      element: <SpotDetail/>
+        path: '/spots/new',
+        element: <CreateSpotForm/>
+      },
+      {
+        path: '/spots/current',
+        element: <ManageSpots/>
+      },
+      {
+        path: '/spots/:spotId/edit',
+        element: <EditSpots/>
+      },
+      {
+        path: '/spots/:spotId',
+        element: <SpotDetail/>
       }
     ]
   }

@@ -12,44 +12,58 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     setErrors({});
+
+
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
       .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
+        try {
+          const data = await res.json();
+          if (data) {
+            if (data.errors) {
+              setErrors(data.errors);
+            } else if (data.message) {
+              setErrors({ credential: data.message });
+            } else {
+              setErrors({ credential: "Invalid credentials" });
+            }
+          }
+        } catch (event) {
+          setErrors({ credential: "The provided credentials were invalid." });
         }
       });
   };
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
+    <div className="login-form-container"></div>
+
+    
+    <h1>Log In</h1>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={credential}
+        onChange={(event) => setCredential(event.target.value)}
+        placeholder="Username or Email"
+        required
+      />
+      <input
+        type="password"
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+        placeholder="Password"
+        required
+      />
+      {errors.credential && (
+        <p className="error-message">{errors.credential}</p>
+      )}
+        
+    
+       
         <button type="submit">Log In</button>
       </form>
     </>

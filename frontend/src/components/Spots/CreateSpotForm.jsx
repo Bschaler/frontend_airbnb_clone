@@ -2,186 +2,207 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {makeSpot} from '../../store/spots';
+//import { useSelector } from 'react-redux';
 import './Spots.css';
+import { csrfFetch } from '../../store/csrf';
 //import { FaProjectDiagram } from 'react-icons/fa';
 
 function CreateSpotForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    //const sessionUser = useSelector(state => state.session.user);
+    
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [country, setCountry] = useState('');
+    const [price, setPrice] = useState('');
+    const [previewImg, setPreviewImg] = useState('');
+    const [img1, setImg1] = useState('');
+    const [img2, setImg2] = useState('');
+    const [img3, setImg3] = useState('');
+    const [img4, setImg4] = useState('');
+   
 
-const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    address: '',
-    city : '',
-    state: '',
-    country: '',
-    price: '',
-    previewImage: '',
-    image1: '',
-    image2: '',
-    image3: '',
-    image4: '',
-    image5: '',
-    image6: '',
-    image7: '',
-    image8: '',
-    image9: ''
-});
 
 
 
 const [errors, setErrors] = useState({});
 const [isSubmitting, setIsSubmitting] = useState(false);
-const formDataUpdate = (event) => {
-    const { name, value} = event.target;
-    console.log(`updating ${name} field to: ${value}`);
-   
 
-    setFormData({...formData, [name]: value});
+
+const handleChange = (e) => {
+    const {name, value} = e.target;
+    // console.log("input changed:", name, value);
+    
+    // update the right state based on input name
+    if (name === 'name') setName(value);
+    else if (name === 'description') setDescription(value);
+    else if (name === 'address') setAddress(value);
+    else if (name === 'city') setCity(value);
+    else if (name === 'state') setState(value);
+    else if (name === 'country') setCountry(value);
+    else if (name === 'price') setPrice(value);
+    else if (name === 'previewImg') setPreviewImg(value);
+    else if (name === 'img1') setImg1(value);
+    else if (name === 'img2') setImg2(value);
+    else if (name === 'img3') setImg3(value);
+    else if (name === 'img4') setImg4(value);
 };
 
-const validateImageUrl = (url) => {
-    const imgType = ['.png', '.jpg', '.jpeg'];
-    return imgType.some(ext => url.toLowerCase().includes(ext));
-};
+function checkImage(url) {
+    if(!url) return false;
+    return url.toLowerCase().endsWith('.png') || 
+           url.toLowerCase().endsWith('.jpg') || 
+           url.toLowerCase().endsWith('.jpeg');
+}
+const validate = () => {
+    const errors = {};
 
-const checkFormErrors = () => {
-    console.log("checking for any errors");
-    
-    const formErrors = {};
+    if(!name) errors.name = "Name is required";
+        
+        if(!description) {
+            errors.description = "Description is required";
+        } else if(description.length < 30) {
+            errors.description = "Description needs at least 30 characters";
+        }
+        
+        if(!address) errors.address = "Address is required";
+        if(!city) errors.city = "City is required";
+        if(!state) errors.state = "State is required";
+        if(!country) errors.country = "Country is required";
+        
+        if(!price) {
+            errors.price = "Price is required";
+        } else if(isNaN(price)) {
+            errors.price = "Price must be a number";
+        } else if(Number(price) <= 0) {
+            errors.price = "Price must be greater than 0";
+        }
+        
+        if(!previewImg) {
+            errors.previewImg = "Preview image is required";
+        } else if(!checkImage(previewImg)) {
+            errors.previewImg = "Image URL must end in .png, .jpg, or .jpeg";
+        }
+        
+        
+        return errors;
+    };
+  
 
-    if (!formData.description) {
-        formErrors.description = "Description is required";
-    } else if (formData.description.length < 30) {
-        formErrors.description = "Description needs 30 or more characters";
-    }
-    if (!formData.address) formErrors.address = "Address is required";
-    if(!formData.city) formErrors.city = "City is required";
-    if (!formData.state) formErrors.state = "State is required";
-    if (!formData.country) formErrors.country = "Country is required";
-
-
-    if (!formData.previewImage) {
-        formErrors.previewImage = "Preview image is required";
-    } else if (!validateImageUrl(formData.previewImage)) {
-        formErrors.previewImage = "Image must be .png, .jpg(or .jpeg)";
-    }
-   
-    
-    if (!formData.price) {
-        formErrors.price = "Price is required";
-    } else if (isNaN(formData.price)) {
-        formErrors.price = "Price must be a number";
-    } else if (Number(formData.price) <= 0) {
-        formErrors.price = "Price must be greater than zero";
-    }
-    
-    return formErrors;
-};
-
-const submitForm = async (event) => {
-    event.preventDefault();
-    console.log("submitting form:", formData);
-    
-    const formErrors = checkFormErrors();
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    // console.log("submitting...");
+  
+    const formErrors = validate();
     setErrors(formErrors);
-console.log("errors:", formErrors)
 
 if (Object.keys(formErrors).length > 0) {
-    console.log("ERROR! Cannot submit form");
+   // console.log("ERROR! Cannot submit form");
     return;
 }
 setIsSubmitting(true);
 
 
 const spotData = {
-    name: formData.name,
-    description: formData.description,
-    address: formData.address,
-    city: formData.city,
-    state: formData.state,
-    country: formData.country,
-    price: parseFloat(formData.price),
-    previewImage: formData.previewImage,
-    images: [
-        formData.image1,
-        formData.image2,
-        formData.image3,
-        formData.image4,
-        formData.image5,
-        formData.image6,
-        formData.image7,
-        formData.image8,
-        formData.image9],
-
-        //TODO need to get rid of slots if not in use
+    name,
+    description,
+    address,
+    city,
+    state, 
+    country,
+    lat: 37.7645358, 
+    lng: -122.4730327, 
+    price: parseFloat(price),
+    previewImage: previewImg
 };
-
 try {
-    const newSpot = await dispatch(makeSpot(spotData));
+ 
+    const spot = await dispatch(makeSpot(spotData));
+    console.log("created spot:", spot);
     
-    navigate(`/spots/${newSpot.id}`);
-} catch (error) {
-    console.log("Error creating spot:", error);
-    
-    setIsSubmitting(false);
+    if(spot && spot.id) {
+  
+        try {
+            await csrfFetch(`/api/spots/${spot.id}/images`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
 
-    if (error.errors) {
-        setErrors(error.errors);
-    } else {
-        setErrors({ form: 'Failed to create the spot. Please try again.' });
+                },
+                body: JSON.stringify({
+                    url: previewImg,
+                    preview: true
+                })
+            });
+            
+            
+            
+            const images = [img1, img2, img3, img4].filter(img => img);
+            
+            for(let i = 0; i < images.length; i++) {
+                try {
+                    await csrfFetch(`/api/spots/${spot.id}/images`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                           
+                        },
+                        body: JSON.stringify({
+                            url: images[i],
+                            preview: false
+                        })
+                    });
+                } catch(e) {
+                    console.log(`error adding image ${i+1}:`, e);
+                   
+                }
+            }
+            
+
+            navigate(`/spots/${spot.id}`);
+        } catch(err) {
+            console.log("error adding images:", err);
+           
+            navigate(`/spots/${spot.id}`);
+        }
     }
+} catch(err) {
+    console.log("failed to create spot:", err);
+    setIsSubmitting(false);
+    
+    setErrors({
+        form: "Something went wrong creating your spot"
+    });
 }
 };
 
+
 return (
 <div className = "create-spot-container">
-<h1>Create a New Spot</h1>
+    <h1>Create a New Spot</h1>
 
 
-<form onSubmit = {submitForm}>
-<div className="form-group">
-            <label htmlFor="name">Spot Name</label>
-            <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={formDataUpdate}
-                placeholder="Spot Name"
-            />
-            {errors.name && <div className="input-error">{errors.name}</div>}
-        </div>
+<form onSubmit = {handleSubmit}>
+    
 
-        <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={formDataUpdate}
-                placeholder="Describe your spot (min 30 characters)"
-            />
-            {errors.description && <div className="input-error">{errors.description}</div>}
-        </div>
-
-
-    <section className ="form-section">
-            <h2>Where is your rental located?</h2>
-                <p>No need to worry! Guests will not have access to address until reservation is complete!</p>
-                
-
-                <div className="form-group">
-                    <label htmlFor="address">Street Address</label>
-                    <input
-                        type="text"
-                        id="address"
-                        name="address"
-                        value={formData.address}
-                        onChange={formDataUpdate}
-                        placeholder="Address"/>
-                              {errors.address && <div className="input-error">{errors.address}</div>}
+     <section className="form-section">
+                    <h2>Where is your place located?</h2>
+                    <p>Guests will only get your exact address once they booked a reservation.</p>
+                  
+                    <div className="form-group">
+             <label htmlFor="address">Street Address</label>
+                 <input
+                     type="text"
+                     id="address"
+                    name="address"
+                    value={address}
+                     onChange={handleChange}
+                       placeholder="Address"/>
+                          {errors.address && <div className="input-error">{errors.address}</div>}
                        </div>
                       
              <div className="form-group">
@@ -190,19 +211,19 @@ return (
                       type="text"
                       id="city" 
                       name="city"
-                      value={formData.city} 
-                      onChange={formDataUpdate}
+                      value={city} 
+                      onChange={handleChange}
                       placeholder="City"/> 
                 {errors.city && <div className="input-error">{errors.city}</div>}
             </div>
 
             <div className = 'form-group'>
-                <label htmlFor = 'state'>State/Province</label> {/* Changed label text inconsistently */}
+                <label htmlFor = 'state'>State/Province</label> 
                 <input type='text' 
                 id='state' 
                 name='state' 
-                value = {formData.state} 
-                onChange = {formDataUpdate} 
+                value = {state} 
+                onChange = {handleChange} 
                 placeholder='State'/>
                 {errors.state && <div className='input-error'>{errors.state}</div>}
             </div>
@@ -214,13 +235,43 @@ return (
                         type="text"
                         id="country"
                         name="country"
-                        value={formData.country}
-                        onChange={formDataUpdate}
+                        value={country}
+                        onChange={handleChange}
                         placeholder="Country"/> 
                         {errors.country && <div className="input-error">{errors.country}</div>}
                     </div>
                     
                        </section>
+
+     <section className="form-section">
+          <h2>Describe your rental</h2>
+         
+          <div className="form-group">         
+            <label htmlFor="name">Rental Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value={name}
+                onChange={handleChange}
+                placeholder="Rental name..."
+            />
+            {errors.name && <div className="input-error">{errors.name}</div>}
+        </div>
+
+        <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+                id="description"
+                name="description"
+                value={description}
+                onChange={handleChange}
+                placeholder="Describe your spot (min 30 characters)"
+            />
+            {errors.description && <div className="input-error">{errors.description}</div>}
+        </div>
+    </section>
+
 
             <section className="form-section">
                 <h2>Set price for your rental</h2>
@@ -230,8 +281,8 @@ return (
                             type="text"
                             id="price"
                             name="price"
-                            value={formData.price}
-                            onChange={formDataUpdate}
+                            value={price}
+                            onChange={handleChange}
                             placeholder="Price"/>
                         {errors.price && <div className="input-error">{errors.price}</div>}
                     </div>
@@ -240,59 +291,69 @@ return (
                 <section className="form-section">
                     <h2>Add images of your rental</h2>
                     <div className="form-group">
-                        <label htmlFor="previewImage">Preview Image URL</label>
+                        <label htmlFor="previewImg">Preview Image URL</label>
                         <input
                             type="text"
-                            id="previewImage"
-                            name="previewImage"
-                            value={formData.previewImage}
-                            onChange={formDataUpdate}
+                            id="previewImg"
+                            name="previewImg"
+                            value={previewImg}
+                            onChange={handleChange
+                            }
                             placeholder="Preview Image URL (.png, .jpg, or .jpeg)"/>
-                        {errors.previewImage && <div className="input-error">{errors.previewImage}</div>}
+                        {errors.previewImg && <div className="input-error">{errors.previewImg}</div>}
                     </div> 
                     <div className="form-group">
     
-                        <label htmlFor="image1">First Additional Image</label>
+                        <label htmlFor="img1">Image 1</label>
                             <input
                                 type="text"
-                                 id="image1"
-                                name="image1"
-                                 value={formData.image1}
-                                 onChange={formDataUpdate}
+                                 id="img1"
+                                name="img1"
+                                 value={img1}
+                                 onChange={handleChange}
                                  placeholder="Image URL (optional)"
                                  />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="image2">Second Additional Image</label>
+                        <label htmlFor="image2">Image 2</label>
                         <input
                              type="text"
-                             id="image2"
-                             name="image2"
-                            value={formData.image2}
-                            onChange={formDataUpdate}
+                             id="img2"
+                             name="img2"
+                            value={img2}
+                            onChange={handleChange}
                             placeholder="Image URL (optional)"
                             />
                     </div>
 
-        {/* Tried to make this more efficient but still a bit repetitive */}
-        {/* TODO: refactor this later? */}
-                    {['image3', 'image4', 'image5', 'image6', 'image7', 'image8', 'image9'].map((imgField, idx) => {
-                        return (
-                             <div className="form-group" key={imgField}>
-                               <label htmlFor={imgField}>Additional Image {idx + 3}</label>
-                              <input
-                                   type="text"
-                                  id={imgField}
-                                 name={imgField}
-                                 value={formData[imgField]}
-                                 onChange={formDataUpdate}
-                                placeholder="Image URL (optional)"
-                                />
-                             </div>
-                        )
-                    })}
-                    </section>
+                    <div className="form-group">
+                        <label htmlFor="img3">Image 3</label>
+                        <input
+                            type="text"
+                            id="img3"
+                            name="img3"
+                            value={img3}
+                            onChange={handleChange}
+                            placeholder="Image URL (optional)"
+                        />
+                    </div>
+
+                     
+                    <div className="form-group">
+                        <label htmlFor="img4">Image 4</label>
+                        <input
+                            type="text"
+                            id="img4"
+                            name="img4"
+                            value={img4}
+                            onChange={handleChange}
+                            placeholder="Image URL (optional)"
+                        />
+
+        </div>
+ 
+</section>
 
 
             <div className='form-submit'>
@@ -300,7 +361,7 @@ return (
                     type = "submit"
                     className = "submit-button"
                     >
-                         {isSubmitting ? 'Creating...' : 'Create Rentl!'}
+                         {isSubmitting ? 'Creating...' : 'Create New Rental!'}
                 </button>
 
             </div>
