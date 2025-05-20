@@ -45,6 +45,21 @@ app.get('/health', (req, res) => {
   });
 });
  
+
+app.get('/', (req, res) => {
+  res.json({
+    message: 'AirBnB Clone API',
+    endpoints: {
+      csrf: '/api/csrf/restore',
+      spots: '/api/spots',
+      users: '/api/users',
+      sessions: '/api/session',
+      bookings: '/api/bookings',
+      reviews: '/api/reviews'
+    }
+  });
+});
+
 app.use(
   helmet.crossOriginResourcePolicy({
     policy: 'cross-origin'                           
