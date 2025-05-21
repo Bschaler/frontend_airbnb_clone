@@ -43,6 +43,11 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
+    const options = {};
+    if (process.env.NODE_ENV === 'production') {
+      options.schema = process.env.SCHEMA || 'airbnb_schema';
+    }
+    
     options.tableName = "Users";
     return queryInterface.dropTable(options);     
   }

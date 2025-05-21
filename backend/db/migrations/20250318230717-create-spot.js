@@ -73,6 +73,10 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
+    const options = process.env.NODE_ENV === 'production' ? {
+      schema: process.env.SCHEMA
+    } : {};
+    
     options.tableName = "Spots";
     return queryInterface.dropTable(options);
   }

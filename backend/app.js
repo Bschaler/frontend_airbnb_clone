@@ -30,13 +30,16 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));  
 
  
-app.use(cors({ 
+app.use(cors({
   origin: isProduction 
     ? 'https://frontend-airbnb-clone.onrender.com'
-    : 'http://localhost:3000', 
-  credentials: true 
+    : 'http://localhost:3000',
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
+  exposedHeaders: ['set-cookie']
 }));
 
+app.options('*', cors());
 app.get('/health', (req, res) => {
   res.status(200).json({ 
     status: 'ok', 
@@ -71,15 +74,20 @@ app.use(
   csurf({
     cookie: {
       secure: isProduction,                          
-      sameSite: isProduction ? 'Lax' : 'Strict',     
-      httpOnly: true                                 
+      sameSite: isProduction ? 'None' : 'Lax',   
+      httpOnly: true ,
+      path:   '/'                     
     }
   })
 );
 
 app.get('/api/csrf/restore', (req, res) => {
   const csrfToken = req.csrfToken();
-  res.cookie("XSRF-TOKEN", csrfToken);
+  res.cookie("XSRF-TOKEN", csrfToken, {
+    secure: isProduction,
+    sameSite: isProduction ? 'None' : 'Lax', 
+    path: '/'
+  });
   res.status(200).json({
     'XSRF-Token': csrfToken
   });
@@ -89,7 +97,7 @@ if (routes) {
   console.log('Routes type:', typeof routes);
   console.log('Is routes function?', typeof routes === 'function');
   
-  // Try to use routes safely
+
   try {
     app.use(routes);
     console.log('Routes mounted successfully');
@@ -104,6 +112,14 @@ app.get('/api', (req, res) => {
 });
 
 }
+
+app.get('/direct-test', (req, res) => {
+  res.json({ message: 'Direct test endpoint working' });
+});
+
+app.get('/api-test', (req, res) => {
+  res.json({ message: 'API test endpoint working' });
+});
 
 
 // Serve frontend for non-API routes (SPA support)

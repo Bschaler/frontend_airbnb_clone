@@ -45,8 +45,11 @@ module.exports = {
       },
     }, options);
   },
-
   down: (queryInterface, Sequelize) => {
+    const options = process.env.NODE_ENV === 'production' ? {
+      schema: process.env.SCHEMA
+    } : {};
+    
     options.tableName = "SpotImages";
     return queryInterface.dropTable(options);
   },

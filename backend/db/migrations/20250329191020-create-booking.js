@@ -47,7 +47,11 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Bookings";
+    const options = process.env.NODE_ENV === 'production' ? {
+      schema: process.env.SCHEMA
+    } : {};
+    
+    options.tableName = 'Bookings';
     await queryInterface.dropTable(options);
   }
 };
