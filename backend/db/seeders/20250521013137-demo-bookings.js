@@ -1,67 +1,92 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const now = new Date();
-    
-    // Get users
-    const users = await queryInterface.sequelize.query(
-      'SELECT id FROM Users',
-      { type: Sequelize.QueryTypes.SELECT }
-    );
-    
-    // Get spots
-    const spots = await queryInterface.sequelize.query(
-      'SELECT id FROM Spots',
-      { type: Sequelize.QueryTypes.SELECT }
-    );
-    
-    if (!users.length || !spots.length) {
-      console.log('Users or spots not found, skipping booking creation');
-      return;
+    if (process.env.NODE_ENV === 'production') {
+      await queryInterface.sequelize.query(`SET search_path TO "${process.env.SCHEMA}", public;`);
     }
+
+    const usersTable = process.env.NODE_ENV === 'production' ? `${process.env.SCHEMA}.Users` : 'Users';
+    const spotsTable = process.env.NODE_ENV === 'production' ? `${process.env.SCHEMA}.Spots` : 'Spots';
     
-    // Function to generate dates
+    const users = await queryInterface.sequelize.query(
+      `SELECT id FROM ${usersTable} LIMIT 3;`,
+      { type: Sequelize.QueryTypes.SELECT }
+    );
+    
+    const spots = await queryInterface.sequelize.query(
+      `SELECT id FROM ${spotsTable} LIMIT 3;`,
+      { type: Sequelize.QueryTypes.SELECT }
+    );
+    
+    if (!users || users.length === 0 || !spots || spots.length === 0) {
+      throw new Error('Users or spots not found. Make sure to seed them first.');
+    }
+
     function getDates(startDays, length) {
       const startDate = new Date();
       startDate.setDate(startDate.getDate() + startDays);
       const endDate = new Date(startDate);
       endDate.setDate(endDate.getDate() + length);
       return {
-        startDate: startDate,
-        endDate: endDate,
+        startDate: startDate.toISOString().split('T')[0], 
+        endDate: endDate.toISOString().split('T')[0],    
       };
     }
-    
-    return queryInterface.bulkInsert('Bookings', [
+
+    const bookings = [
       {
         spotId: spots[0].id,
-        userId: users[1].id,  // FakeUser1
-        startDate: getDates(10, 5).startDate,
-        endDate: getDates(10, 5).endDate,
-        createdAt: now,
-        updatedAt: now
+        userId: users[1].id,
+        ...getDates(10, 5),
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         spotId: spots[0].id,
-        userId: users[2].id,  // FakeUser2
-        startDate: getDates(20, 5).startDate,
-        endDate: getDates(20, 5).endDate,
-        createdAt: now,
-        updatedAt: now
+        userId: users[2].id,
+        ...getDates(20, 5),
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         spotId: spots[1].id,
-        userId: users[0].id,  
-        startDate: getDates(5, 3).startDate,
-        endDate: getDates(5, 3).endDate,
-        createdAt: now,
-        updatedAt: now
-      }
-    ]);
+        userId: users[0].id,
+        ...getDates(5, 3),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: spots[1].id,
+        userId: users[2].id,
+        ...getDates(12, 4),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: spots[2].id,
+        userId: users[1].id,
+        ...getDates(30, 5),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+    ];
+
+    const bookingsTable = process.env.NODE_ENV === 'production' ? `${process.env.SCHEMA}.Bookings` : 'Bookings';
+    return queryInterface.bulkInsert(bookingsTable, bookings, {});
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Bookings', null, {});
+    if (process.env.NODE_ENV === 'production') {
+      await queryInterface.sequelize.query(`SET search_path TO "${process.env.SCHEMA}", public;`);
+    }
+    
+    const bookingsTable = process.env.NODE_ENV === 'production' ? `${process.env.SCHEMA}.Bookings` : 'Bookings';
+    return queryInterface.bulkDelete(bookingsTable, {}, {});
   }
 };

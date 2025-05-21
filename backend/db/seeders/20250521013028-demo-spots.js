@@ -1,12 +1,23 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     const now = new Date();
     
-    // Get the demo user ID
+ 
+    if (process.env.NODE_ENV === 'production') {
+      await queryInterface.sequelize.query(`SET search_path TO "${process.env.SCHEMA}", public;`);
+    }
+    
+   
+    const usersTable = process.env.NODE_ENV === 'production' ? `${process.env.SCHEMA}.Users` : 'Users';
     const demoUser = await queryInterface.sequelize.query(
-      'SELECT id FROM Users WHERE username = "Demo-lition" LIMIT 1',
+      `SELECT id FROM ${usersTable} WHERE username = 'Demo-lition' LIMIT 1`,
       { type: Sequelize.QueryTypes.SELECT }
     );
     
@@ -17,7 +28,9 @@ module.exports = {
     
     const demoUserId = demoUser[0].id;
     
-    return queryInterface.bulkInsert('Spots', [
+    
+    const spotsTable = process.env.NODE_ENV === 'production' ? `${process.env.SCHEMA}.Spots` : 'Spots';
+    return queryInterface.bulkInsert(spotsTable, [
       {
         ownerId: demoUserId,
         address: '123 Demo Street',
@@ -50,6 +63,13 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Spots', null, {});
+
+    if (process.env.NODE_ENV === 'production') {
+      await queryInterface.sequelize.query(`SET search_path TO "${process.env.SCHEMA}", public;`);
+    }
+    
+ 
+    const spotsTable = process.env.NODE_ENV === 'production' ? `${process.env.SCHEMA}.Spots` : 'Spots';
+    return queryInterface.bulkDelete(spotsTable, null, {});
   }
 };
