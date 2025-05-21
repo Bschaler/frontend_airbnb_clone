@@ -2,20 +2,20 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-  
+   
     if (process.env.NODE_ENV === 'production') {
       await queryInterface.sequelize.query(`SET search_path TO "${process.env.SCHEMA}", public;`);
     }
     
-
+   
     const users = await queryInterface.sequelize.query(
-      `SELECT id FROM Users LIMIT 3;`,
+      `SELECT id FROM "Users" LIMIT 3;`,
       { type: Sequelize.QueryTypes.SELECT }
     );
     
    
     const spots = await queryInterface.sequelize.query(
-      `SELECT id FROM Spots LIMIT 3;`,
+      `SELECT id FROM "Spots" LIMIT 3;`,
       { type: Sequelize.QueryTypes.SELECT }
     );
     
@@ -24,7 +24,7 @@ module.exports = {
       return;
     }
 
-   
+  
     const today = new Date();
     const futureDate1 = new Date();
     futureDate1.setDate(today.getDate() + 15);
@@ -35,7 +35,7 @@ module.exports = {
     const futureDate3 = new Date();
     futureDate3.setDate(today.getDate() + 8);
     
-    
+  
     const bookings = [
       {
         spotId: spots[0].id,
@@ -63,17 +63,16 @@ module.exports = {
       }
     ];
 
-  
+   
     return queryInterface.bulkInsert('Bookings', bookings, {});
   },
 
   async down(queryInterface, Sequelize) {
- 
+
     if (process.env.NODE_ENV === 'production') {
       await queryInterface.sequelize.query(`SET search_path TO "${process.env.SCHEMA}", public;`);
     }
     
-
     return queryInterface.bulkDelete('Bookings', null, {});
   }
 };
