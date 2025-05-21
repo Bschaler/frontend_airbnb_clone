@@ -76,7 +76,7 @@ router.get('/', validateQueryFilters, async (req, res) => {
           [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
         ]
       },
-      group: ['Spot.id'],
+      group: ['Spot.id', 'SpotImages.id'],
       subQuery: false
     });
 
