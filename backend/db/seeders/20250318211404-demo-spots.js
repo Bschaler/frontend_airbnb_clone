@@ -1,8 +1,38 @@
 'use strict';
 const { User, Spot, SpotImage } = require('../models');
-
+const bcrypt = require('bcryptjs');
 module.exports = {
   async up(queryInterface, Sequelize) {
+
+    try {
+      await User.bulkCreate([
+        {
+          email: 'demo@user.io',
+          username: 'Demo-lition',
+          firstName: 'Frodo',
+          lastName: 'Baggins',
+          hashedPassword: bcrypt.hashSync('password')
+        },
+        {
+          email: 'user1@user.io',
+          username: 'FakeUser1',
+          firstName: 'Jarvis',
+          lastName: 'Script',
+          hashedPassword: bcrypt.hashSync('password2')
+        },
+        {
+          email: 'user2@user.io',
+          username: 'FakeUser2',
+          firstName: 'Terry',
+          lastName: 'Dactyl',
+          hashedPassword: bcrypt.hashSync('password3')
+        }
+      ], { validate: true });
+      console.log('Users created successfully');
+    } catch (error) {
+      // Users might already exist from the dedicated user seeder, that's fine
+      console.log('Users creation skipped - might already exist');
+    }
     // Get all three demo users
     const demoUser = await User.findOne({ where: { username: 'Demo-lition' } });
     const user1 = await User.findOne({ where: { username: 'FakeUser1' } });
@@ -58,7 +88,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      // Updated descriptions under 255 characters:
+     
 
 {
   ownerId: demoUser.id,
