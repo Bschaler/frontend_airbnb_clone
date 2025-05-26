@@ -69,7 +69,7 @@ app.use(
   })
 );
 
- 
+ /*
 app.use(
   csurf({
     cookie: {
@@ -92,7 +92,7 @@ app.get('/api/csrf/restore', (req, res) => {
     'XSRF-Token': csrfToken
   });
 });
- 
+ */
 if (routes) {
   console.log('Routes type:', typeof routes);
   console.log('Is routes function?', typeof routes === 'function');
