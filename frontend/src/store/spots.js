@@ -14,7 +14,7 @@ export const updateSpot = (spot) => ({type: update_spot, spot});
 export const deleteSpot = (spotId) => ({type: delete_spot, spotId});
 
 export const fetchSpots = () => async (dispatch) => {
-    const response = await fetch('/api/spots');
+    const response = await csrfFetch('/api/spots');
 
     if (response.ok) {
         const spots = await response.json();
@@ -25,7 +25,7 @@ export const fetchSpots = () => async (dispatch) => {
 // TODO: add error handling here later
 export const fetchSpotDetail = (spotId) => async (dispatch) => {
     try {
-        const response = await fetch(`/api/spots/${spotId}`);
+        const response = await csrfFetch(`/api/spots/${spotId}`);
         
         if (response.ok) {
             const spotData = await response.json();
