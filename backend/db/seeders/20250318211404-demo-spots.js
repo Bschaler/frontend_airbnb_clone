@@ -58,108 +58,112 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      {
-        ownerId: demoUser.id,
-        address: '42 Bourbon Trail',
-        city: 'Louisville',
-        state: 'KY',
-        country: 'USA',
-        lat: 38.2542,
-        lng: -85.7585,
-        name: 'Historic Bourbon District Loft',
-        description: 'Step into Kentucky\'s rich bourbon heritage in this beautifully restored 1890s warehouse loft. Exposed brick walls, original hardwood floors, and industrial fixtures create an authentic atmosphere. Located in the heart of Louisville\'s Bourbon District, you\'re walking distance to iconic distilleries, craft cocktail bars, and the famous Kentucky Derby Museum. The loft features a fully equipped kitchen with premium bourbon for tastings, a cozy reading nook, and stunning views of the Ohio River.',
-        price: 165.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      
-      // FakeUser1's spots (3 spots)
-      {
-        ownerId: user1.id,
-        address: '88 Red Rock Canyon Road',
-        city: 'Sedona',
-        state: 'AZ',
-        country: 'USA',
-        lat: 34.8697,
-        lng: -111.7610,
-        name: 'Red Rock Sanctuary Retreat',
-        description: 'Immerse yourself in Sedona\'s mystical energy at this stunning adobe-style home nestled among towering red rock formations. Wake up to breathtaking sunrise views over Cathedral Rock from the private hot tub on your expansive deck. This peaceful sanctuary features Southwestern décor, a meditation room with floor-to-ceiling windows, and a gourmet kitchen stocked with local organic ingredients. Perfect for spiritual retreats, romantic getaways, or adventure seekers wanting to explore world-class hiking trails, vortex sites, and art galleries.',
-        price: 285.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        ownerId: user1.id,
-        address: '1492 Historic Wharf',
-        city: 'Charleston',
-        state: 'SC',
-        country: 'USA',
-        lat: 32.7767,
-        lng: -79.9311,
-        name: 'Antebellum Charm Historic Carriage House',
-        description: 'Experience Southern hospitality at its finest in this meticulously restored 1847 carriage house in Charleston\'s coveted Historic District. Original heart pine floors, 14-foot ceilings, and period antiques transport you to the antebellum era. The private courtyard garden blooms with jasmine and magnolias, creating a romantic atmosphere for evening cocktails. Stroll cobblestone streets to renowned restaurants, rainbow row, and historic plantations. Includes complimentary sweet tea, pralines, and insider recommendations for the best shrimp and grits in the Holy City.',
-        price: 195.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        ownerId: user1.id,
-        address: '2001 Glacier View Drive',
-        city: 'Jackson',
-        state: 'WY',
-        country: 'USA',
-        lat: 43.4799,
-        lng: -110.7624,
-        name: 'Mountain Lodge at Grand Teton',
-        description: 'Escape to this luxury mountain lodge with unobstructed views of the Grand Teton mountain range. This architect-designed retreat features soaring timber beam ceilings, a massive stone fireplace, and floor-to-ceiling windows showcasing the dramatic alpine landscape. The gourmet kitchen is perfect for preparing meals with locally-sourced ingredients. Enjoy wildlife viewing from the wraparound deck - elk, moose, and eagles are frequent visitors. World-class skiing, hiking, and fishing are minutes away. Includes access to private hot tub, game room, and concierge services.',
-        price: 425.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      
-      // FakeUser2's spots (3 spots)
-      {
-        ownerId: user2.id,
-        address: '101 Island Paradise Lane',
-        city: 'Key West',
-        state: 'FL',
-        country: 'USA',
-        lat: 24.5551,
-        lng: -81.7800,
-        name: 'Tropical Paradise Beach House',
-        description: 'Live the island dream in this stunning beachfront retreat just steps from crystal-clear turquoise waters. This classic Key West conch house features wrap-around porches, ceiling fans, and tropical décor that captures the laid-back island vibe. Watch spectacular sunsets from your private beach access while sipping mojitos from the tiki bar. The open-concept living space flows seamlessly to outdoor areas perfect for lounging in hammocks or grilling fresh-caught fish. Walking distance to Duval Street\'s legendary nightlife, Hemingway House, and world-class snorkeling at the coral reef.',
-        price: 340.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        ownerId: user2.id,
-        address: '777 Vineyard Estate Road',
-        city: 'Napa',
-        state: 'CA',
-        country: 'USA',
-        lat: 38.2975,
-        lng: -122.2869,
-        name: 'Luxury Vineyard Estate Villa',
-        description: 'Indulge in the ultimate wine country experience at this exclusive estate villa surrounded by rolling vineyard hills. This Mediterranean-inspired retreat features a private wine cellar, tasting room, and panoramic valley views from every room. The gourmet kitchen is equipped with professional-grade appliances perfect for pairing with world-class Napa Valley wines. Relax by the infinity pool overlooking the vines, enjoy private wine tastings on the terrace, or explore nearby Michelin-starred restaurants. Includes concierge services for exclusive winery tours and reservations at the valley\'s most sought-after establishments.',
-        price: 650.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        ownerId: user2.id,
-        address: '1776 Freedom Trail',
-        city: 'Boston',
-        state: 'MA',
-        country: 'USA',
-        lat: 42.3601,
-        lng: -71.0589,
-        name: 'Revolutionary War Era Brownstone',
-        description: 'Step into American history in this meticulously preserved 1780s Federal-style brownstone on Boston\'s iconic Beacon Hill. Original wide-plank floors, working fireplaces, and period furnishings create an authentic colonial atmosphere. The gas-lit streets and brick sidewalks transport you to Revolutionary War times. This three-story townhouse features a private garden, library with first-edition books, and modern amenities seamlessly integrated with historical charm. Walk the Freedom Trail to historic sites, enjoy world-class seafood in the North End, or catch a Red Sox game at nearby Fenway Park.',
-        price: 275.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
+      // Updated descriptions under 255 characters:
+
+{
+  ownerId: demoUser.id,
+  address: '42 Bourbon Trail',
+  city: 'Louisville',
+  state: 'KY',
+  country: 'USA',
+  lat: 38.2542,
+  lng: -85.7585,
+  name: 'Historic Bourbon District Loft',
+  description: 'Beautifully restored 1890s warehouse loft with exposed brick walls and original hardwood floors. Located in Louisville\'s Bourbon District, walking distance to distilleries and the Kentucky Derby Museum.',
+  price: 165.00,
+  createdAt: new Date(),
+  updatedAt: new Date()
+},
+
+{
+  ownerId: user1.id,
+  address: '88 Red Rock Canyon Road',
+  city: 'Sedona',
+  state: 'AZ',
+  country: 'USA',
+  lat: 34.8697,
+  lng: -111.7610,
+  name: 'Red Rock Sanctuary Retreat',
+  description: 'Stunning adobe-style home with breathtaking red rock views and private hot tub. Features Southwestern décor, meditation room, and gourmet kitchen. Perfect for spiritual retreats and hiking adventures.',
+  price: 285.00,
+  createdAt: new Date(),
+  updatedAt: new Date()
+},
+
+{
+  ownerId: user1.id,
+  address: '1492 Historic Wharf',
+  city: 'Charleston',
+  state: 'SC',
+  country: 'USA',
+  lat: 32.7767,
+  lng: -79.9311,
+  name: 'Antebellum Charm Historic Carriage House',
+  description: 'Meticulously restored 1847 carriage house in Charleston\'s Historic District. Original heart pine floors, 14-foot ceilings, and private courtyard garden with jasmine and magnolias.',
+  price: 195.00,
+  createdAt: new Date(),
+  updatedAt: new Date()
+},
+
+{
+  ownerId: user1.id,
+  address: '2001 Glacier View Drive',
+  city: 'Jackson',
+  state: 'WY',
+  country: 'USA',
+  lat: 43.4799,
+  lng: -110.7624,
+  name: 'Mountain Lodge at Grand Teton',
+  description: 'Luxury mountain lodge with unobstructed Grand Teton views. Features timber beam ceilings, stone fireplace, and wraparound deck for wildlife viewing. World-class skiing and hiking nearby.',
+  price: 425.00,
+  createdAt: new Date(),
+  updatedAt: new Date()
+},
+
+{
+  ownerId: user2.id,
+  address: '101 Island Paradise Lane',
+  city: 'Key West',
+  state: 'FL',
+  country: 'USA',
+  lat: 24.5551,
+  lng: -81.7800,
+  name: 'Tropical Paradise Beach House',
+  description: 'Classic Key West conch house with wrap-around porches and private beach access. Features tropical décor, tiki bar, and open-concept living. Walking distance to Duval Street nightlife.',
+  price: 340.00,
+  createdAt: new Date(),
+  updatedAt: new Date()
+},
+
+{
+  ownerId: user2.id,
+  address: '777 Vineyard Estate Road',
+  city: 'Napa',
+  state: 'CA',
+  country: 'USA',
+  lat: 38.2975,
+  lng: -122.2869,
+  name: 'Luxury Vineyard Estate Villa',
+  description: 'Exclusive estate villa surrounded by vineyard hills. Features private wine cellar, tasting room, infinity pool, and panoramic valley views. Includes concierge services for winery tours.',
+  price: 650.00,
+  createdAt: new Date(),
+  updatedAt: new Date()
+},
+
+{
+  ownerId: user2.id,
+  address: '1776 Freedom Trail',
+  city: 'Boston',
+  state: 'MA',
+  country: 'USA',
+  lat: 42.3601,
+  lng: -71.0589,
+  name: 'Revolutionary War Era Brownstone',
+  description: 'Meticulously preserved 1780s Federal-style brownstone on Beacon Hill. Original wide-plank floors, working fireplaces, and private garden. Walk to Freedom Trail historic sites.',
+  price: 275.00,
+  createdAt: new Date(),
+  updatedAt: new Date()
+}
     ], { validate: true, returning: true });
 
     // Create spot images
