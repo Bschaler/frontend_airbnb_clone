@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-const apiUrl = import.meta.env.PROD ? (import.meta.env.VITE_API_URL || '') : '';
+const apiUrl = import.meta.env.PROD ? 'https://brian-auth-me.onrender.com' : '';
 
 export async function csrfFetch(url, options = {}) {
   const fullUrl = `${apiUrl}${url}`;
