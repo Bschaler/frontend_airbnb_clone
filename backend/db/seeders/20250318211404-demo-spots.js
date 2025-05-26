@@ -168,7 +168,7 @@ module.exports = {
 
     // Create spot images
     await SpotImage.bulkCreate([
-      // Demo-lition's spot images (spots[0-3])
+      // Demo-lition's spot images [0-3]
       //SF
       {
         spotId: spots[0].id,
