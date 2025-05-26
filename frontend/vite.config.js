@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => ({
     proxy: {
       '/api': mode === 'development'
         ? 'http://localhost:8000'  
-        : '/' 
-  }
+        : 'https://brian-auth-me.onrender.com'
+    }
 }
 }));
