@@ -11,10 +11,10 @@ import * as sessionActions from './store/session';
 import { Modal, ModalProvider } from './context/Modal';
 
 const store = configureStore();
-restoreCSRF();
+//restoreCSRF();
 if (import.meta.env.MODE !== 'production') {
  
-  window.csrfFetch = csrfFetch;
+  //window.csrfFetch = csrfFetch;
   window.store = store;
   window.sessionActions = sessionActions;
 }
