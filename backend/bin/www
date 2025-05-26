@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 // backend/bin/www
-
 require('dotenv').config();                 
 
 const { port } = require('../config');
@@ -8,48 +7,12 @@ const { port } = require('../config');
 const app = require('../app');
 const db = require('../db/models');
 
-
 db.sequelize
   .authenticate()                            
   .then(() => {
     console.log('Database connection success! Sequelize is ready to use...');
 
-  
-    const server = app.listen(port, '0.0.0.0', () => {
-      console.log(`Listening on port ${port} on host 0.0.0.0...`);
-    });
-
-
-    server.keepAliveTimeout = 120000;
-    server.headersTimeout = 121000; 
-
-
-    server.on('error', (error) => {
-      console.error('Server error:', error);
-    
-      if (error.code === 'EADDRINUSE') {
-        console.log('Address in use, retrying...');
-        setTimeout(() => {
-          server.close();
-          server.listen(port, '0.0.0.0');
-        }, 1000);
-      }
-    });
-
-   
-    process.on('SIGTERM', () => {
-      console.log('SIGTERM received, shutting down gracefully');
-      server.close(() => {
-        console.log('Server closed');
-        process.exit(0);
-      });
-      
-
-      setTimeout(() => {
-        console.log('Forcing server close');
-        process.exit(1);
-      }, 30000);
-    });
+    app.listen(port, () => console.log(`Listening on port ${port}...`));
   })
   .catch((err) => {
     console.log('Database connection failure.');
