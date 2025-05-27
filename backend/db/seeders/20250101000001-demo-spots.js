@@ -4,7 +4,7 @@ const { User, Spot, SpotImage } = require('../models');
 module.exports = {
   async up(queryInterface, Sequelize) {
 
-    // Get all three demo users
+    
     const demoUser = await User.findOne({ where: { username: 'Demo-lition' } });
     const user1 = await User.findOne({ where: { username: 'FakeUser1' } });
     const user2 = await User.findOne({ where: { username: 'FakeUser2' } });
@@ -167,7 +167,7 @@ module.exports = {
 }
     ], { validate: true, returning: true });
 
-    // Create spot images
+    
     await SpotImage.bulkCreate([
       // Demo-lition's spot images [0-3]
       //SF
