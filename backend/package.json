@@ -8,7 +8,7 @@
     "start": "per-env",
     "start:development": "nodemon ./bin/www",
     "start:production": "node ./bin/www",
-    "build": "npm install && node psql-setup-script.js && NODE_ENV=production npx sequelize-cli db:migrate && NODE_ENV=production npx sequelize-cli db:seed --seed 20250101000000-demo-user.js && NODE_ENV=production npx sequelize-cli db:seed --seed 20250101000001-demo-spots.js && NODE_ENV=production npx sequelize-cli db:seed --seed 20250101000002-demo-bookings.js",
+       "build": "npm install && node psql-setup-script.js && NODE_ENV=production npx sequelize-cli db:migrate && echo 'Checking seeders directory...' && ls -la db/seeders/ && echo 'Trying seeders...' && NODE_ENV=production npx sequelize-cli db:seed:all --config ./config/database.js --seeders-path ./db/seeders",
     "dev": "nodemon ./bin/www",
     "fix_deploy": "node -e \"const models = require('./db/models'); models.sequelize.query('SET search_path TO \\\"airbnb_schema\\\", public;').then(function() { console.log('Search path set!'); models.User.sync({force: true}).then(function() { console.log('Users table created!'); models.Spot.sync({force: true}).then(function() { console.log('Spots table created!'); models.SpotImage.sync({force: true}).then(function() { console.log('SpotImages table created!'); models.Review.sync({force: true}).then(function() { console.log('Reviews table created!'); models.ReviewImage.sync({force: true}).then(function() { console.log('ReviewImages table created!'); models.Booking.sync({force: true}).then(function() { console.log('Bookings table created!'); console.log('All done!'); process.exit(0); }); }); }); }); }); }); })\"",
     "db-test": "node db-test.js"
