@@ -23,6 +23,11 @@ const validateLogin = [
 
 router.post(
   '/', 
+   (req, res, next) => {
+    console.log('Raw request body:', req.body);
+    console.log('Request headers:', req.headers);
+    next();
+  },
   validateLogin,
   async (req, res, next) => {   
   const { credential, password } = req.body;   

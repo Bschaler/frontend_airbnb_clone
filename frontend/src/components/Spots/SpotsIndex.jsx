@@ -19,7 +19,8 @@ function SpotsIndex(){
         return [];
     });
     
-   
+   console.log('All spots in state:', spots);
+console.log('Spots count:', spots.length);
     
     
     useEffect(() => {
@@ -58,4 +59,6 @@ if (isLoading) {
         </div>
     );
 }
+
+
 export default SpotsIndex;

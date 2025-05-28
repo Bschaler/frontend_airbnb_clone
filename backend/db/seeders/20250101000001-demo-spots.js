@@ -3,6 +3,9 @@ const { User, Spot, SpotImage } = require('../models');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+     const options = process.env.NODE_ENV === 'production' ? {
+      schema: process.env.SCHEMA
+    } : {};
 
     
     const demoUser = await User.findOne({ where: { username: 'Demo-lition' } });
@@ -10,8 +13,11 @@ module.exports = {
     const user2 = await User.findOne({ where: { username: 'FakeUser2' } });
 
     if (!demoUser || !user1 || !user2) {
-      throw new Error('Demo users not found. Must seed your Users first.');
-    }
+  throw new Error('Users not found.');
+  
+ 
+
+}
 
     const spots = await Spot.bulkCreate([
       
@@ -255,11 +261,14 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ], { validate: true });
+    ], { ...options, validate: true });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('SpotImages', null, {});
-    await queryInterface.bulkDelete('Spots', null, {});
+     const options = process.env.NODE_ENV === 'production' ? {
+      schema: process.env.SCHEMA
+    } : {};
+    await queryInterface.bulkDelete('SpotImages', null, options);
+    await queryInterface.bulkDelete('Spots', null, options);
   }
 };

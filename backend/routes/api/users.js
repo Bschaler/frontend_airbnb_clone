@@ -43,8 +43,19 @@ const validateSignup = [
     '/',
     validateSignup,
     async (req, res, next) => {  
+      console.log('Signup req body:', req.body);
+
       try { 
         const { email, password, username, firstName, lastName } = req.body;  
+         console.log('fields extracted:', {
+        email,
+        username,
+        firstName,
+        lastName,
+        passwordLength: password ? password.length : 'undefined'
+      });
+
+
         const hashedPassword = bcrypt.hashSync(password);
         const user = await User.create({ 
           email, 

@@ -2,7 +2,7 @@ const express = require('express');
 require('express-async-errors');                    
 const morgan = require('morgan');                   
 const cors = require('cors');                       
-const csurf = require('csurf');                    
+//const csurf = require('csurf');                    
 const helmet = require('helmet');                   
 const cookieParser = require('cookie-parser');       
 const { ValidationError } = require('sequelize');    
@@ -33,9 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   origin: isProduction 
     ? 'https://frontend-airbnb-clone.onrender.com'
-    : 'http://localhost:3000',
+    : 'http://localhost:5173',
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'XSRF-Token'],
   exposedHeaders: ['set-cookie']
 }));
 
@@ -93,6 +93,19 @@ app.get('/api/csrf/restore', (req, res) => {
   });
 });
  */
+app.get('/api/csrf/restore', (req, res) => {
+  // Mock CSRF token for testing
+  res.cookie("XSRF-TOKEN", "test-token", {
+    secure: isProduction,
+    sameSite: isProduction ? 'None' : 'Lax', 
+    path: '/'
+  });
+  res.status(200).json({
+    'XSRF-Token': 'test-token'
+  });
+});
+
+
 if (routes) {
   console.log('Routes type:', typeof routes);
   console.log('Is routes function?', typeof routes === 'function');
