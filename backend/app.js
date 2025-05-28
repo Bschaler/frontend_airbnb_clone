@@ -2,7 +2,7 @@ const express = require('express');
 require('express-async-errors');                    
 const morgan = require('morgan');                   
 const cors = require('cors');                       
-//const csurf = require('csurf');                    
+const csurf = require('csurf');                    
 const helmet = require('helmet');                   
 const cookieParser = require('cookie-parser');       
 const { ValidationError } = require('sequelize');    
@@ -30,15 +30,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));  
 
  
-app.use(cors({
-  origin: isProduction 
-    ? ['https://frontend-airbnb-clone.onrender.com', 'https://brian-auth-me.onrender.com']
-    : 'http://localhost:5173',
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization', 'XSRF-TOKEN', 'X-Requested-With'],
-  exposedHeaders: ['set-cookie'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-}));
+if (!isProduction) {
+  app.use(cors({ origin: 'http://localhost:3000', credentials: true }));  
+} else {
+  app.use(cors({ 
+    origin: 'https://frontend-airbnb-clone.onrender.com', 
+    credentials: true 
+  }));
+}
 
 app.options('*', cors());
 app.get('/health', (req, res) => {
@@ -52,7 +51,7 @@ app.get('/health', (req, res) => {
 
 app.get('/', (req, res) => {
   res.json({
-    message: 'AirBnB Clone API',
+    message: 'AirBnB Clone API endpoints for testing',
     endpoints: {
       csrf: '/api/csrf/restore',
       spots: '/api/spots',
@@ -70,14 +69,13 @@ app.use(
   })
 );
 
- /*
+ 
 app.use(
   csurf({
     cookie: {
       secure: isProduction,                          
-      sameSite: isProduction ? 'None' : 'Lax',   
-      httpOnly: true ,
-      path:   '/'                     
+      sameSite: isProduction ? 'Lax' : 'Strict',     
+      httpOnly: true                                 
     }
   })
 );
@@ -93,9 +91,9 @@ app.get('/api/csrf/restore', (req, res) => {
     'XSRF-Token': csrfToken
   });
 });
- */
-app.get('/api/csrf/restore', (req, res) => {
-  // Mock CSRF token for testing
+ 
+/*app.get('/api/csrf/restore', (req, res) => {
+
   res.cookie("XSRF-TOKEN", "test-token", {
     secure: isProduction,
     sameSite: isProduction ? 'None' : 'Lax', 
@@ -105,7 +103,7 @@ app.get('/api/csrf/restore', (req, res) => {
     'XSRF-Token': 'test-token'
   });
 });
-
+*/
 
 if (routes) {
   console.log('Routes type:', typeof routes);
