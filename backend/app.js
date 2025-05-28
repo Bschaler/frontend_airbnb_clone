@@ -92,18 +92,7 @@ app.get('/api/csrf/restore', (req, res) => {
   });
 });
  
-/*app.get('/api/csrf/restore', (req, res) => {
 
-  res.cookie("XSRF-TOKEN", "test-token", {
-    secure: isProduction,
-    sameSite: isProduction ? 'None' : 'Lax', 
-    path: '/'
-  });
-  res.status(200).json({
-    'XSRF-Token': 'test-token'
-  });
-});
-*/
 
 if (routes) {
   console.log('Routes type:', typeof routes);
