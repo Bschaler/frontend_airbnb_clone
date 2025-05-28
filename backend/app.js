@@ -69,17 +69,17 @@ app.use(
   })
 );
 
- 
+ /*
 app.use(
   csurf({
     cookie: {
-      secure: isProduction,                          
-      sameSite: isProduction ? 'Lax' : 'Strict',     
-      httpOnly: true                                 
+      secure: isProduction,
+      sameSite: isProduction ? 'None' : 'Strict', 
+      httpOnly: true
     }
   })
 );
-
+*/
 app.get('/api/csrf/restore', (req, res) => {
   const csrfToken = req.csrfToken();
   res.cookie("XSRF-TOKEN", csrfToken, {
