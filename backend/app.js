@@ -79,7 +79,7 @@ app.use(
     }
   })
 );
-*/
+
 app.get('/api/csrf/restore', (req, res) => {
   const csrfToken = req.csrfToken();
   res.cookie("XSRF-TOKEN", csrfToken, {
@@ -91,7 +91,7 @@ app.get('/api/csrf/restore', (req, res) => {
     'XSRF-Token': csrfToken
   });
 });
- 
+ */
 
 
 if (routes) {
