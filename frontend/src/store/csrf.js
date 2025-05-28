@@ -5,6 +5,7 @@ export async function csrfFetch(url, options = {}) {
   const fullUrl = `${apiUrl}${url}`;
     options.method = options.method || 'GET';
     options.headers = options.headers || {};
+      options.credentials = 'include';
    
     if (options.method.toUpperCase() !== 'GET') {
       
