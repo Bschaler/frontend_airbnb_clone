@@ -32,11 +32,12 @@ app.use(express.static(path.join(__dirname, 'public')));
  
 app.use(cors({
   origin: isProduction 
-    ? 'https://frontend-airbnb-clone.onrender.com'
+    ? ['https://frontend-airbnb-clone.onrender.com', 'https://brian-auth-me.onrender.com']
     : 'http://localhost:5173',
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization', 'XSRF-Token'],
-  exposedHeaders: ['set-cookie']
+  allowedHeaders: ['Content-Type', 'Authorization', 'XSRF-TOKEN', 'X-Requested-With'],
+  exposedHeaders: ['set-cookie'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 
 app.options('*', cors());
