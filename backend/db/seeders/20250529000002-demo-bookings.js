@@ -3,6 +3,10 @@ const { User, Spot, Booking } = require('../models');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    let tableName = 'Bookings';
+    if (process.env.NODE_ENV === 'production') {
+      tableName = '"airbnb_schema"."Bookings"';
+    }
     const demoUser = await User.findOne({ where: { username: 'Demo-lition' } });
     const user1 = await User.findOne({ where: { username: 'FakeUser1' } });
     const user2 = await User.findOne({ where: { username: 'FakeUser2' } });
@@ -27,27 +31,51 @@ module.exports = {
       };
     }
 
-    await Booking.bulkCreate([
+await queryInterface.bulkInsert(tableName, [
       {
         spotId: spots[0].id,
         userId: user1.id,
         ...getDates(10, 5),
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         spotId: spots[0].id,
         userId: user2.id,
         ...getDates(20, 5),
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         spotId: spots[1].id,
         userId: demoUser.id,
         ...getDates(5, 3),
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
-      // ... add more bookings
-    ], { validate: true });
+      {
+        spotId: spots[2].id,
+        userId: user1.id,
+        ...getDates(30, 4),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: spots[3].id,
+        userId: user2.id,
+        ...getDates(15, 6),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ]);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Bookings', null, {});
+    let tableName = 'Bookings';
+    if (process.env.NODE_ENV === 'production') {
+      tableName = '"airbnb_schema"."Bookings"';
+    }
+    
+    await queryInterface.bulkDelete(tableName, null, {});
   }
 };

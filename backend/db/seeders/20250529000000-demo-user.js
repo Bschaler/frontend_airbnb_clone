@@ -3,11 +3,12 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const options = process.env.NODE_ENV === 'production' ? {
-      schema: process.env.SCHEMA
-    } : {};
+    let tableName = 'Users';
+    if (process.env.NODE_ENV === 'production') {
+      tableName = '"airbnb_schema"."Users"';
+    }
 
-    await queryInterface.bulkInsert('Users', [
+    await queryInterface.bulkInsert(tableName, [
       {
         email: 'demo@user.io',
         username: 'Demo-lition',
@@ -35,14 +36,15 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ], options);
+    ]);
   },
 
   async down(queryInterface, Sequelize) {
-    const options = process.env.NODE_ENV === 'production' ? {
-      schema: process.env.SCHEMA
-    } : {};
+    let tableName = 'Users';
+    if (process.env.NODE_ENV === 'production') {
+      tableName = '"airbnb_schema"."Users"';
+    }
     
-    await queryInterface.bulkDelete('Users', null, options);
+    await queryInterface.bulkDelete(tableName, null, {});
   }
 };

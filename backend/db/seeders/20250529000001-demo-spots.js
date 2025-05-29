@@ -3,9 +3,7 @@ const { User, Spot, SpotImage } = require('../models');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-     const options = process.env.NODE_ENV === 'production' ? {
-      schema: process.env.SCHEMA
-    } : {};
+ 
 
     
     const demoUser = await User.findOne({ where: { username: 'Demo-lition' } });
@@ -261,14 +259,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ], { ...options, validate: true });
+    ], {  validate: true });
   },
 
   async down(queryInterface, Sequelize) {
-     const options = process.env.NODE_ENV === 'production' ? {
-      schema: process.env.SCHEMA
-    } : {};
-    await queryInterface.bulkDelete('SpotImages', null, options);
-    await queryInterface.bulkDelete('Spots', null, options);
+  
+    await queryInterface.bulkDelete('SpotImages', null, {});
+    await queryInterface.bulkDelete('Spots', null, {});
   }
 };
