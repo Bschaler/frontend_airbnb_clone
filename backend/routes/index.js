@@ -7,7 +7,7 @@ router.use('/api', apiRouter);
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
 
- router.use(express.static(path.resolve("../frontend/dist")));
+ 
 
 
   router.get('/', (req, res) => {
@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
     );
   });
 
-   
+   router.use(express.static(path.resolve("../frontend/dist")));
 
   router.get(/^(?!\/?api).*/, (req, res) => {
     res.cookie('XSRF-TOKEN', req.csrfToken());
