@@ -13,6 +13,7 @@ router.get('/debug-path', (req, res) => {
   const indexPath = path.join(frontendDistPath, 'index.html');
   
   res.json({
+    NODE_ENV: process.env.NODE_ENV,
     __dirname: __dirname,
     frontendDistPath: frontendDistPath,
     indexPath: indexPath,
