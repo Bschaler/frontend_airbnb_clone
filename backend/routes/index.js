@@ -22,6 +22,21 @@ router.get('/debug-path', (req, res) => {
   });
 });
 
+router.get('/debug-error', (req, res) => {
+  try {
+    res.json({
+      NODE_ENV: process.env.NODE_ENV,
+      csrfTokenAvailable: typeof req.csrfToken === 'function',
+      production: process.env.NODE_ENV === 'production'
+    });
+  } catch (error) {
+    res.json({
+      error: error.message,
+      stack: error.stack
+    });
+  }
+});
+
 
 
 
@@ -33,14 +48,14 @@ if (process.env.NODE_ENV === 'production') {
 
 
    router.get('/', (req, res) => {
-    res.cookie('XSRF-TOKEN', req.csrfToken());
+   // res.cookie('XSRF-TOKEN', req.csrfToken());
     res.sendFile(path.join(frontendDistPath, 'index.html'));
   });
 
   router.use(express.static(frontendDistPath));
 
     router.get(/^(?!\/?api).*/, (req, res) => {
-    res.cookie('XSRF-TOKEN', req.csrfToken());
+    //res.cookie('XSRF-TOKEN', req.csrfToken());
     res.sendFile(path.join(frontendDistPath, 'index.html'));
   });
 }
