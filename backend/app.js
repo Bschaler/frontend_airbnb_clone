@@ -80,17 +80,7 @@ app.use(
   })
 );
 
-app.get('/api/csrf/restore', (req, res) => {
-  const csrfToken = req.csrfToken();
-  res.cookie("XSRF-TOKEN", csrfToken, {
-    secure: isProduction,
-    sameSite: isProduction ? 'None' : 'Lax', 
-    path: '/'
-  });
-  res.status(200).json({
-    'XSRF-Token': csrfToken
-  });
-});
+
  
 
 
