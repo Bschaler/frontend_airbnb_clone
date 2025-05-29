@@ -3,10 +3,7 @@ const { User, Spot, Booking } = require('../models');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    let tableName = 'Bookings';
-    if (process.env.NODE_ENV === 'production') {
-      tableName = '"airbnb_schema"."Bookings"';
-    }
+   
     const demoUser = await User.findOne({ where: { username: 'Demo-lition' } });
     const user1 = await User.findOne({ where: { username: 'FakeUser1' } });
     const user2 = await User.findOne({ where: { username: 'FakeUser2' } });
@@ -31,7 +28,7 @@ module.exports = {
       };
     }
 
-await queryInterface.bulkInsert(tableName, [
+    await Booking.bulkCreate([
       {
         spotId: spots[0].id,
         userId: user1.id,
