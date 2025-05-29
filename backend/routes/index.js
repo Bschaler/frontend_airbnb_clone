@@ -4,26 +4,43 @@ const apiRouter = require('./api');
 
 
 router.use('/api', apiRouter);
+
+//debugger
+router.get('/debug-path', (req, res) => {
+  const path = require('path');
+  const fs = require('fs');
+  const frontendDistPath = path.join(__dirname, '..', '..', 'frontend', 'dist');
+  const indexPath = path.join(frontendDistPath, 'index.html');
+  
+  res.json({
+    __dirname: __dirname,
+    frontendDistPath: frontendDistPath,
+    indexPath: indexPath,
+    indexExists: fs.existsSync(indexPath),
+    distContents: fs.existsSync(frontendDistPath) ? fs.readdirSync(frontendDistPath) : 'dist folder not found'
+  });
+});
+
+
+
+
+
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
 
- 
+ const frontendDistPath = path.join(__dirname, '..', '..', 'frontend', 'dist');
 
 
-  router.get('/', (req, res) => {
+   router.get('/', (req, res) => {
     res.cookie('XSRF-TOKEN', req.csrfToken());
-    res.sendFile(
-      path.resolve(__dirname, '../../frontend', 'dist', 'index.html')
-    );
+    res.sendFile(path.join(frontendDistPath, 'index.html'));
   });
 
-   router.use(express.static(path.resolve("../frontend/dist")));
+  router.use(express.static(frontendDistPath));
 
-  router.get(/^(?!\/?api).*/, (req, res) => {
+    router.get(/^(?!\/?api).*/, (req, res) => {
     res.cookie('XSRF-TOKEN', req.csrfToken());
-    res.sendFile(
-      path.resolve(__dirname, '../../frontend', 'dist', 'index.html')
-    );
+    res.sendFile(path.join(frontendDistPath, 'index.html'));
   });
 }
 
