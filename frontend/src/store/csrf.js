@@ -1,5 +1,5 @@
-//import Cookies from 'js-cookie';
-const apiUrl = import.meta.env.PROD ? 'https://brian-auth-me.onrender.com' : '';
+import Cookies from 'js-cookie';
+const apiUrl = import.meta.env.PROD ? '' : '';
 
 export async function csrfFetch(url, options = {}) {
   const fullUrl = `${apiUrl}${url}`;
@@ -10,7 +10,7 @@ export async function csrfFetch(url, options = {}) {
     if (options.method.toUpperCase() !== 'GET') {
       
          options.headers['Content-Type'] = options.headers['Content-Type'] || 'application/json';
-        //  options.headers['XSRF-TOKEN'] = Cookies.get('XSRF-TOKEN');
+          options.headers['XSRF-TOKEN'] = Cookies.get('XSRF-TOKEN');
       }
      
       const res = await window.fetch(fullUrl, options);
