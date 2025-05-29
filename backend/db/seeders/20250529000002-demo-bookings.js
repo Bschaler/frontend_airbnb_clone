@@ -71,11 +71,7 @@ await queryInterface.bulkInsert(tableName, [
   },
 
   async down(queryInterface, Sequelize) {
-    let tableName = 'Bookings';
-    if (process.env.NODE_ENV === 'production') {
-      tableName = '"airbnb_schema"."Bookings"';
-    }
-    
-    await queryInterface.bulkDelete(tableName, null, {});
+  
+    await Booking.destroy({ where: {} });
   }
 };

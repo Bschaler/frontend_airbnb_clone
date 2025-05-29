@@ -263,8 +263,8 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-  
-    await queryInterface.bulkDelete('SpotImages', null, {});
-    await queryInterface.bulkDelete('Spots', null, {});
+    
+    await SpotImage.destroy({ where: {} });
+    await Spot.destroy({ where: {} });
   }
 };
