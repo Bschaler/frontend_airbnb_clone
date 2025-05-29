@@ -34,7 +34,7 @@ if (!isProduction) {
   app.use(cors({ origin: 'http://localhost:3000', credentials: true }));  
 } else {
   app.use(cors({ 
-    origin: 'https://frontend-airbnb-clone.onrender.com', 
+   origin: 'https://brian-auth-me.onrender.com', 
     credentials: true 
   }));
 }
@@ -48,7 +48,7 @@ app.get('/health', (req, res) => {
   });
 });
  
-
+/*
 app.get('/', (req, res) => {
   res.json({
     message: 'AirBnB Clone API endpoints for testing',
@@ -62,14 +62,14 @@ app.get('/', (req, res) => {
     }
   });
 });
-
+*/
 app.use(
   helmet.crossOriginResourcePolicy({
     policy: 'cross-origin'                           
   })
 );
 
- /*
+ 
 app.use(
   csurf({
     cookie: {
@@ -91,7 +91,7 @@ app.get('/api/csrf/restore', (req, res) => {
     'XSRF-Token': csrfToken
   });
 });
- */
+ 
 
 
 if (routes) {
@@ -114,13 +114,7 @@ app.get('/api', (req, res) => {
 
 }
 
-app.get('/direct-test', (req, res) => {
-  res.json({ message: 'Direct test endpoint working' });
-});
 
-app.get('/api-test', (req, res) => {
-  res.json({ message: 'API test endpoint working' });
-});
 
 
 // Serve frontend for non-API routes (SPA support)
