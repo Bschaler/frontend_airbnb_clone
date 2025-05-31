@@ -38,8 +38,7 @@ function SpotReview({spot}) {
     return(
         <div className='reviews-section'>
             <h2>
-                <span className='star-icon'>*</span>
-                <span className="star-icon">★</span>
+                <span className='star-icon'></span>
                 {spot.avgRating ? spot.avgRating.toFixed(1) : 'New'} 
                 {reviews.length > 0 && (
                     <span> · {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}</span>
@@ -50,6 +49,7 @@ function SpotReview({spot}) {
                 <OpenModalButton
                     buttonText="Post Your Review"
                     modalComponent={<CreateReview spotId={spotId} />}
+                    className="post-review-button"  
                 />
             )}
 
@@ -58,7 +58,11 @@ function SpotReview({spot}) {
                     reviews.map(review => (
                         <div key={review.id} className="review-item">
                             <h3>{(review.User && review.User.firstName) || 'Anonymous'}</h3>
-                            <p>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
+                          <p>
+                            {new Date(review.createdAt).getMonth() + 1}/
+                            {new Date(review.createdAt).getDate()}/
+                            {new Date(review.createdAt).getFullYear()}
+                        </p>
                             <p>{review.review}</p>
                             {currentUser && currentUser.id === review.userId && (
                                 <OpenModalButton

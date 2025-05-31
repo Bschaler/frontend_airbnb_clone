@@ -1,176 +1,113 @@
+/* GLOBAL STYLES */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-:root {
-    --main-color: #ff385c;
-    --text-color: #222;
-    --light-gray: #ddddddf3;
-    --error-color: red;
-}
+/* SPOTS INDEX */
 .spots-container {
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
     padding: 20px;
     max-width: 1000px;
-    box-shadow: #000000;
-  }
+}
 
-  .spot-card-link {
+/* SPOT CARDS */
+.spot-card-link {
     width: 31%;
     margin: 1%;
     text-decoration: none;
     color: black;
-  }
-  .spot-card {
+}
+
+.spot-card {
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: #000000;
-    border: 2px solid #070000;
-  }
+    border: 1px solid black;
+}
 
-  .spot-image-container {
+.spot-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.spot-image-container {
     height: 220px;
-  }
+}
 
-
-  .spot-image {
+.spot-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
+}
 
-  .spot-location {
+.spot-info {
+    padding: 10px;
+    background-color: white;
+}
+
+.spot-location {
     font-size: 16px;
     margin-bottom: 10px;
-  }
+}
 
-  .star-icon {
-    margin-right: 5px;
-  }
+.spot-rating {
+    display: flex;
+    align-items: center;
+}
 
-  .spot-price {
+.spot-price {
     font-weight: bold;
-  }
-  .spot-detail {
+}
+
+.star-icon {
+    color: #FF385C;
+    margin-right: 4px;
+}
+
+/* SPOT DETAIL */
+.spot-detail {
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
     padding: 20px;
-  }
+}
 
-.spot-content {
-    display: flex;
-    justify-content: space-between;
-    gap: 48px;
-    margin-bottom: 24px;
-  }
-
-  .spot-left-column {
-    flex: 1;
-  }
-
-  .spot-detail h1 {
-    margin-bottom: 15px;
-    color: #000000; 
-    font-weight: bolder;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+.spot-detail h1 {
+    margin-bottom: 8px;
+    color: black; 
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 26px;
+}
 
 .spot-header {
     margin-bottom: 20px;
-    font-weight: bold;
+    font-weight: normal;
     font-size: 24px;
-  }
-
- .spot-images {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 8px;
-  height: 400px;
-  margin-bottom: 24px;
-}
-.host-info {
-    margin-bottom: 16px;
-    font-size: 22px;
-    font-weight: 600;
-  }
-  .spot-description {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #222;
-    margin-bottom: 24px;
-  }
-.pricing-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #ddd;
-    padding-top: 15px;
 }
 
-
-
-  .spot-info {
-    padding: 10px;
-    background-color: white;
-  }
-  .spot-location {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-
-  .spot-rating {
-    display: flex;
-    align-items: center;
-
-  }
-
-  .star-icon {
-    color: #FF385C;
-    margin-right: 4px;
-  }
-
-  .rating-value {
-    font-weight: 500;
-  }
-
-  .rating-display .star-icon {
-    margin-right: 4px;
-  }
-
-  .spot-price {
+.spot-header p {
+    color: black;
     font-weight: bold;
-    font-style:oblique;
-  }
-
-
-.spot-header {
-    margin-bottom: 20px;
-  }
-  .spot-images {
-    display: grid;
-    grid-template-columns: 2fr 1.8fr; 
-    grid-gap: 10px;
-    margin-bottom: 20px;
-    height: 400px;
+    margin-bottom: 4px;
 }
 
-
-.spot-host {
-    flex: 2;
-  }
-
-.spot-description {
-    margin-bottom: 20px;
+/* Spot Images */
+.spot-images {
+    display: grid;
+    grid-template-columns: 50% 25% 25%;
+    grid-template-rows: 205px 205px;
+    gap: 8px;
+    height: 420px;
+    margin-bottom: 24px;
 }
 
 .main-image-container {
-    grid-row: span 2; 
+    grid-row: 1 / 3;
+    grid-column: 1; 
     height: 100%;
 }
 
@@ -178,8 +115,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    gap: 10px;
-    height: 100%;
+     grid-column: 2 / 4; 
+    grid-row: 1 / 3;
+    gap: 8px;
 }
 
 .main-spot-image,
@@ -187,9 +125,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 12px;
 }
-
 
 .no-image {
     display: flex;
@@ -201,6 +138,35 @@
     color: #666;
 }
 
+/* Spot Content */
+.spot-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 80px;
+    margin-bottom: 24px;
+}
+
+.spot-host {
+    flex: 2;
+    max-width: 600px;
+}
+
+.host-info {
+    margin-bottom: 25px;
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #dddddd;
+    color: #ff385c;
+}
+
+.spot-description {
+    font-size: 16px;
+    color: black;
+    margin-bottom: 24px;
+}
+
+/* Reservation Card */
 .reservation-card {
     flex: 1;
     max-width: 360px;
@@ -209,8 +175,27 @@
     padding: 24px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     height: fit-content;
-    align-self: flex-start;
-  }
+}
+
+.price-rating-container {
+    margin-bottom: 20px;
+}
+
+.price-display {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.price-value {
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.price-unit {
+    font-size: 16px;
+}
 
 .reserve-button {
     background-color: #FF385C;
@@ -222,199 +207,261 @@
     width: 100%;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.2s;
-  }
+}
 
+/* CREATE SPOT FORM */
+.create-spot-container {
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: Arial;
+}
 
-.price-rating-container {
-    margin-bottom: 20px;
-  }
+.create-spot-container h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: black;
+    text-align: center;
+}
 
-  .price-display {
-    display: flex;
-    align-items: baseline;
-    margin-bottom: 8px;
-  }
+.form-section {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #dddddd;
+}
 
-  .price-value {
+.form-section h2 {
     font-size: 22px;
-    font-weight: 600;
-    margin-right: 5px;
-  }
-  
-  .price-unit {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: black;
+    text-align: center;
+}
+
+.form-section p {
+    color: #717171;
+    font-size: 10px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 13px;
+    border: 2px solid black;
+    border-radius: 8px;
     font-size: 16px;
-  }
+    background-color: #e7e9ea;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    border-color: black;
+    outline: none;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+    font-family: Arial;
+}
+
+.input-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+.form-submit {
+    margin-top: 32px;
+    text-align: center;
+}
+
+.submit-button {
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #e31c5f;
+}
+
+.address-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.address-row .form-group {
+    margin-bottom: 16px;
+}
 
 
-.bottom-spacing {
-    margin-bottom: 80px;
-  }
+.price-input-wrapper {
+    position: relative;
+}
 
+.price-input-wrapper::before {
+    content: '$';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 1;
+}
 
-  /* manage spots*/
-  .manage-spots-container .spots-container {
-    display:flexbox;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 100px;
-    padding: 20px
-  }
+.price-input-wrapper input {
+    padding-left: 28px;
+}
 
-  .manage-spots-container h1 {
+/* EDIT SPOT FORM */
+.update-spot-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.update-spot-container h1 {
+    text-align: center;
+    color: #ff385c;
+    margin-bottom: 20px;
+    
+}
+
+.update-spot-container h2 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+/* MANAGE SPOTS */
+.manage-spots-container h1 {
     text-align: center;
     color: #FF385C;
     margin-bottom: 30px;
-  }
+}
 
-  .manage-spots-container .spot-card-wrapper {
-    width: 20%;
-    margin-bottom: 20px;
-    box-shadow: 0px 2px 5px #ccc;
-    border-radius: 10px;
-  }
+.manage-spots-container .spots-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 100px;
+    padding: 20px;
+}
 
-  .manage-spots-container .spot-card {
+.manage-spots-container .spot-card {
     border-radius: 10px;
     overflow: hidden;
     background-color: white;
     height: 100%;
     cursor: pointer;
-  }
-  .manage-spots-container .spot-image-container {
+}
+
+.manage-spots-container .spot-image-container {
     height: 200px;
     width: 100%;
     overflow: hidden;
-  }
-  .manage-spots-container .spot-image {
+}
+
+.manage-spots-container .spot-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  .manage-spots-container .spot-info {
+}
+
+.manage-spots-container .spot-info {
     padding: 15px;
-  }
-  .manage-spots-container .spot-rating {
+}
+
+.manage-spots-container .spot-rating {
     font-weight: bold;
-  }
-  .manage-spots-container .spot-price {
+}
+
+.manage-spots-container .spot-price {
     margin-bottom: 30px;
-  }
-  .manage-spots-container .spot-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .manage-spots-container .no-spots {
-    text-align: center;
-  }
-
-
-  /* reviews*/
-  .reviews-section {
-    margin-top: 2px;
-    padding-top: 15px;
-    border-top: 5px solid #ddd;
-  }
-
-  .reviews-section h2 {
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: 600;
-  }
-  
-  .review-item {
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 5px solid #eee;
-  }
-  .review-author {
-    font-weight: bold;
-    margin-bottom: 2px;
-  }
-  .review-date {
-    color: #000000;
-    margin-bottom: 8px;
-    font-size: 14px;
-  }
-  .post-review-button {
-    background-color: #FF385C;
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    margin-top: 16px;
-  }
-
-
-  input[type="text"],
-  input[type="number"],
-  textarea {
-    background-color: #e6f2ff; 
-    border: 1px solid #999;
-    padding: 11px;
-    width: 100%;
-    margin-bottom: 8px;
-  }
-
-  .update-spot-container {
-    width: 90%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  .update-spot-container h1 {
-    text-align: center;
-    color: #ff385c;
-    margin-bottom: 20px;
-  }
-  .update-spot-container h2 {
-    margin-top: 15px;
-    margin-bottom: 10px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  label {
-    display: block;
-    margin-bottom: 9px;
-    font-weight: bold;
-  }
-  .error {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  .spot-header h1, 
-.spot-detail h1 {
-  color: #000000; 
-  font-weight: bolder;
-  font-family: Arial, Helvetica, sans-serif ;
 }
 
-.spot-header p,
-.spot-location {
-  color: #000000;
-  font-weight: bold;
-}
-
-.spot-card .update-button,
-.spot-card .delete-button,
-.spot-card button {
-  display: block;
-  margin: 5px auto;
-  width: 50%;
-  text-align: center;
-}
 .manage-spots-container .create-new-spot-button {
     display: block;
     text-align: center;
     margin: 0 auto 20px auto;
     width: fit-content;
     padding: 10px 20px;
+}
+
+.spot-card .update-button,
+.spot-card .delete-button,
+.spot-card button {
+    display: block;
+    margin: 5px auto;
+    width: 50%;
+    text-align: center;
+}
+
+/* 
+/* MOBILE */
+@media (max-width: 1000px) {
+    .create-spot-container {
+        width: 95%;
+        padding: 20px 16px;
+    }
+    
+    .create-spot-container h1 {
+        font-size: 28px;
+    }
+    
+    .form-section h2 {
+        font-size: 20px;
+    }
+    
+    .address-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    textarea {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-section {
+        margin-bottom: 32px;
+        padding-bottom: 24px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
 }

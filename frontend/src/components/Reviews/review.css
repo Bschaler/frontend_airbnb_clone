@@ -9,14 +9,84 @@
     margin: 10px 0;
 }
 .star {
-    font-size: 24px;
+    font-size: 40px;
     cursor: pointer;
-    margin-right: 5px;
+    margin-right: 18px;
+
 }
 .star.empty {
     color: #ccc;
 }
 .star.filled {
     color: #ff385c;
+}
+
+REVIEWS SECTION */
+.reviews-section {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #ddd;
+}
+
+.reviews-section h2 {
+    margin-bottom: 32px;
+    font-size: 20px;
+    font-weight: bold;
+     display: flex;
+      align-items: center;
+       gap: 8px;
+}
+
+.review-item {
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #eee;
+}
+
+.review-item h3 {
+    font-weight: bold;
+    font-size: 19px;
+    margin-bottom: 4px;
+    color-scheme: #FF385C;
+}
+
+
+.reviews-list {
+    margin-top: 20px;
+}
+
+.reviews-list p {
+    margin-bottom: 23px;
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+}
+
+
+.review-author {
+    font-weight: bold;
+    margin-bottom: 2px;
+    color: #FF385C;
+}
+
+.review-date {
+    color: black;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.post-review-button {
+    background-color: #FF385C;
+    color: white;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-top: 16px; 
+    margin-bottom: 24px;
+     display: block;
+}
+.post-review-button:hover {
+    background-color: #e31c5f;
 }
 

@@ -47,7 +47,7 @@ function CreateReview({spotId}){
                 <div className="stars-container">
                   {starsArray}
                       <span>
-                        {stars > 0 ? stars + " Stars" : "Select stars"}
+                        {stars > 0 ? stars + " Stars" : "Select star rating"}
                       </span>
                 </div>
                  );

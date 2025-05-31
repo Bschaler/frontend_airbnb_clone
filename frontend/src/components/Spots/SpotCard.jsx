@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 function SpotCard({spot}){
+     console.log("Spot data:", spot);
+    console.log("avgRating:", spot.avgRating);
+    console.log("Reviews:", spot.Reviews);
     const [imageError, setImageError] = useState(false);
     const locationDisplay = () => {
         if (!spot.city) return "Location is unavailable";

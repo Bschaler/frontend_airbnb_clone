@@ -13,8 +13,10 @@ function SpotDetail() {
     const [err, setErr] = useState(null);
     const spot = useSelector(state => state.spots.singleSpot);
     const reviews = useSelector(state => state.reviews.spot);
-   
-    
+   const reviewsArray = Object.values(reviews || {});
+    const [avgRating, setAvgRating] = useState('New');
+    const [reviewText, setReviewText] = useState('');
+    const [hasReviews, setHasReviews] = useState(false);
     
     useEffect(() => {
         const getSpot = async () => {
@@ -43,43 +45,57 @@ function SpotDetail() {
                 }
             }, [spot]);
 
+            useEffect(() => {
+        if (reviewsArray && reviewsArray.length > 0) {
+            let totalStars = 0;
+            for (let i = 0; i < reviewsArray.length; i++) {
+                totalStars = totalStars + reviewsArray[i].stars;
+            }
+            let average = totalStars / reviewsArray.length;
+            setAvgRating(average.toFixed(1));
+            
+            if (reviewsArray.length === 1) {
+                setReviewText('1 review');
+            } else {
+                setReviewText(reviewsArray.length + ' reviews');
+            }
+            setHasReviews(true);
+        } else {
+            setAvgRating('New');
+            setReviewText('');
+            setHasReviews(false);
+        }
+    }, [reviewsArray]);
+
+
     if (loading) return <div>LOADING...</div>
     if (err) return <div>Oh no: {err}</div>
     if (!spot) return <div>No spot found...</div>;
 
-    const uniqueImages = [];
+   const uniqueImages = [];
     if (spot.SpotImages) {
-      const urls = {};
-      for (let i = 0; i < spot.SpotImages.length; i++) {
-        if (!urls[spot.SpotImages[i].url]) {
-          urls[spot.SpotImages[i].url] = true;
-          uniqueImages.push(spot.SpotImages[i]);
+        const urls = {};
+        for (let i = 0; i < spot.SpotImages.length; i++) {
+            if (!urls[spot.SpotImages[i].url]) {
+                urls[spot.SpotImages[i].url] = true;
+                uniqueImages.push(spot.SpotImages[i]);
+            }
         }
-      }
     }
-    const previewImage = uniqueImages.find(img => img.preview === true);
-    const additionalImages = uniqueImages.filter(img => img.preview !== true);
-
-
-    let avgRating = 'New';
-    console.log(avgRating);
-    let reviewText = '';
-    console.log(reviewText);
     
-    const hasReviews = reviews && reviews.length > 0;
-    if (reviews && reviews.length > 0) {
-
-        let totalStars = 0;
-        for (let i = 0; i < reviews.length; i++) {
-            totalStars += reviews[i].stars;
-        }
-        avgRating = (totalStars / reviews.length).toFixed(1);
-        if (reviews.length === 1) {
-            reviewText = '1 review';
+    let previewImage = null;
+    let additionalImages = [];
+    
+    for (let i = 0; i < uniqueImages.length; i++) {
+        if (uniqueImages[i].preview === true) {
+            previewImage = uniqueImages[i];
         } else {
-            reviewText = `${reviews.length} reviews`;
+            additionalImages.push(uniqueImages[i]);
         }
     }
+
+    
+  
     return( 
         
        
@@ -134,14 +150,10 @@ function SpotDetail() {
               <span className="price-unit">night</span>
             </div>
             
-            <div className="rating-display">
-              {hasReviews ? (
-             <span>★ {spot.avgStarRating ? parseFloat(spot.avgStarRating).toFixed(1) : 'New'} · 
-             {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}</span>
-            ) : (
-             <span>★ New</span>
-            )}
-        </div>
+          <div className="rating-display">
+    <span>★ {avgRating}</span>
+    {hasReviews && <span> · {reviewText}</span>}
+</div>
             </div>
             
             <button

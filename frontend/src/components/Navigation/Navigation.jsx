@@ -13,58 +13,40 @@ function Navigation({ isLoaded }) {
   if (sessionUser) {
     sessionLinks = (
       <>
-      <li className="nav-item">
-      <NavLink to="/spots/new">Create a New Spot</NavLink>
-    </li>
-      <li className="nav-item">
+        <NavLink to="/spots/new" className="create-spot-link">
+          Create a New Spot
+        </NavLink>
         <ProfileButton user={sessionUser} />
-      </li>
       </>
     );
   } else {
     sessionLinks = (
       <>
-        <li className="nav-item">
-          <OpenModalButton
-            buttonText="Log In"
-            modalComponent={<LoginFormModal />}
-             className="login-button"
-          />
-        </li>
-       
-        <li className="nav-item">
-          <OpenModalButton
-            buttonText="Sign Up"
-            modalComponent={<SignupFormModal />}
-            className="signup-button"
-          />
-        
-        </li>
+        <OpenModalButton
+          buttonText="Log In"
+          modalComponent={<LoginFormModal />}
+          className="login-button"
+        />
+        <OpenModalButton
+          buttonText="Sign Up"
+          modalComponent={<SignupFormModal />}
+          className="signup-button"
+        />
       </>
     );
   }
-
   return (
-    <div style={{ 
-      display: 'flex', 
-      justifyContent: 'space-between', 
-      alignItems: 'center',
-      padding: '10px',
-      borderBottom: '1px solid #ccc'
-    }}>
-      <div>
-        <NavLink to="/" style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          textDecoration: 'none', 
-          color: 'black', 
-          fontWeight: 'bold' 
-        }}>
-          <FaHome style={{ color: '#ff385c', marginRight: '5px' }} />
+    <div className="navigation-container">
+
+      <div className="nav-left">
+        <NavLink to="/" className="logo">
+          <FaHome className="logo-icon" />
           <span>Rentrify</span>
         </NavLink>
       </div>
-      <div style={{ display: 'flex' }}>
+
+     
+      <div className="nav-right">
         {isLoaded && sessionLinks}
       </div>
     </div>

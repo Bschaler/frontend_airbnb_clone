@@ -37,7 +37,7 @@ const handleChange = (e) => {
     const {name, value} = e.target;
     // console.log("input changed:", name, value);
     
-    // update the right state based on input name
+
     if (name === 'name') setName(value);
     else if (name === 'description') setDescription(value);
     else if (name === 'address') setAddress(value);
@@ -275,8 +275,14 @@ return (
 
             <section className="form-section">
                 <h2>Set price for your rental</h2>
+
+            
+                
                     <div className="form-group">
-                        <label htmlFor="price">Price per night (USD)</label>
+                        <label htmlFor="price">Price per night ($ USD)</label>
+                       
+                       <div className="price-input-container">
+                        <span className="dollar-sign">$</span>
                         <input
                             type="text"
                             id="price"
@@ -284,9 +290,57 @@ return (
                             value={price}
                             onChange={handleChange}
                             placeholder="Price"/>
-                        {errors.price && <div className="input-error">{errors.price}</div>}
-                    </div>
-                </section>
+
+                  <div className="price-buttons-stack">
+      <button 
+    type="button" 
+    className="price-counter-btn"
+    onClick={() => {
+        const currentPrice = parseFloat(price || 0);
+        const lastNum = currentPrice % 10;
+        let newPrice;
+        
+        if (lastNum === 0 || lastNum === 5) {
+            newPrice = currentPrice + 5;
+        } else if (lastNum < 5) {
+            newPrice = Math.floor(currentPrice / 10) * 10 + 5;
+        } else {
+            newPrice = Math.ceil(currentPrice / 10) * 10;
+        }
+        
+        setPrice(newPrice.toString());
+    }}
+>
+    +
+</button>
+
+<button 
+    type="button" 
+    className="price-counter-btn"
+    onClick={() => {
+        const currentPrice = parseFloat(price || 0);
+        const lastNum = currentPrice % 10;
+        let newPrice;
+        
+        if (lastNum === 0 || lastNum === 5) {
+            newPrice = Math.max(5, currentPrice - 5);
+        } else if (lastNum > 5) {
+            newPrice = Math.floor(currentPrice / 10) * 10 + 5;
+        } else {
+            newPrice = Math.max(5, Math.floor(currentPrice / 10) * 10);
+        }
+        
+        setPrice(newPrice.toString());
+    }}
+>
+    -
+</button>
+        </div>
+    </div>
+    
+    {errors.price && <div className="input-error">{errors.price}</div>}
+</div>
+</section>
 
                 <section className="form-section">
                     <h2>Add images of your rental</h2>
