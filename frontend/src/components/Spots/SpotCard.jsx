@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import './Spots.css';
 
 function SpotCard({spot}){
      console.log("Spot data:", spot);

@@ -80,3 +80,42 @@ li {
   .hidden {
     display: none;
   }
+
+  .spot-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+button {
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e31c5f;
+}
+
+.star-icon {
+    color: #ff385c;
+}
+
+.rating-display .star-icon {
+    color: #ff385c;
+}
+
+.spot-card {
+    border: 2px solid #070000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.spots-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}

@@ -9,6 +9,7 @@ module.exports = {
     typeValidation: true,
   },
   production: {
+    use_env_variable: 'DATABASE_URL',
     dialect: 'postgres',
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
