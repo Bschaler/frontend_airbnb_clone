@@ -1,9 +1,3 @@
-/* GLOBAL STYLES */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 /* SPOTS INDEX */
 .spots-container {
@@ -479,11 +473,11 @@ textarea {
 }
 
 .manage-spots-container .spots-container {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    margin: 0 auto !important;
-    padding: 20px !important;
-    max-width: 1200px !important;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
 }
 
 .manage-spots-container .spot-card {
