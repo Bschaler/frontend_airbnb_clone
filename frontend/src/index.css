@@ -14,33 +14,8 @@
 
   a {
     text-decoration: none;
-    color: rgb(5, 5, 5);
+    color: rgb(0, 0, 0);
     font-weight: bold;
-  }
-
-  a[href="/spots/current"] {
-    background-color: red;
-    padding: 5px;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-
-  button {
-    cursor: pointer;
-    font-size: 14px;
-}
-
-  button:hover {
-    background-color: #e31c5f;
-  }
-
-  button svg {
-    font-size: 30px;
-  }
-
-  ul li:last-child button {
-    padding: 10px;
-    border: 2px solid rgb(0, 0, 0);
   }
 
   ul {
@@ -67,12 +42,10 @@ li {
   .profile-dropdown {
     position: absolute;
     top: 70px;
-    right: 10px;
-    width: 200px;
+    width: 140px;
     background-color: rgb(255, 255, 255);
-    border: 1px solid hsl(0, 87%, 44%);
-  
-    padding: 12px;
+    border: 2px solid hsl(0, 87%, 44%);
+    padding: 20px;
   
   
   }

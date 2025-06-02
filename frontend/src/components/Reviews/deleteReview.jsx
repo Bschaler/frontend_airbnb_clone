@@ -42,11 +42,11 @@ return (
     <div className='button-container'>
         <button 
         onClick = {handleDelete} className='delete-button'>
-              Yes (Delete my Review)
+              Yes (Delete Review)
         </button>
 
         <button onClick = {cancelDelete} className='cancel-button'>
-           No (Let it stay)
+           No (Keep Review)
         </button>
     </div>
     

@@ -7,42 +7,41 @@
 
 /* SPOTS INDEX */
 .spots-container {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    margin: 0 auto !important;
-    padding: 20px !important;
-    max-width: 1000px !important;
+    display: flex;
+    flex-wrap: wrap; 
+    margin: 0 auto; 
+    padding: 20px; 
+    max-width: 1000px; 
 }
 
 /* SPOT CARDS */
 .spot-card-link {
-    width: 31% !important;
-    margin: 1% !important;
-    text-decoration: none !important;
-    color: black !important;
+    width: 31%;
+    margin: 1%;
+    color: black;
 }
 
 .spot-card {
-    border-radius: 10px !important;
-    overflow: hidden !important;
-    border: 5px solid black !important;
-    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 5px solid black;
+    background-color:white
 }
 
 .spot-card:hover {
-    transform: translateY(-5px) !important;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) ;
 
 }
 
 .spot-image-container {
-    height: 220px !important;
+    height: 220px;
 }
 
 .spot-image {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+    width: 100% ;
+    height: 100%;
+    object-fit: cover;
 }
 
 .spot-info {
@@ -53,6 +52,9 @@
     font-size: 18px;
     margin-bottom: 3px;
     font-weight: bolder;
+    color: #000000;
+    text-decoration: underline;
+    text-decoration-color: #e31c5f;
 }
 
 .spot-rating {
@@ -65,6 +67,7 @@
 .spot-price {
     font-weight: bold;
     font-size: 16px;
+    color: black
 }
 
 .star-icon {
@@ -84,6 +87,7 @@
     color: black; 
     font-weight: bolder;
     text-decoration: underline;
+    text-decoration-color: #e31c5f;
     font-size: 29px;
 }
 
@@ -212,27 +216,31 @@
     cursor: pointer;
     font-size: 16px;
 }
-
+.reserve-button:hover {
+    background-color: #e31c5f;
+}
 
 /* CREATE SPOT FORM */
 .create-spot-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 30px 40px;
 }
 
 .create-spot-container h1 {
-    font-size: 32px;
+    font-size: 35px;
     font-weight: bold;
     margin-bottom: 40px;
     color: black;
     text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #e31c5f;
 }
 
 .form-section {
-    margin-bottom: 48px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid #dddddd;
+    margin-bottom: 28px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000000;
 }
 
 .form-section h2 {
@@ -244,40 +252,39 @@
 }
 
 .form-section p {
-    color: #e31c5f;
-    font-size: 10px;
-    margin-bottom: 10px;
+    color:#e31c5f;
+    font-size: 11px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
 .form-group {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
     color: black;
-    margin-bottom: 5px;
+    margin: 20px;
 }
 
 input[type="text"],
-input[type="number"],
 textarea {
     width: 100%;
-    padding: 13px;
-    border: 1px solid black;
-    border-radius: 8px;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 2px;
     font-size: 16px;
-    background-color: #dae5fe;
-    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 5px;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
+
+input:focus,
 textarea:focus {
-    border-color: black;
+    border-color:#ff385c;
     outline: none;
 }
 
@@ -288,8 +295,8 @@ textarea {
 
 .input-error {
     color: red;
-    font-size: 11px;
-    margin-top: 2px;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 
@@ -299,46 +306,55 @@ textarea {
 
 .dollar-sign {
     position: absolute;
-    left: 4px;
-    top: 36%;
+    left: 12px;
+    top: 43%;
    transform: translateY(-50%);
     color: black;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
+    z-index: 1;
+    
+}
+
+.price-input-container input {
+    padding-left: 35px;
+    padding-right: 50px;
 }
 .price-buttons-stack {
     position: absolute;
-    right: 10px;
+    right: 5px;
     top: 50%;
-    transform: translateY(-50%);
-    display:flex;
+    transform: translateY(-60%);
+    display: flex;
     flex-direction: column;
-    gap: 2px;
 }
 
 .price-counter-btn {
     width: 25px;
-    height: 20px;
+    height: 18px;
     background-color: #ff385c;
     color: white;
     border: none;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .price-counter-btn:hover {
     background-color: #e31c5f;
 }
 .form-submit {
-    margin-top: 20px;
     text-align: center;
+    margin-top: 30px;
 }
 
 .submit-button {
     background-color: #ff385c;
     color: white;
     border: none;
-    padding: 17px 77px;
+    padding: 15px 40px;
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
@@ -357,10 +373,11 @@ textarea {
 
 .manage-spots-container h1 {
     text-align: center;
-    color: #FF385C;
+    color: black;
     margin-bottom: 30px;
     font-size: 35px;
     text-decoration: underline;
+    text-decoration-color: #e31c5f;
 }
 
 .create-new-spot-button {
@@ -419,11 +436,7 @@ textarea {
 }
 
 /* MANAGE SPOTS */
-.manage-spots-container h1 {
-    text-align: center;
-    color: #FF385C;
-    margin-bottom: 30px;
-}
+
 
 .manage-spots-container .spots-container {
     display: flex !important;
@@ -474,7 +487,7 @@ textarea {
     text-align: center;
     margin: 0 auto 20px auto;
     width: fit-content;
-    padding: 10px 20px;
+    padding: 10px 10px;
 }
 
 .spot-card .update-button,
@@ -543,13 +556,9 @@ textarea {
         font-size: 20px;
     }
     
-    .address-row {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
+
     
     input[type="text"],
-    input[type="number"],
     textarea {
         font-size: 16px;
     }

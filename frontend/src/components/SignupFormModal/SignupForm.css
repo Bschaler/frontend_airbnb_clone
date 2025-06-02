@@ -2,8 +2,11 @@ h1 {
     font-size: 25px;
     margin-bottom: 20px;
     text-align: center;
-    color: #ff385c;
+    color: #000000;
     font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: #ff385c;
+
   }
 
   form {
