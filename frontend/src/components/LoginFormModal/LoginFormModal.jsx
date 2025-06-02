@@ -31,7 +31,7 @@ function LoginFormModal() {
               setErrors({ credential: "Invalid credentials" });
             }
           }
-        } catch (event) {
+        } catch (error) {
           setErrors({ credential: "The provided credentials were invalid." });
         }
       });
@@ -39,8 +39,6 @@ function LoginFormModal() {
 
   return (
     <>
-    <div className="login-form-container"></div>
-
     
     <h1>Log In</h1>
     <form onSubmit={handleSubmit}>

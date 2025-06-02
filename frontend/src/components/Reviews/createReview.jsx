@@ -58,12 +58,12 @@ function CreateReview({spotId}){
         event.preventDefault();
 
         if (review.length < 10) {
-            setErrors({ review: "Review must be at least 10 characters" });
+            setErrors({ review: "Tell us how you really feel... in 10 characters or more" });
             return;
         }
 
         if (stars === 0) {
-            setErrors({ stars: "Pick a star rating!" });
+            setErrors({ stars: "Must pick a star rating!" });
             return;
         }
 
@@ -98,7 +98,7 @@ return(
 
         <form onSubmit={handleSubmit}>
                 <textarea
-                    placeholder="Leave your review here..."
+                    placeholder="Leave review here..."
                     value={review}
                     onChange={(event) => setReview(event.target.value)}
                 />

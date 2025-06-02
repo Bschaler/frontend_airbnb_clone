@@ -12,7 +12,6 @@
     margin: 0 auto !important;
     padding: 20px !important;
     max-width: 1000px !important;
-    box-shadow: #000;
 }
 
 /* SPOT CARDS */
@@ -26,12 +25,14 @@
 .spot-card {
     border-radius: 10px !important;
     overflow: hidden !important;
-    border: 1px solid black !important;
+    border: 5px solid black !important;
+    background-color: white;
 }
 
 .spot-card:hover {
-    transform: translateY(-8px) !important;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+    transform: translateY(-5px) !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+
 }
 
 .spot-image-container {
@@ -46,70 +47,69 @@
 
 .spot-info {
     padding: 10px;
-    background-color: white;
 }
 
 .spot-location {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    margin-bottom: 3px;
+    font-weight: bolder;
 }
 
 .spot-rating {
     display: flex;
     align-items: center;
+    font-size: 14px;
+    font-weight: lighter;
 }
 
 .spot-price {
     font-weight: bold;
+    font-size: 16px;
 }
 
 .star-icon {
     color: #FF385C;
-    margin-right: 4px;
+    margin-right: 5px;
 }
 
 /* SPOT DETAIL */
 .spot-detail {
     max-width: 1000px;
-    width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 27px;
 }
 
 .spot-detail h1 {
-    margin-bottom: 8px;
+    margin-bottom: 28px;
     color: black; 
-    font-weight: bold;
-    font-family: Arial;
-    font-size: 26px;
+    font-weight: bolder;
+    text-decoration: underline;
+    font-size: 29px;
 }
 
 .spot-header {
-    margin-bottom: 20px;
+    margin-bottom: 26px;
     font-weight: normal;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .spot-header p {
     color: black;
     font-weight: bold;
-    margin-bottom: 4px;
 }
 
 /* Spot Images */
 .spot-detail .spot-images {
     display: grid;
     grid-template-columns: 50% 25% 25%;
-    grid-template-rows: 205px 205px;
+    grid-template-rows: 100px 230px;
     gap: 8px;
-    height: 420px;
-    margin-bottom: 24px;
+    margin-bottom: 40px;
 }
 
 .spot-detail .main-image-container {
     grid-row: 1 / 3;
     grid-column: 1; 
-    height: 100%;
 }
 
  .spot-detail .additional-images-container {
@@ -118,15 +118,15 @@
     grid-template-rows: 1fr 1fr;
      grid-column: 2 / 4; 
     grid-row: 1 / 3;
-    gap: 8px;
+    gap: 10px;
 }
 
 .main-spot-image,
 .additional-spot-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
+   object-fit: cover;
+  
 }
 
 .no-image {
@@ -142,22 +142,20 @@
 /* Spot Content */
 .spot-detail .spot-content {
     display: flex;
-    justify-content: space-between;
-    gap: 80px;
-    margin-bottom: 24px;
+    gap: 150px;
+    margin-bottom: 10px;
 }
 
 .spot-host {
     flex: 2;
-    max-width: 600px;
 }
 
 .host-info {
     margin-bottom: 25px;
     font-size: 22px;
     font-weight: bold;
-    padding-bottom: 24px;
-    border-bottom: 1px solid #dddddd;
+    padding-bottom: 2px;
+    border-bottom: 3px solid #000000;
     color: #ff385c;
 }
 
@@ -165,21 +163,22 @@
     font-size: 16px;
     color: black;
     margin-bottom: 24px;
+    font-weight: lighter;
+    line-height: 1.5;
 }
 
 /* Reservation Card */
 .spot-detail .reservation-card {
     flex: 1;
     max-width: 360px;
-    border: 1px solid #dddddd;
+    border: 5px solid #000000;
     border-radius: 12px;
     padding: 24px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     height: fit-content;
 }
 
 .price-rating-container {
-    margin-bottom: 20px;
+    margin-bottom: 28px;
 }
 
 .price-display {
@@ -198,25 +197,28 @@
     font-size: 16px;
 }
 
+.rating-display {
+    font-size: 16px;
+}
+
 .reserve-button {
     background-color: #FF385C;
     color: white;
     font-weight: bold;
     padding: 14px;
-    border-radius: 8px;
+    border-radius: 2px;
     border: none;
     width: 100%;
     cursor: pointer;
     font-size: 16px;
 }
 
+
 /* CREATE SPOT FORM */
 .create-spot-container {
-    width: 90%;
     max-width: 600px;
     margin: 0 auto;
     padding: 40px 20px;
-    font-family: Arial;
 }
 
 .create-spot-container h1 {
@@ -242,9 +244,9 @@
 }
 
 .form-section p {
-    color: #717171;
+    color: #e31c5f;
     font-size: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -257,7 +259,7 @@
     font-weight: bold;
     font-size: 14px;
     color: black;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 input[type="text"],
@@ -265,10 +267,10 @@ input[type="number"],
 textarea {
     width: 100%;
     padding: 13px;
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 8px;
     font-size: 16px;
-    background-color: #e7e9ea;
+    background-color: #dae5fe;
     margin-bottom: 10px;
 }
 
@@ -281,19 +283,54 @@ textarea:focus {
 
 textarea {
     min-height: 100px;
-    resize: vertical;
-    font-family: Arial;
+    resize:vertical;
 }
 
 .input-error {
     color: red;
-    font-size: 14px;
-    margin-top: 4px;
-    margin-bottom: 8px;
+    font-size: 11px;
+    margin-top: 2px;
 }
 
+
+.price-input-container {
+    position: relative;
+}
+
+.dollar-sign {
+    position: absolute;
+    left: 4px;
+    top: 36%;
+   transform: translateY(-50%);
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+}
+.price-buttons-stack {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display:flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.price-counter-btn {
+    width: 25px;
+    height: 20px;
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+.price-counter-btn:hover {
+    background-color: #e31c5f;
+}
 .form-submit {
-    margin-top: 32px;
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -301,62 +338,79 @@ textarea {
     background-color: #ff385c;
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 14px 24px;
+    padding: 17px 77px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 1px auto 0;
+}
+.submit-button:hover {
+    background-color: #e31c5f;
+}
+
+/* EDIT SPOT FORM */
+.manage-spots-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.manage-spots-container h1 {
+    text-align: center;
+    color: #FF385C;
+    margin-bottom: 30px;
+    font-size: 35px;
+    text-decoration: underline;
+}
+
+.create-new-spot-button {
+    display: block;
+    margin: 0 auto 30px auto;
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    padding: 12px 24px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
 }
 
-.submit-button:hover {
+.create-new-spot-button:hover {
     background-color: #e31c5f;
 }
 
-.address-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+
+.spot-actions {
+    padding: 10px;
+    text-align: center;
 }
 
-.address-row .form-group {
-    margin-bottom: 16px;
-}
-
-
-.price-input-wrapper {
-    position: relative;
-}
-
-.price-input-wrapper::before {
-    content: '$';
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: black;
+.update-button,
+.delete-button {
+    display: inline-block;
+    margin: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
     font-weight: bold;
-    font-size: 16px;
-    z-index: 1;
 }
 
-.price-input-wrapper input {
-    padding-left: 28px;
+.update-button {
+    background-color: #28a745;
+    color: white;
 }
 
-/* EDIT SPOT FORM */
-.update-spot-container {
-    width: 90%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
+.update-button:hover {
+    background-color: #218838;
 }
 
-.update-spot-container h1 {
-    text-align: center;
-    color: #ff385c;
-    margin-bottom: 20px;
-    
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
 }
 
 .update-spot-container h2 {
@@ -432,6 +486,47 @@ textarea {
     text-align: center;
 }
 
+.spot-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.delete-modal {
+    padding: 20px;
+    text-align: center;
+}
+
+.delete-modal h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: black;
+}
+
+.delete-modal p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cancel-button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}
 /* 
 /* MOBILE */
 @media (max-width: 1000px) {

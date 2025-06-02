@@ -20,7 +20,7 @@ function DeleteReview({reviewId}) {
               
             }catch (error) {
                 // console.log ("Failed to delete", error);
-                setErrors({server: "Something went wrong while deleting the review. Please try again." });
+                setErrors({server: "Oh no... we couldn't delete your review! Try again!" });
               }
             };
 
@@ -42,11 +42,11 @@ return (
     <div className='button-container'>
         <button 
         onClick = {handleDelete} className='delete-button'>
-              Yes (Delete Review)
+              Yes (Delete my Review)
         </button>
 
         <button onClick = {cancelDelete} className='cancel-button'>
-           No (Keep Review)
+           No (Let it stay)
         </button>
     </div>
     

@@ -94,12 +94,14 @@ button:hover {
 .profile-dropdown li:first-child {
   font-weight: bold;
   font-size: 16px;
+  text-align: center;
 }
 
 .profile-dropdown li:nth-child(2) {
   font-size: 12px;
   padding: 8px 5px;
   word-break: break-all;
+  text-align: center;
 }
 
 
