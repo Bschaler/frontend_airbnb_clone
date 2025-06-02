@@ -8,17 +8,16 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // In production, let's just skip this migration since the columns already exist
+
     if (process.env.NODE_ENV === 'production') {
       console.log('Skipping migration in production as columns already exist');
       return;
     }
     
-    // Only run in development
+   
     try {
       const tableInfo = await queryInterface.describeTable('Users');
-      
-      // Only add firstName if it doesn't exist
+ 
       if (!tableInfo.firstName) {
         await queryInterface.addColumn('Users', 'firstName', {   
           type: Sequelize.STRING,
@@ -26,7 +25,7 @@ module.exports = {
         });
       }
       
-      // Only add lastName if it doesn't exist
+    
       if (!tableInfo.lastName) {
         await queryInterface.addColumn('Users', 'lastName', {     
           type: Sequelize.STRING,
