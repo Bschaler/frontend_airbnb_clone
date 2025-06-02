@@ -218,15 +218,7 @@
     margin: auto;
 }
 
-.create-new-spot-button {
-    background-color: #ff385c;
-    color: white;
-    padding: 8px 16px;
-    font-size: 14px;
-    width: 180px;
-    margin: 0 auto;
-    display: block;
-}
+
 
 .reserve-button:hover,
 .submit-button:hover,
@@ -415,7 +407,7 @@ textarea {
     text-align: center;
 }
 .manage-spots-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -427,6 +419,18 @@ textarea {
     font-size: 35px;
     text-decoration: underline;
     text-decoration-color: #ff385c;
+}
+
+.create-new-spot-button {
+    background-color: #ff385c;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    width: 180px;
+    margin: 20px auto;
+    display: block;
+    border: none;
+    cursor: pointer;
 }
 
 
@@ -461,8 +465,18 @@ textarea {
     margin-bottom: 10px;
 }
 
-/* MANAGE SPOTS */
-
+/* MANAGE SPOTS PAGE */
+.manage-spots-container .create-new-spot-button {
+    background-color: #ff385c;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    width: 180px;
+    margin: 20px auto;
+    display: block;
+    border: none;
+    cursor: pointer;
+}
 
 .manage-spots-container .spots-container {
     display: flex !important;
@@ -475,12 +489,13 @@ textarea {
 .manage-spots-container .spot-card {
    width: 31% !important;  
     margin: 1% !important;
-    border-radius: 10px;
+    border: 3px solid black !important;
+    border-radius: 2px;
     overflow: hidden;
     background-color: white;
     height: 100%;
     cursor: pointer;
-    border: 1px solid black !important;
+   
 }
 
 .manage-spots-container .spot-image-container {
@@ -557,39 +572,4 @@ textarea {
 }
 
 
-/* 
-/* MOBILE */
-@media (max-width: 1000px) {
-    .create-spot-container {
-        width: 95%;
-        padding: 20px 16px;
-    }
-    
-    .create-spot-container h1 {
-        font-size: 28px;
-    }
-    
-    .form-section h2 {
-        font-size: 20px;
-    }
-    
 
-    
-    input[type="text"],
-    textarea {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .form-section {
-        margin-bottom: 32px;
-        padding-bottom: 24px;
-    }
-    
-    .form-group {
-        margin-bottom: 20px;
-    }
-}
-
-/*todo... fix the overridding features for production... tired of !important so find a more efficient way*/
