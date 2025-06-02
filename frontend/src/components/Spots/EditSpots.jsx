@@ -381,19 +381,68 @@ function EditSpotForm() {
         
        
         <section className="form-section">
-          <h2>Update price</h2>
-          <div className="form-group">
-            <label htmlFor="price">Price per night (USD)</label>
-            <input
-              type="text"
-              id="price"
-              name="price"
-              value={formData.price}
-              onChange={handleInputChange}
-            />
-            {errors.price && <div className="error">{errors.price}</div>}
-          </div>
-        </section>
+  <h2>Update price</h2>
+  <div className="form-group">
+    <label htmlFor="price">Price per night (USD)</label>
+    <div className="price-input-container">
+      <span className="dollar-sign">$</span>
+      <input
+        type="text"
+        id="price"
+        name="price"
+        value={formData.price}
+        onChange={handleInputChange}
+        placeholder="Price"
+      />
+      <div className="price-buttons-stack">
+        <button 
+          type="button" 
+          className="price-counter-btn"
+          onClick={() => {
+            const currentPrice = parseFloat(formData.price || 0);
+            const lastNum = currentPrice % 10;
+            let newPrice;
+            
+            if (lastNum === 0 || lastNum === 5) {
+              newPrice = currentPrice + 5;
+            } else if (lastNum < 5) {
+              newPrice = Math.floor(currentPrice / 10) * 10 + 5;
+            } else {
+              newPrice = Math.ceil(currentPrice / 10) * 10;
+            }
+            
+            setFormData({...formData, price: newPrice.toString()});
+          }}
+        >
+          +
+        </button>
+
+        <button 
+          type="button" 
+          className="price-counter-btn"
+          onClick={() => {
+            const currentPrice = parseFloat(formData.price || 0);
+            const lastNum = currentPrice % 10;
+            let newPrice;
+            
+            if (lastNum === 0 || lastNum === 5) {
+              newPrice = Math.max(5, currentPrice - 5);
+            } else if (lastNum > 5) {
+              newPrice = Math.floor(currentPrice / 10) * 10 + 5;
+            } else {
+              newPrice = Math.max(5, Math.floor(currentPrice / 10) * 10);
+            }
+            
+            setFormData({...formData, price: newPrice.toString()});
+          }}
+        >
+          -
+        </button>
+      </div>
+    </div>
+    {errors.price && <div className="error">{errors.price}</div>}
+  </div>
+</section>
         
         
         <section className="form-section">

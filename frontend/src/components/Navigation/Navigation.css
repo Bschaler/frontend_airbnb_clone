@@ -3,8 +3,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  border-bottom: 1px solid #ccc;
-  background-color: white;
+  border-bottom: 2px solid #000000;
+  background-color: rgb(255, 255, 255);
   width: 100%;
 }
 
@@ -15,23 +15,7 @@
 
 
 
-button {
-   background-color: #ff385c;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  color: white;
-  padding: 10px;
-   white-space: nowrap;
-}
 
-button:hover {
- background-color: #ff6464;
-}
 
 .logo {
   display: flex;
@@ -39,7 +23,7 @@ button:hover {
   text-decoration: none;
   color: #333;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 24px;
 }
 .logo-icon {
   margin-right: 5px;
@@ -52,13 +36,14 @@ button:hover {
   align-items: center;
   gap: 15px;
   min-width: 200px;
+  align-items: center;
 }
 
 .create-spot-link {
   text-decoration: none;
   color: white;
   padding: 9px;
-  border-radius: 20px;
+  border-radius: 2px;
   border: 2px solid #ddd;
   background-color: #ff385c;
   font-weight: bold;
@@ -135,6 +120,23 @@ button:hover {
   cursor: pointer;
   text-align: center;
 }
+.profile-button {
+  background-color: #ff385c;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  color: white;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 30px;
+}
+
+.profile-button:hover {
+  background-color: #e31c5f;
+}
+
 
 
 

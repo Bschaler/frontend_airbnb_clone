@@ -22,7 +22,7 @@
 }
 
 .spot-card {
-    border-radius: 10px;
+    border-radius: 3px;
     overflow: hidden;
     border: 5px solid black;
     background-color:white
@@ -51,10 +51,10 @@
 .spot-location {
     font-size: 18px;
     margin-bottom: 3px;
-    font-weight: bolder;
+    font-weight: bold;
     color: #000000;
     text-decoration: underline;
-    text-decoration-color: #e31c5f;
+    text-decoration-color: #ff385c;
 }
 
 .spot-rating {
@@ -62,6 +62,7 @@
     align-items: center;
     font-size: 14px;
     font-weight: lighter;
+
 }
 
 .spot-price {
@@ -87,19 +88,19 @@
     color: black; 
     font-weight: bolder;
     text-decoration: underline;
-    text-decoration-color: #e31c5f;
+    text-decoration-color: #ff385c;
     font-size: 29px;
 }
 
 .spot-header {
-    margin-bottom: 26px;
-    font-weight: normal;
+    margin-bottom: 14px;
     font-size: 18px;
 }
 
 .spot-header p {
     color: black;
     font-weight: bold;
+    font-size: 16px;
 }
 
 /* Spot Images */
@@ -156,11 +157,11 @@
 
 .host-info {
     margin-bottom: 25px;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     padding-bottom: 2px;
-    border-bottom: 3px solid #000000;
-    color: #ff385c;
+    border-bottom: 3px solid #ff385c;
+    color: #000000;
 }
 
 .spot-description {
@@ -176,7 +177,7 @@
     flex: 1;
     max-width: 360px;
     border: 5px solid #000000;
-    border-radius: 12px;
+    border-radius: 2px;
     padding: 24px;
     height: fit-content;
 }
@@ -192,17 +193,17 @@
 }
 
 .price-value {
-    font-size: 22px;
+    font-size: 28px;
     font-weight: bold;
     margin-right: 5px;
 }
 
 .price-unit {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .rating-display {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .reserve-button {
@@ -211,48 +212,58 @@
     font-weight: bold;
     padding: 14px;
     border-radius: 2px;
-    border: none;
     width: 100%;
     cursor: pointer;
     font-size: 16px;
+    margin: auto;
 }
-.reserve-button:hover {
+.reserve-button:hover,
+.submit-button:hover,
+.create-new-spot-button:hover,
+.update-button:hover,
+ .delete-button:hover,
+ .cancel-button:hover{
     background-color: #e31c5f;
 }
 
 /* CREATE SPOT FORM */
-.create-spot-container {
-    max-width: 600px;
+.create-spot-container,
+ .edit-spot-container {
+    max-width: 800px !important;
+    width: 95% !important;
     margin: 0 auto;
-    padding: 30px 40px;
+    padding: 20px
 }
 
-.create-spot-container h1 {
+.create-spot-container h1,
+.edit-spot-container h1,
+.manage-spots-container h1 {
     font-size: 35px;
     font-weight: bold;
     margin-bottom: 40px;
     color: black;
     text-align: center;
     text-decoration: underline;
-    text-decoration-color: #e31c5f;
+    text-decoration-color: #ff385c;
 }
 
 .form-section {
     margin-bottom: 28px;
     padding-bottom: 10px;
     border-bottom: 1px solid #000000;
+    width: 100%;
 }
 
 .form-section h2 {
     font-size: 22px;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 13px;
     color: black;
     text-align: center;
 }
 
 .form-section p {
-    color:#e31c5f;
+    color:#ff385c;
     font-size: 11px;
     margin-bottom: 20px;
     text-align: center;
@@ -262,7 +273,8 @@
     margin-bottom: 20px;
 }
 
-.form-group label {
+.form-group label,
+.edit-spot-container label {
     display: block;
     font-weight: bold;
     font-size: 12px;
@@ -276,7 +288,7 @@ textarea {
     padding: 12px;
     border: 2px solid #ccc;
     border-radius: 2px;
-    font-size: 16px;
+    font-size: 14px;
     background-color: #f9f9f9;
     margin-bottom: 5px;
 }
@@ -290,13 +302,14 @@ textarea:focus {
 
 textarea {
     min-height: 100px;
-    resize:vertical;
+    resize: vertical;
 }
 
 .input-error {
     color: red;
     font-size: 12px;
     margin-top: 5px;
+    text-align: center;
 }
 
 
@@ -324,14 +337,14 @@ textarea {
     position: absolute;
     right: 5px;
     top: 50%;
-    transform: translateY(-60%);
+    transform: translateY(-63%);
     display: flex;
     flex-direction: column;
 }
 
 .price-counter-btn {
     width: 25px;
-    height: 18px;
+    height: 10px;
     background-color: #ff385c;
     color: white;
     border: none;
@@ -341,6 +354,7 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 10px;
 }
 .price-counter-btn:hover {
     background-color: #e31c5f;
@@ -360,11 +374,33 @@ textarea {
     cursor: pointer;
     margin: 1px auto 0;
 }
-.submit-button:hover {
-    background-color: #e31c5f;
-}
+
 
 /* EDIT SPOT FORM */
+
+.edit-spot-container h2 {
+    font-size: 22px;
+    margin-bottom: 13px;
+    color: black;
+    text-align: center;
+}
+
+
+.edit-spot-container input,
+.edit-spot-container textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    margin-bottom: 5px;
+}
+
+.edit-spot-container .error {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}
 .manage-spots-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -377,23 +413,7 @@ textarea {
     margin-bottom: 30px;
     font-size: 35px;
     text-decoration: underline;
-    text-decoration-color: #e31c5f;
-}
-
-.create-new-spot-button {
-    display: block;
-    margin: 0 auto 30px auto;
-    background-color: #ff385c;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.create-new-spot-button:hover {
-    background-color: #e31c5f;
+    text-decoration-color: #ff385c;
 }
 
 
@@ -417,18 +437,11 @@ textarea {
     color: white;
 }
 
-.update-button:hover {
-    background-color: #218838;
-}
-
 .delete-button {
-    background-color: #dc3545;
+    background-color: #ff385c;
     color: white;
 }
 
-.delete-button:hover {
-    background-color: #c82333;
-}
 
 .update-spot-container h2 {
     margin-top: 15px;
@@ -482,13 +495,6 @@ textarea {
     margin-bottom: 30px;
 }
 
-.manage-spots-container .create-new-spot-button {
-    display: block;
-    text-align: center;
-    margin: 0 auto 20px auto;
-    width: fit-content;
-    padding: 10px 10px;
-}
 
 .spot-card .update-button,
 .spot-card .delete-button,
@@ -528,7 +534,7 @@ textarea {
 }
 
 .cancel-button {
-    background-color: #6c757d;
+    background-color: #ff385c;
     color: white;
     border: none;
     border-radius: 2px;
@@ -537,9 +543,7 @@ textarea {
     cursor: pointer;
 }
 
-.cancel-button:hover {
-    background-color: #5a6268;
-}
+
 /* 
 /* MOBILE */
 @media (max-width: 1000px) {

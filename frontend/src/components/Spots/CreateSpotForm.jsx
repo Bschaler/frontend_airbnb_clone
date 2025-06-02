@@ -61,29 +61,29 @@ function checkImage(url) {
 const validate = () => {
     const errors = {};
 
-    if(!name) errors.name = "Name is required";
+    if(!name) errors.name = "Name is required*";
         
         if(!description) {
-            errors.description = "Description is required";
+            errors.description = "Description is required*";
         } else if(description.length < 30) {
-            errors.description = "Description needs at least 30 characters";
+            errors.description = "Description needs at least 30 characters*";
         }
         
-        if(!address) errors.address = "Address is required";
-        if(!city) errors.city = "City is required";
-        if(!state) errors.state = "State is required";
-        if(!country) errors.country = "Country is required";
+        if(!address) errors.address = "Address is required*";
+        if(!city) errors.city = "City is required*";
+        if(!state) errors.state = "State is required*";
+        if(!country) errors.country = "Country is required*";
         
         if(!price) {
-            errors.price = "Price is required";
+            errors.price = "Price is required*";
         } else if(isNaN(price)) {
-            errors.price = "Price must be a number";
+            errors.price = "Price must be a number*";
         } else if(Number(price) <= 0) {
-            errors.price = "Price must be greater than 0";
+            errors.price = "Price must be greater than 0*";
         }
         
         if(!previewImg) {
-            errors.previewImg = "Preview image is required";
+            errors.previewImg = "Preview image is required*";
         } else if(!checkImage(previewImg)) {
             errors.previewImg = "Image URL must end in .png, .jpg, or .jpeg";
         }
