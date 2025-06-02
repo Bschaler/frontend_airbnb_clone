@@ -318,7 +318,7 @@ textarea {
 
 .dollar-sign {
     position: absolute;
-    left: 12px;
+    left: -10px;
     top: 43%;
    transform: translateY(-50%);
     color: black;
