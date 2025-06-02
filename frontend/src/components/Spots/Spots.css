@@ -217,6 +217,17 @@
     font-size: 16px;
     margin: auto;
 }
+
+.create-new-spot-button {
+    background-color: #ff385c;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    width: 180px;
+    margin: 0 auto;
+    display: block;
+}
+
 .reserve-button:hover,
 .submit-button:hover,
 .create-new-spot-button:hover,
@@ -260,6 +271,8 @@
     margin-bottom: 13px;
     color: black;
     text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #ff385c;
 }
 
 .form-section p {
@@ -286,7 +299,7 @@ input[type="text"],
 textarea {
     width: 100%;
     padding: 12px;
-    border: 2px solid #ccc;
+    border: 2px solid #000000;
     border-radius: 2px;
     font-size: 14px;
     background-color: #f9f9f9;
