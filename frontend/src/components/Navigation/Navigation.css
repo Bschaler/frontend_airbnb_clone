@@ -13,10 +13,6 @@
   align-items: center;
 }
 
-
-
-
-
 .logo {
   display: flex;
   align-items: center;
@@ -37,6 +33,23 @@
   gap: 15px;
   min-width: 200px;
   align-items: center;
+}
+
+.login-button,
+.signup-button {
+  background-color: #ff385c;
+  color: white;
+  padding: 9px 15px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.login-button:hover,
+.signup-button:hover {
+  background-color: #e31c5f;
 }
 
 .create-spot-link {
