@@ -85,10 +85,3 @@ button:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.spots-container {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-}
