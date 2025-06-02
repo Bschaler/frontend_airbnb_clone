@@ -322,14 +322,13 @@ textarea {
     top: 43%;
    transform: translateY(-50%);
     color: black;
-    font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     z-index: 1;
     
 }
 
 .price-input-container input {
-    padding-left: 15px;
+    padding-left: 15px !important;
     padding-right: 50px;
 }
 .price-buttons-stack {
