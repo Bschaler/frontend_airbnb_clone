@@ -70,15 +70,21 @@ app.use(
 );
 
  
-app.use(
-  csurf({
-    cookie: {
-      secure: isProduction,
-     sameSite: isProduction ? 'none' : 'strict',
-      httpOnly: true
-    }
-  })
-);
+const csrfOptions = {
+  cookie: {
+    secure: isProduction,
+    httpOnly: true
+  }
+};
+
+
+if (isProduction) {
+  csrfOptions.cookie.sameSite = 'none';
+} else {
+  csrfOptions.cookie.sameSite = 'strict';
+}
+
+app.use(csurf(csrfOptions));
 
 
  

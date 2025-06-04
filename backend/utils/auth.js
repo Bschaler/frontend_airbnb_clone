@@ -23,13 +23,20 @@ const setTokenCookie = (res, user) => {
   const isProduction = process.env.NODE_ENV === "production";
 
 
-  res.cookie('token', token, {
-    maxAge: expiresIn * 1000,                     
-    httpOnly: true,                               
-    secure: isProduction,                         
-    sameSite: isProduction ? 'none' : 'lax',
-    path: '/'         
-  });
+  const cookieOptions = {
+  maxAge: expiresIn * 1000,                     
+  httpOnly: true,                               
+  secure: isProduction,                         
+  path: '/'         
+};
+
+ if (isProduction) {
+    cookieOptions.sameSite = 'none';  
+  } else {
+    cookieOptions.sameSite = 'lax';   
+  }
+
+  res.cookie('token', token, cookieOptions);
 
   return token;
 };
