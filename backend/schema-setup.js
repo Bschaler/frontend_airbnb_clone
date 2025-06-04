@@ -5,7 +5,7 @@ console.log('Starting schema setup...');
 console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('SCHEMA:', process.env.SCHEMA || 'airbnb_schema');
 
-// Only run in production mode
+
 if (process.env.NODE_ENV === 'production') {
   // Check if DATABASE_URL is available
   if (!process.env.DATABASE_URL) {

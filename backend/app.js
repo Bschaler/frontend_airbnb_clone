@@ -70,21 +70,23 @@ app.use(
 );
 
  
-const csrfOptions = {
-  cookie: {
-    secure: isProduction,
-    httpOnly: true
-  }
-};
-
-
 if (isProduction) {
-  csrfOptions.cookie.sameSite = 'none';
+  app.use(csurf({ // basically just removed the sameSite for production, left in for dev
+    cookie: {
+      secure: true, // still protected!!!! just minimal csrf config
+      httpOnly: true
+    }
+  }));
 } else {
-  csrfOptions.cookie.sameSite = 'strict';
-}
 
-app.use(csurf(csrfOptions));
+  app.use(csurf({
+    cookie: {
+      secure: false,
+      sameSite: 'strict', // fully
+      httpOnly: true
+    }
+  }));
+}
 
 
  
