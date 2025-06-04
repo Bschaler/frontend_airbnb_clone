@@ -48,14 +48,14 @@ if (process.env.NODE_ENV === 'production') {
 
 
    router.get('/', (req, res) => {
-   // res.cookie('XSRF-TOKEN', req.csrfToken());
+    res.cookie('XSRF-TOKEN', req.csrfToken());
     res.sendFile(path.join(frontendDistPath, 'index.html'));
   });
 
   router.use(express.static(frontendDistPath));
 
     router.get(/^(?!\/?api).*/, (req, res) => {
-    //res.cookie('XSRF-TOKEN', req.csrfToken());
+    res.cookie('XSRF-TOKEN', req.csrfToken());
     res.sendFile(path.join(frontendDistPath, 'index.html'));
   });
 }
