@@ -71,9 +71,9 @@ app.use(
 
  
 if (isProduction) {
-  app.use(csurf({
+  app.use(csurf({ // basically just removed the sameSite for production, left in for dev
     cookie: {
-      secure: true,
+      secure: true, // still protected!!!! just minimal csrf config
       httpOnly: true
     }
   }));
@@ -82,7 +82,7 @@ if (isProduction) {
   app.use(csurf({
     cookie: {
       secure: false,
-      sameSite: 'strict',
+      sameSite: 'strict', // fully
       httpOnly: true
     }
   }));
