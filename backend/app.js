@@ -70,15 +70,23 @@ app.use(
 );
 
  
-app.use(
-  csurf({
+if (isProduction) {
+  app.use(csurf({
     cookie: {
-      secure: isProduction,
-     sameSite: isProduction ? 'none' : 'strict',
+      secure: true,
       httpOnly: true
     }
-  })
-);
+  }));
+} else {
+
+  app.use(csurf({
+    cookie: {
+      secure: false,
+      sameSite: 'strict',
+      httpOnly: true
+    }
+  }));
+}
 
 
  
