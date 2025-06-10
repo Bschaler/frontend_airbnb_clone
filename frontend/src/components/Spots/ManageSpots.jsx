@@ -104,10 +104,10 @@ function ManageSpots() {
                     )}
                   </div>
               
-                  <div className="spot-info">
-  <div className="spot-top-row">
-    <span className="spot-location">{spot.city}, {spot.state}</span>
-    <span className="spot-rating">★ {spot.avgRating || 'New'}</span>
+   <div className="spot-info">
+      <div className="spot-top-row">
+      <div className="spot-location">{spot.city}, {spot.state}</div>
+    <div className="spot-rating">★ {spot.avgRating || 'New'}</div>
   </div>
   <div className="spot-price">${spot.price}/night</div>
 </div>
