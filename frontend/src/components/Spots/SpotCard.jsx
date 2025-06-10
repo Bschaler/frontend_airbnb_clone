@@ -60,13 +60,13 @@ return(
                         {locationDisplay()}
                     </div>
                
-                <div className = 'spot-rating'>
-                    <span className='star-icon'>★</span>
-                    <span>{spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}</span>
+                    <div className = 'spot-rating'>
+                        <span className='star-icon'>★</span>
+                        <span>{spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}</span>
                             {spot.numReviews > 0 && <span> · {reviewText}</span>}
-                </div>
-            </div>
-                <div className='spot-price'>
+                    </div>
+                 </div>
+             <div className='spot-price'>
                     <span
                         className = 'price-value'> ${spot.price}
                     </span> night
