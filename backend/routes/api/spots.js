@@ -73,22 +73,49 @@ router.get('/', validateQueryFilters, async (req, res) => {
       ],
       attributes: {
         include: [
-          [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
+          [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
+                    
+
         ]
       },
       group: ['Spot.id', 'SpotImages.id'],
       subQuery: false
     });
+ 
+  const allSpots = [];
+    for (let i = 0; i < spots.length; i++) {
+      let spot = spots[i];
 
-    const formattedSpots = spots.map(spot => ({
+      let reviewCount = await Review.count({
+        where: { spotId: spot.id }
+      });
+    let avgRating = null;
+    if (reviewCount > 0) {
+       let reviews = await Review.findAll({
+          where: { spotId: spot.id },
+          attributes: ['stars']
+        });
+
+             let totalStars = 0;
+        for (let j = 0; j < reviews.length; j++) {
+          totalStars = totalStars + reviews[j].stars;
+        }
+        avgRating = totalStars / reviews.length;
+      }
+    
+    let singleSpot = {
       ...spot.toJSON(),
       lat: parseFloat(spot.lat),
       lng: parseFloat(spot.lng),
       price: parseFloat(spot.price),
-      avgRating: spot.avgRating ? parseFloat(spot.avgRating) : null
-    }));
+      avgRating: avgRating,
+      numReviews: reviewCount
+    };
+          allSpots.push(singleSpot);
+    }
 
-    res.json({ Spots: formattedSpots, page, size });
+
+    res.json({ Spots: allSpots, page, size });
   } catch (err) {
     res.status(500).json({ error: 'Something went wrong' });
   }

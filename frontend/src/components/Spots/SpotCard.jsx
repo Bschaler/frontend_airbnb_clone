@@ -36,6 +36,15 @@ function SpotCard({spot}){
         }
     }
 
+        let reviewText = '';
+    if (spot.numReviews > 0) {
+        if (spot.numReviews === 1) {
+            reviewText = '1 review';
+        } else {
+            reviewText = spot.numReviews + ' reviews';
+        }
+    }
+
 return(
     <Link to = {`/spots/${spot.id}`} className='spot-card-link'>
 
@@ -46,15 +55,17 @@ return(
             </div>
             
             <div className='spot-info'>
-                <div className='spot-location'>
-                    {locationDisplay()}
-                </div>
+                <div className='spot-top-row'>
+                    <div className='spot-location'>
+                        {locationDisplay()}
+                    </div>
                
                 <div className = 'spot-rating'>
                     <span className='star-icon'>★</span>
                     <span>{spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}</span>
+                            {spot.numReviews > 0 && <span> · {reviewText}</span>}
                 </div>
-
+            </div>
                 <div className='spot-price'>
                     <span
                         className = 'price-value'> ${spot.price}

@@ -1,6 +1,6 @@
 h1 {
     font-size: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 3px;
     text-align: center;
     color: #000000;
     font-weight: bold;
@@ -12,7 +12,7 @@ h1 {
   form {
     width: 350px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
      background-color: white;
   }  
   form-container {
@@ -20,7 +20,6 @@ h1 {
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
-    font-family: Arial, sans-serif;
   }
 
   form div {
@@ -44,7 +43,7 @@ h1 {
         height: 30px;
         padding: 5px;
         margin-bottom: 12px;
-        border: 2px solid #ccc;
+        border: 2px solid #000000;
         border-radius: 2px;
         box-sizing: border-box;
         background-color: #f9f9f9;
@@ -77,11 +76,20 @@ h1 {
 .signup-button:hover {
     background-color: #ff5a76;
 }
+.signup-button:disabled {
+    background-color: #ccc;
+    color: #888;
+}
+.signup-button:disabled:hover {
+background-color: #888;
+color: #000000;
+}
+  
 
-  p {
+p {
     color: red;
     font-size: 12px;
-    margin-top: -8px;
+    margin-top: -5px;
     margin-bottom: 10px;
   }
 

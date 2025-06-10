@@ -135,7 +135,7 @@ function SpotDetail() {
      <div className="spot-content">                
         <div className="spot-host">
                 <div className="host-info">
-                <div>Hosted by {spot.Owner ? spot.Owner.firstName : ''}</div>
+                <div>Hosted by {spot.Owner ? `${spot.Owner.firstName} ${spot.Owner.lastName}` : ''}</div>
                 </div>
 
         <div className="spot-description">

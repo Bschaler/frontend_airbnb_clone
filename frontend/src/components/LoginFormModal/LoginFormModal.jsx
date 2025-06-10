@@ -12,6 +12,15 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+
+   let buttonDisabled = false;
+  if (credential.length < 4) {
+    buttonDisabled = true;
+  }
+  if (password.length < 6) {
+    buttonDisabled = true;
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors({});
@@ -62,7 +71,12 @@ function LoginFormModal() {
         
     
        
-        <button type="submit">Log In</button>
+        <button
+         type="submit"
+          disabled={buttonDisabled}
+          >
+          Log In
+          </button>
       </form>
     </>
   );

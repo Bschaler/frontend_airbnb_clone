@@ -11,11 +11,11 @@ export function ModalProvider({ children }) {
   const [onModalClose, setOnModalClose] = useState(null);
 
   const closeModal = () => {
-    setModalContent(null); 
+    setModalContent(null);  //hides modal
 
     if (typeof onModalClose === "function") {
       setOnModalClose(null);
-      onModalClose();
+      onModalClose(); // runs cleanup
     }
   };
 
@@ -30,7 +30,7 @@ export function ModalProvider({ children }) {
   return (
     <>
       <ModalContext.Provider value={contextValue}>
-        {children}
+        {children} 
       </ModalContext.Provider>
       <div ref={modalRef} />
     </>
