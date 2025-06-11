@@ -16,7 +16,7 @@ function SpotDetail() {
    const reviewsArray = Object.values(reviews || {});
     const [avgRating, setAvgRating] = useState('New');
     const [reviewText, setReviewText] = useState('');
-    const [hasReviews, setHasReviews] = useState(false);
+
     
     useEffect(() => {
         const getSpot = async () => {
@@ -59,14 +59,14 @@ function SpotDetail() {
             } else {
                 setReviewText(reviewsArray.length + ' reviews');
             }
-            setHasReviews(true);
         } else {
             setAvgRating('New');
             setReviewText('');
-            setHasReviews(false);
+
         }
     }, [reviewsArray]);
 
+   
 
     if (loading) return <div>LOADING...</div>
     if (err) return <div>Oh no: {err}</div>
@@ -151,8 +151,8 @@ function SpotDetail() {
             </div>
             
           <div className="rating-display">
-    <span>★ {avgRating}</span>
-    {hasReviews && <span> · {reviewText}</span>}
+   <h2><span className="star-icon">★</span>
+    {avgRating} · {reviewText}</h2>
 </div>
             </div>
             
@@ -165,12 +165,17 @@ function SpotDetail() {
            </div>
        </div>
        
-       <div className="reviews-section">
-           <SpotReview spot={spot} />
-       </div>
-   </div>
-);
+      <div className="reviews-section">
+    <div className="reviews-heading">
+        <h2><span className="star-icon">★</span> {avgRating} · {reviewText}</h2>
+    </div>
+
+    <SpotReview spot={spot} />
+</div>
+        </div>
+    );
 }
+
 
 
 

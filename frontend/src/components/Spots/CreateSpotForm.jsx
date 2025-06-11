@@ -245,19 +245,8 @@ return (
 
      <section className="form-section">
           <h2>Describe your rental</h2>
+          <p>Mention the best features of your rental, any special amenities, wifi, parking, activities in the area, etc.</p>
          
-          <div className="form-group">         
-            <label htmlFor="name">Rental Name</label>
-            <input
-                type="text"
-                id="name"
-                name="name"
-                value={name}
-                onChange={handleChange}
-                placeholder="Rental name..."
-            />
-            {errors.name && <div className="input-error">{errors.name}</div>}
-        </div>
 
         <div className="form-group">
             <label htmlFor="description">Description</label>
@@ -271,10 +260,26 @@ return (
             {errors.description && <div className="input-error">{errors.description}</div>}
         </div>
     </section>
-
-
+ 
+ <section className="form-section">
+    <h2>Name your rental</h2>
+    <p>Catch guests&apos; attention with a rental name that highlights what makes your place so special</p>
+ <div className="form-group">         
+            <label htmlFor="name">Rental Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value={name}
+                onChange={handleChange}
+                placeholder="Rental name..."
+            />
+            {errors.name && <div className="input-error">{errors.name}</div>}
+        </div>
+  </section>
             <section className="form-section">
                 <h2>Set price for your rental</h2>
+                <p>Competitive pricing can help your listing stand out and rank higher in search results</p>
 
             
                 
@@ -342,21 +347,23 @@ return (
 </div>
 </section>
 
-                <section className="form-section">
-                    <h2>Add images of your rental</h2>
-                    <div className="form-group">
-                        <label htmlFor="previewImg">Preview Image URL</label>
-                        <input
-                            type="text"
-                            id="previewImg"
-                            name="previewImg"
-                            value={previewImg}
-                            onChange={handleChange
-                            }
-                            placeholder="Preview Image URL (.png, .jpg, or .jpeg)"/>
-                        {errors.previewImg && <div className="input-error">{errors.previewImg}</div>}
-                    </div> 
-                    <div className="form-group">
+      <section className="form-section">
+             <h2>Liven up your rental with photos</h2>
+             <p>Submit a link to at least one photo to publish your rental</p>
+                <div className="form-group">
+                     <label htmlFor="previewImg">Preview Image URL</label>
+                     <input
+                          type="text"
+                        id="previewImg"
+                        name="previewImg"
+                        value={previewImg}
+                        onChange={handleChange
+                    }
+                    placeholder="Preview Image URL (.png, .jpg, or .jpeg)"/>
+                {errors.previewImg && <div className="input-error">{errors.previewImg}</div>}
+             </div> 
+            
+             <div className="form-group">
     
                         <label htmlFor="img1">Image 1</label>
                             <input

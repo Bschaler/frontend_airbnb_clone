@@ -241,6 +241,29 @@
     background-color: #e31c5f;
 }
 
+.reviews-section h2 {
+    color: black;
+}
+
+.reviews-section .star-icon {
+    color: #FF385C;
+    margin-right: 5px;
+}
+
+.reviews-heading .star-icon {
+    color: #FF385C;
+    margin-right: 5px;
+}
+
+.rating-display .star-icon {
+    color: #FF385C !important;
+    margin-right: 5px;
+}
+
+.rating-display h2 {
+    color: black;
+}
+
 /* CREATE SPOT FORM */
 .create-spot-container,
  .edit-spot-container {

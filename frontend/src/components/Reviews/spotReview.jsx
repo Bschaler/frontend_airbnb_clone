@@ -33,17 +33,28 @@ function SpotReview({spot}) {
     if (!spot) return null;
     
     const reviews = Object.values(reviewsObj || {});
-    const isOwner = currentUser && spot && currentUser.id === spot.ownerId;
+        const isOwner = currentUser && spot && currentUser.id === spot.ownerId;
 
-    return(
-        <div className='reviews-section'>
-            <h2>
-                <span className='star-icon'></span>
-                {spot.avgRating ? spot.avgRating.toFixed(1) : 'New'} 
-                {reviews.length > 0 && (
-                    <span> · {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}</span>
-                )}
-            </h2>
+         let displayRating = 'New';
+    if (reviews.length > 0) {
+        let totalStars = 0;
+        for (let i = 0; i < reviews.length; i++) {
+            totalStars = totalStars + reviews[i].stars;
+        }
+        let average = totalStars / reviews.length;
+        displayRating = average.toFixed(1);
+    }
+    
+    
+    function formatReviewDate(dateString) {
+        let date = new Date(dateString);
+        let month = date.toLocaleString('en-US', { month: 'long' });
+        let year = date.getFullYear();
+        return month + ' ' + year;
+    }
+return(
+        <div>
+        
 
             {currentUser && !isOwner && (
                 <OpenModalButton
@@ -55,14 +66,15 @@ function SpotReview({spot}) {
 
 <div className="reviews-list">
                 {reviews.length > 0 ? (
-                    reviews.map(review => (
+                    reviews.sort(function(a, b) {
+                        let dateA = new Date(a.createdAt);
+                        let dateB = new Date(b.createdAt);
+                        return dateB - dateA; 
+                 })
+                        .map(review => (
                         <div key={review.id} className="review-item">
                             <h3>{(review.User && review.User.firstName) || 'Anonymous'}</h3>
-                          <p>
-                            {new Date(review.createdAt).getMonth() + 1}/
-                            {new Date(review.createdAt).getDate()}/
-                            {new Date(review.createdAt).getFullYear()}
-                        </p>
+                            <p>{formatReviewDate(review.createdAt)}</p>
                             <p>{review.review}</p>
                             {currentUser && currentUser.id === review.userId && (
                                 <OpenModalButton
