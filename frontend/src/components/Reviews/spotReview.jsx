@@ -35,15 +35,6 @@ function SpotReview({spot}) {
     const reviews = Object.values(reviewsObj || {});
         const isOwner = currentUser && spot && currentUser.id === spot.ownerId;
 
-         let displayRating = 'New';
-    if (reviews.length > 0) {
-        let totalStars = 0;
-        for (let i = 0; i < reviews.length; i++) {
-            totalStars = totalStars + reviews[i].stars;
-        }
-        let average = totalStars / reviews.length;
-        displayRating = average.toFixed(1);
-    }
     
     
     function formatReviewDate(dateString) {
