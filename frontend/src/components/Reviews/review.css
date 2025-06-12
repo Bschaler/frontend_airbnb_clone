@@ -55,7 +55,7 @@
 .reviews-section p {
     margin-bottom: 15px;
     display: block;
-    color: #ff385c !important;
+    color: #000000 !important;
 }
 
 
@@ -70,26 +70,33 @@
 }
 .review-item h3 {
     font-weight: bold;
-    margin-bottom: 5px;
-    color: black;
+    margin-bottom: 8px;
+    color:#000000;
+    text-decoration: underline;
+    text-decoration-color:#FF385C;
+  text-decoration-thickness: 2px;
 }
 
 .review-item p {
-    margin-bottom: 5px;
+    margin-bottom: 12px;
     color: black;
+    font-size: 14px;
 }
 
-
-.review-author {
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: black;
+.review-delete-button {
+    width: auto !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    padding: 5px 20px !important;
+    font-size: 12px !important;
+    background-color: #ff385c !important;
+    color: white !important;
+    border-radius: 2px !important;
+    cursor: pointer !important;
 }
 
-.review-date {
-    color: black;
-    margin-bottom: 8px;
-    font-size: 12px;
+.review-delete-button:hover {
+    background-color: #e31c5f !important;
 }
 
 .post-review-button {
@@ -135,21 +142,14 @@
    justify-content: center;
   align-items: baseline;
 }
-.delete-button, .cancel-button {
-   border: none;
-   padding: 12px 20px;
-   cursor: pointer;
-   font-size: 14px;
-   font-weight: bold;
-   border-radius: 4px;
-}
+
 .delete-button {
    background-color: red;
    color: white;
 }
 
 .cancel-button {
-   background-color: red;
+   background-color: rgb(137, 137, 137);
    color: white;
 }
 .error {

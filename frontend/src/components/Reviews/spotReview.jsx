@@ -71,6 +71,7 @@ return(
                                 <OpenModalButton
                                     buttonText="Delete"
                                     modalComponent={<DeleteReview reviewId={review.id} />}
+                                     className="review-delete-button"
                                 />
                             )}
                         </div>
