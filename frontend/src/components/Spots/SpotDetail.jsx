@@ -72,6 +72,15 @@ function SpotDetail() {
     if (err) return <div>Oh no: {err}</div>
     if (!spot) return <div>No spot found...</div>;
 
+const locationDisplay = () => {
+    if (!spot.city) return "Location is unavailable";
+
+    if (spot.country && spot.country !== 'USA' && spot.country !== 'United States' && spot.country !== "United States of America") {
+        return `${spot.city}, ${spot.country}`;
+    }
+    return `${spot.city}, ${spot.state}`;
+}
+
    const uniqueImages = [];
     if (spot.SpotImages) {
         const urls = {};
@@ -102,10 +111,9 @@ function SpotDetail() {
         <div className="spot-detail">
         <h1>{spot.name}</h1>
         
-         <div className="spot-header">
-            
-             <p>{spot.city}, {spot.state}, {spot.country}</p>
-        </div>
+     <div className="spot-header">
+    <p>{locationDisplay()}</p>
+</div>
        
         <div className="spot-images">
              <div className="main-image-container">
