@@ -125,7 +125,7 @@ function ManageSpots() {
   )}
 </div>
 </div>
-  <div className="spot-price">${spot.price}/night</div>
+  <div className="spot-price">${spot.price} night</div>
 </div>
             
              
