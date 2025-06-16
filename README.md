@@ -133,6 +133,7 @@ DELETE /api/reviews/:reviewId - Deletes the review (auth is required)
 # Authentication 
 JWT Authentication Implementation
 javascriptconst setTokenCookie = (res, user) => {
+  const setTokenCookie = (res, user) => {
   const safeUser = {
     id: user.id,
     email: user.email,
@@ -147,12 +148,22 @@ javascriptconst setTokenCookie = (res, user) => {
     { expiresIn: parseInt(expiresIn) }
   );
 
-  res.cookie('token', token, {
-    maxAge: expiresIn * 1000,
-    secure: isProduction,
-    sameSite: isProduction ? 'None' : 'Lax',
-    path: '/'
-  });
+  const isProduction = process.env.NODE_ENV === "production";
+
+  const cookieOptions = {
+    maxAge: expiresIn * 1000,                     
+    httpOnly: true,                               
+    secure: isProduction,                         
+    path: '/'         
+  };
+
+  if (isProduction) {
+    cookieOptions.sameSite = 'none';  
+  } else {
+    cookieOptions.sameSite = 'lax';   
+  }
+
+  res.cookie('token', token, cookieOptions);
 
   return token;
 };
@@ -201,7 +212,7 @@ const makeStars = () => {
         onMouseEnter={() => starHover(i)}
         onMouseLeave={starLeave}
       >
-        ★
+        *
       </span>
     );
   }
@@ -209,7 +220,7 @@ const makeStars = () => {
     <div className="stars-container">
       {starsArray}
       <span>
-        {stars > 0 ? `${stars} Stars` : "Select star rating"}
+        {stars > 0 ? stars + " Stars" : "Select star rating"}
       </span>
     </div>
   );
@@ -219,8 +230,33 @@ const makeStars = () => {
 What it does:
 used for interactive star rating system. When the mouse hovers over the stars on the review modal, you will see interactive hover elements, and when clicked, all the stars leading up to the one selected will stay highlighted. When the mouse leaves the star, the hover effect is no more
 
+# Error Handling and Validations
 
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  
+  if (review.length < 10) {
+    setErrors({ review: "Tell us how you really feel... in 10 characters or more" });
+    return;
+  }
+  
+  if (stars === 0) {
+    setErrors({ stars: "Must pick a star rating!" });
+    return;
+  }
+  
 
+  const validateSpot = [
+    check('address').notEmpty().withMessage('Street address is required'),
+    check('city').notEmpty().withMessage('City is required'),
+    check('state').notEmpty().withMessage('State is required'),
+    check('country').notEmpty().withMessage('Country is required'),
+    check('name').isLength({ max: 50 }).withMessage('Name must be less than 50 characters'),
+    check('price').isFloat({ min: 0 }).withMessage('Price per day must be a positive number')
+  ];
+ 
+ What this does:
+ this provides both the client and server with validations and error messages that ensure the data is correct, and improve the experience for the user with messages directing them what the issue is and what they need to do to resolve it.
 
 
 
@@ -234,7 +270,28 @@ Spots → Reviews (one-to-many) so users can have multiple reviews
 
 Spots → Images (one-to-many) so users can import more than 1 picture
 
-#Future additions
+
+User.hasMany(models.Spot, { 
+  foreignKey: 'ownerId', 
+  onDelete: 'CASCADE' 
+});
+
+Spot.belongsTo(models.User, { 
+  foreignKey: 'ownerId', 
+  as: 'Owner' 
+});
+
+Spot.hasMany(models.Review, { 
+  foreignKey: 'spotId', 
+  onDelete: 'CASCADE' 
+});
+
+Spot.hasMany(models.SpotImage, { 
+  foreignKey: 'spotId', 
+  onDelete: 'CASCADE' 
+});
+
+# Future additions
 
 Later on, features for booking will be added, as well as the ability to update reviews. I would like to even integrate Google Maps api as well.
 
