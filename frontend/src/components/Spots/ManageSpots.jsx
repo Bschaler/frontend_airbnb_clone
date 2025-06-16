@@ -33,6 +33,15 @@ function ManageSpots() {
   const mySpots = spots.filter(spot => spot.ownerId === user.id);
   console.log("My spots:", mySpots);
 
+
+  const locationDisplay = (spot) => {
+    if (!spot.city) return "Location is unavailable";
+    if (spot.country && spot.country !== 'USA' && spot.country !== 'United States' && spot.country !== "United States of America") {
+        return `${spot.city}, ${spot.country}`;
+    }
+    return `${spot.city}, ${spot.state}`;
+}
+
   return (
     <div className="manage-spots-container">
       <h1>Manage Your Rentals</h1>
@@ -105,10 +114,16 @@ function ManageSpots() {
                   </div>
               
    <div className="spot-info">
-      <div className="spot-top-row">
-      <div className="spot-location">{spot.city}, {spot.state}</div>
-    <div className="spot-rating">★ {spot.avgRating || 'New'}</div>
-  </div>
+    <div className="spot-top-row">
+    <div className="spot-location">{locationDisplay(spot)}</div>
+      <div className="spot-rating">
+        <span className="star-icon">★</span>
+        <span>{spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}</span>
+        {spot.numReviews > 0 && (
+          <span> · {spot.numReviews === 1 ? '1 review' : `${spot.numReviews} reviews`}</span>
+  )}
+</div>
+</div>
   <div className="spot-price">${spot.price}/night</div>
 </div>
             

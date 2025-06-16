@@ -555,7 +555,7 @@ textarea {
 }
 
 .manage-spots-container .spot-rating {
-    font-weight: bold;
+    font-size: 12px;
 }
 
 .manage-spots-container .spot-price {
