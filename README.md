@@ -7,7 +7,7 @@ Git: https://github.com/Bschaler/frontend_airbnb_clone
 
 ABOUT:
 
-Rentrify is a full stack airbnb like clone, that offers the ability to create a profile, list your home, review other rentals, etc.
+Rentrify is a full stack airbnb like clone, that offers the ability to create a profile, list your home, review other rentals, etc. Bookings will come later. As well as updates to reviews
 
 
 ### Key Functionality
@@ -157,6 +157,8 @@ javascriptconst setTokenCookie = (res, user) => {
   return token;
 };
 
+ What this does:
+  Will grab the user from database, creates token for the user, inserts the token into a delicious cookie, and the user is now logged in if all authentication requiremnts match the database
 
 # Managed states with middleware and thunks 
 export const makeSpot = (data) => async (dispatch) => {
@@ -182,6 +184,10 @@ export const makeSpot = (data) => async (dispatch) => {
     return Promise.reject(error);
   }
 };
+
+What this does:
+  The component calls the makeSpot function, which passes in all of the spot data. Makes an HTTP request to the backend, backend processes and validates the user, if authorized, it will create the spot in the database, and returns the spot with an ID. If this all works, then the new date will be extracted, and redux store will be updated
+
 
 # Star rating system
 const makeStars = () => {
@@ -209,26 +215,9 @@ const makeStars = () => {
   );
 };
 
-# Speaking of stars... 
 
-function CreateReview({spotId}){
-   const [review, setReview] = useState("");
-   const [stars, setStars] = useState(0);
-   const [hover, setHover] = useState(0);
-   const [errors, setErrors] = useState({});
-
-   const handleStarClick = (rating) => {
-       setStars(rating);
-   };
-
-   const starHover = (rating) => {
-       setHover(rating);
-   };
-
-   const starLeave = () => {
-       setHover(0);
-   };
-}
+What it does:
+used for interactive star rating system. When the mouse hovers over the stars on the review modal, you will see interactive hover elements, and when clicked, all the stars leading up to the one selected will stay highlighted. When the mouse leaves the star, the hover effect is no more
 
 
 
@@ -244,6 +233,29 @@ Users → Spots (one-to-many) so users can have multiple spots
 Spots → Reviews (one-to-many) so users can have multiple reviews
 
 Spots → Images (one-to-many) so users can import more than 1 picture
+
+#Future additions
+
+Later on, features for booking will be added, as well as the ability to update reviews. I would like to even integrate Google Maps api as well.
+
+# Demo users log in info
+Frodo Baggins
+email: demo@user.io
+username: Demo-lition
+password: password
+
+Jarvis Script
+email: user1@user.io
+username: FakeUser1
+password: password2
+
+Terry Dactyl
+email: user2@user.io
+username: FakeUser2
+password: password3
+
+You are able to log in with either Username or email, or feel free to create your own account!
+
 
 
 
