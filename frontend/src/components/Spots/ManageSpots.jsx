@@ -32,7 +32,7 @@ function ManageSpots() {
   const spots = spotsObj.Spots || [];
   const mySpots = spots.filter(spot => spot.ownerId === user.id);
   console.log("My spots:", mySpots);
-
+  console.log("Spot data:", mySpots.map(spot => ({id: spot.id, numReviews: spot.numReviews, avgRating: spot.avgRating})));
 
   const locationDisplay = (spot) => {
     if (!spot.city) return "Location is unavailable";
@@ -121,6 +121,7 @@ function ManageSpots() {
         <span>{spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}</span>
         {spot.numReviews > 0 && (
           <span> · {spot.numReviews === 1 ? '1 review' : `${spot.numReviews} reviews`}</span>
+  
   )}
 </div>
 </div>
